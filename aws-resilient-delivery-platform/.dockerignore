@@ -1,0 +1,7 @@
+# Allow only packaging metadata and application source into the build context.
+**
+!pyproject.toml
+!README.md
+!app/
+!app/*.py
+!app/Dockerfile

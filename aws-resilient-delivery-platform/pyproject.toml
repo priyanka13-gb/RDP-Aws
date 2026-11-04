@@ -9,6 +9,7 @@ dependencies = [
     "uvicorn>=0.30,<1",
     "prometheus-client>=0.21,<1",
     "psycopg[binary]>=3.2,<4",
+    "sqlalchemy>=2.0,<3",
 ]
 
 [project.optional-dependencies]
@@ -23,6 +24,7 @@ include = ["app*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = ["integration: opt-in tests against the running Docker Compose stack"]
 
 [tool.ruff]
 target-version = "py312"

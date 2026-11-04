@@ -6,8 +6,9 @@ import psycopg
 import pytest
 from fastapi.testclient import TestClient
 from prometheus_client.parser import text_string_to_metric_families
+from sqlalchemy.exc import TimeoutError as PoolTimeout
 
-from app.main import JsonFormatter, Settings, create_app
+from app.main import JsonFormatter, Settings, create_app, create_database_engine
 
 
 @pytest.fixture
@@ -35,7 +36,7 @@ def test_readiness_without_database(client, monkeypatch):
     def unexpected_connection(*args, **kwargs):
         pytest.fail("Database should not be contacted when unconfigured")
 
-    monkeypatch.setattr("app.main.psycopg.connect", unexpected_connection)
+    monkeypatch.setattr("app.main.create_database_engine", unexpected_connection)
     response = client.get("/ready")
     assert response.status_code == 200
     assert response.json() == {"status": "ready"}
@@ -46,6 +47,7 @@ def test_version_from_environment(monkeypatch):
     monkeypatch.setenv("GIT_SHA", "abc1234")
     monkeypatch.setenv("APP_ENV", "test")
     monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.delenv("DATABASE_PASSWORD_FILE", raising=False)
     monkeypatch.delenv("DATABASE_TIMEOUT_SECONDS", raising=False)
     monkeypatch.delenv("LOG_LEVEL", raising=False)
     with TestClient(create_app()) as client:
@@ -80,11 +82,11 @@ def test_metrics(client):
     assert any(s.name == "http_request_duration_seconds_bucket" for s in samples)
 
 
-def test_database_dependency_failure(monkeypatch, capsys):
-    def unavailable(*args, **kwargs):
-        raise psycopg.OperationalError("sensitive-driver-detail")
-
-    monkeypatch.setattr("app.main.psycopg.connect", unavailable)
+@pytest.mark.parametrize("error", [psycopg.OperationalError, PoolTimeout])
+def test_database_dependency_failure(monkeypatch, capsys, error):
+    engine = MagicMock()
+    engine.connect.side_effect = error("sensitive-driver-detail")
+    monkeypatch.setattr("app.main.create_database_engine", lambda settings: engine)
     with TestClient(create_app(Settings(database_url="postgresql://localhost/example"))) as client:
         response = client.get("/ready")
         assert response.status_code == 503
@@ -97,22 +99,64 @@ def test_database_dependency_failure(monkeypatch, capsys):
 
 
 def test_database_ready_and_connection_closed(monkeypatch):
-    connect = MagicMock()
-    connection = connect.return_value.__enter__.return_value
-    cursor = connection.cursor.return_value.__enter__.return_value
-    cursor.fetchone.return_value = (1,)
-    monkeypatch.setattr("app.main.psycopg.connect", connect)
+    engine = MagicMock()
+    connection = engine.connect.return_value.__enter__.return_value
+    connection.execute.return_value.scalar_one.return_value = 1
+    monkeypatch.setattr("app.main.create_database_engine", lambda settings: engine)
     settings = Settings(database_url="postgresql://localhost/example")
     with TestClient(create_app(settings)) as client:
         assert client.get("/ready").status_code == 200
-    connect.assert_called_once_with(
-        settings.database_url,
-        connect_timeout=3,
-        options="-c statement_timeout=3000",
-        autocommit=True,
+        assert client.get("/ready").status_code == 200
+    assert engine.connect.call_count == 2
+    assert str(connection.execute.call_args.args[0]) == "SELECT 1"
+    assert engine.connect.return_value.__exit__.call_count == 2
+    engine.dispose.assert_called_once()
+
+
+def test_query_failure_returns_connection(monkeypatch):
+    engine = MagicMock()
+    connection = engine.connect.return_value.__enter__.return_value
+    connection.execute.side_effect = psycopg.OperationalError("query failed")
+    monkeypatch.setattr("app.main.create_database_engine", lambda settings: engine)
+    with TestClient(create_app(Settings(database_url="postgresql://localhost/example"))) as client:
+        assert client.get("/ready").status_code == 503
+    engine.connect.return_value.__exit__.assert_called_once()
+    engine.dispose.assert_called_once()
+
+
+def test_pool_configuration_and_secret(monkeypatch, tmp_path):
+    secret = tmp_path / "password"
+    secret.write_text("test-only-special:@/password", encoding="utf-8")
+    factory = MagicMock()
+    monkeypatch.setattr("app.main.create_engine", factory)
+    create_database_engine(
+        Settings(
+            database_url="postgresql://resilient_user@db:5432/resilient_db",
+            database_password_file=str(secret),
+        )
     )
-    cursor.execute.assert_called_once_with("SELECT 1")
-    connect.return_value.__exit__.assert_called_once()
+    url = factory.call_args.args[0]
+    options = factory.call_args.kwargs
+    assert url.host == "db"
+    assert url.drivername == "postgresql+psycopg"
+    assert url.password == secret.read_text(encoding="utf-8")
+    assert options["pool_size"] == 5
+    assert options["max_overflow"] == 0
+    assert options["pool_timeout"] == 3
+    assert options["pool_pre_ping"] is True
+    assert options["connect_args"]["connect_timeout"] == 3
+    assert options["connect_args"]["options"] == "-c statement_timeout=3000"
+
+
+def test_missing_secret_fails_without_exposing_configuration(tmp_path):
+    with pytest.raises(ValueError) as error:
+        create_database_engine(
+            Settings(
+                database_url="postgresql://user:sensitive-value@db/example",
+                database_password_file=str(tmp_path / "missing"),
+            )
+        )
+    assert "sensitive-value" not in str(error.value)
 
 
 def test_unmatched_paths_have_bounded_metric_labels(client):

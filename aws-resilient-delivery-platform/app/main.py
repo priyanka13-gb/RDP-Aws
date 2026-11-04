@@ -4,8 +4,10 @@ import json
 import logging
 import os
 import time
+from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
+from pathlib import Path
 
 import psycopg
 from fastapi import FastAPI, Request
@@ -17,6 +19,9 @@ from prometheus_client import (
     Histogram,
     generate_latest,
 )
+from sqlalchemy import create_engine, text
+from sqlalchemy.engine import Engine, make_url
+from sqlalchemy.exc import SQLAlchemyError
 
 
 @dataclass(frozen=True)
@@ -26,6 +31,7 @@ class Settings:
     environment: str = "development"
     log_level: str = "INFO"
     database_url: str | None = field(default=None, repr=False)
+    database_password_file: str | None = field(default=None, repr=False)
     database_timeout_seconds: int = 3
 
     @classmethod
@@ -42,6 +48,7 @@ class Settings:
             environment=os.getenv("APP_ENV", "development"),
             log_level=level,
             database_url=os.getenv("DATABASE_URL") or None,
+            database_password_file=os.getenv("DATABASE_PASSWORD_FILE") or None,
             database_timeout_seconds=timeout,
         )
 
@@ -71,24 +78,60 @@ def configure_logging(level: str) -> logging.Logger:
     return logger
 
 
-def check_database(settings: Settings) -> None:
-    """Check connectivity and query execution; close each probe connection."""
-    with psycopg.connect(
-        settings.database_url,
-        connect_timeout=settings.database_timeout_seconds,
-        options=f"-c statement_timeout={settings.database_timeout_seconds * 1000}",
-        autocommit=True,
-    ) as connection:
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT 1")
-            if cursor.fetchone() != (1,):
-                raise psycopg.OperationalError("Unexpected database probe result")
+def create_database_engine(settings: Settings) -> Engine:
+    """Create a lazy, bounded pool. No connection is attempted at startup."""
+    try:
+        url = make_url(settings.database_url)
+        if url.drivername not in {"postgres", "postgresql", "postgresql+psycopg"}:
+            raise ValueError("Unsupported database driver")
+        url = url.set(drivername="postgresql+psycopg")
+        if settings.database_password_file:
+            password = Path(settings.database_password_file).read_text(encoding="utf-8").strip()
+            if not password:
+                raise ValueError("Empty database password file")
+            url = url.set(password=password)
+        return create_engine(
+            url,
+            pool_size=5,
+            max_overflow=0,
+            pool_timeout=settings.database_timeout_seconds,
+            pool_pre_ping=True,
+            pool_recycle=300,
+            echo=False,
+            hide_parameters=True,
+            connect_args={
+                "connect_timeout": settings.database_timeout_seconds,
+                "options": f"-c statement_timeout={settings.database_timeout_seconds * 1000}",
+            },
+        )
+    except (ValueError, OSError, SQLAlchemyError):
+        raise ValueError("Invalid database configuration or unreadable password secret") from None
+
+
+def check_database(engine: Engine) -> None:
+    """Return the connection to the pool even when the probe fails."""
+    with engine.connect() as connection:
+        if connection.execute(text("SELECT 1")).scalar_one() != 1:
+            raise ValueError("Unexpected database probe result")
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or Settings.from_environment()
     logger = configure_logging(settings.log_level)
-    application = FastAPI(title="Resilient Delivery Platform on AWS", version=settings.app_version)
+
+    @asynccontextmanager
+    async def lifespan(application: FastAPI):
+        engine = create_database_engine(settings) if settings.database_url else None
+        application.state.database_engine = engine
+        try:
+            yield
+        finally:
+            if engine is not None:
+                engine.dispose()
+
+    application = FastAPI(
+        title="Resilient Delivery Platform on AWS", version=settings.app_version, lifespan=lifespan
+    )
     application.state.settings = settings
     registry = CollectorRegistry()
     requests = Counter(
@@ -146,8 +189,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         # Sync endpoint runs in FastAPI's thread pool, keeping the event loop responsive.
         if settings.database_url:
             try:
-                check_database(settings)
-            except (psycopg.Error, ValueError):
+                check_database(application.state.database_engine)
+            except (SQLAlchemyError, psycopg.Error, ValueError):
                 # Never log connection strings or driver errors containing credentials.
                 logger.warning("dependency_unavailable", extra={"dependency": "postgresql"})
                 return JSONResponse(
