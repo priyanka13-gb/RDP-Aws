@@ -35,3 +35,6 @@ crash.*.log
 .idea/
 .DS_Store
 Thumbs.db
+
+# Preserved files from repository layout cleanup
+/.local-backup/
