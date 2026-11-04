@@ -1,7 +1,9 @@
 # AWS Resilient Delivery Platform
 
 FastAPI service with health and dependency readiness probes, JSON application logs,
-and Prometheus request metrics. Infrastructure and workflow directories remain scaffolds.
+and Prometheus request metrics. The Terraform networking foundation is under
+`infra/modules/network` with an example dev root in `infra/envs/dev`; other
+infrastructure and workflow directories remain scaffolds.
 
 ## Local setup
 
@@ -201,3 +203,20 @@ containers and networks while retaining the named database volume. Do not use
 
 Reference: [Docker Compose secrets](https://docs.docker.com/compose/how-tos/use-secrets)
 and [startup ordering](https://docs.docker.com/compose/how-tos/startup-order).
+
+## Terraform networking foundation
+
+See [network architecture, file guide, validation and cost tradeoffs](docs/networking.md).
+The dev configuration targets Mumbai (`ap-south-1`) with VPC `10.0.0.0/16`, two
+public and two private subnets, and security groups for a future ALB, ECS tasks,
+and PostgreSQL. Default `cost_saver` mode creates no NAT gateways or Elastic IPs.
+`production_like` requires an explicit billable `single` or `per_az` NAT choice.
+
+```powershell
+terraform fmt -recursive -check
+terraform -chdir=infra/envs/dev init -backend=false
+terraform -chdir=infra/envs/dev validate
+```
+
+These are local validation commands, not a deployment. No apply/destroy is part of
+this milestone. The existing Docker/PostgreSQL workflow is independent of Terraform.

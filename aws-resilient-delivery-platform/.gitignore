@@ -19,6 +19,7 @@ dist/
 *.key
 
 # Terraform
+.tools/
 **/.terraform/*
 *.tfstate
 *.tfstate.*

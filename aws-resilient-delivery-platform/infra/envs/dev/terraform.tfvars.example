@@ -1,0 +1,9 @@
+# Copy to terraform.tfvars only if you need local overrides. Never put credentials here.
+network_mode       = "cost_saver"
+nat_gateway_mode   = "none"
+availability_zones = ["ap-south-1a", "ap-south-1b"]
+alb_ingress_cidrs  = ["0.0.0.0/0"]
+
+# BILLABLE opt-in: change BOTH settings above, not just network_mode:
+# network_mode     = "production_like"
+# nat_gateway_mode = "per_az" # two NAT gateways; "single" uses the first AZ only
