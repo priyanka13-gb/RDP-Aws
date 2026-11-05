@@ -1,0 +1,7 @@
+# Copy to ignored backend.hcl AFTER a separately approved bootstrap deployment.
+# No credentials belong in this file. Bucket must already exist.
+bucket       = "rdp-tfstate-sydney-be4bb3dfae"
+key          = "aws-resilient-delivery-platform/dev/terraform.tfstate"
+region       = "ap-southeast-2"
+encrypt      = true
+use_lockfile = true

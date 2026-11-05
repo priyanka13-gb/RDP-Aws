@@ -64,6 +64,16 @@ variable "alb_ingress_cidrs" {
   }
 }
 
+variable "alb_ingress_port" {
+  description = "ALB client port: 443 by default; 80 only for the temporary HTTP demo."
+  type        = number
+  default     = 443
+  validation {
+    condition     = contains([80, 443], var.alb_ingress_port)
+    error_message = "ALB client port must be 80 or 443."
+  }
+}
+
 variable "tags" {
   description = "Additional tags. Module-owned Project, Environment, ManagedBy and NetworkMode take precedence."
   type        = map(string)

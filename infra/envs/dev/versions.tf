@@ -1,5 +1,11 @@
 terraform {
-  required_version = ">= 1.9.0, < 2.0.0"
+  required_version = ">= 1.10.0, < 2.0.0"
+
+  # Partial configuration: never initialize this backend until the bucket exists.
+  backend "s3" {
+    encrypt      = true
+    use_lockfile = true
+  }
 
   required_providers {
     aws = {

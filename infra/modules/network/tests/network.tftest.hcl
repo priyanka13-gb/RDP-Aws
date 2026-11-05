@@ -2,7 +2,7 @@
 mock_provider "aws" {}
 
 variables {
-  availability_zones = ["ap-south-1a", "ap-south-1b"]
+  availability_zones = ["ap-southeast-2a", "ap-southeast-2b"]
 }
 
 run "cost_saver_has_no_nat" {
@@ -17,7 +17,7 @@ run "cost_saver_has_no_nat" {
     error_message = "Exactly two public/private subnets and private route tables are required."
   }
   assert {
-    condition     = aws_subnet.public["ap-south-1a"].cidr_block == "10.0.0.0/24" && aws_subnet.private["ap-south-1b"].cidr_block == "10.0.11.0/24"
+    condition     = aws_subnet.public["ap-southeast-2a"].cidr_block == "10.0.0.0/24" && aws_subnet.private["ap-southeast-2b"].cidr_block == "10.0.11.0/24"
     error_message = "Subnet CIDR allocation changed unexpectedly."
   }
   assert {
@@ -45,7 +45,7 @@ run "single_nat" {
     nat_gateway_mode = "single"
   }
   assert {
-    condition     = length(aws_nat_gateway.this) == 1 && contains(keys(aws_nat_gateway.this), "ap-south-1a") && length(aws_route.private_egress) == 2
+    condition     = length(aws_nat_gateway.this) == 1 && contains(keys(aws_nat_gateway.this), "ap-southeast-2a") && length(aws_route.private_egress) == 2
     error_message = "Single NAT must be in the first AZ and serve both private routes."
   }
 }

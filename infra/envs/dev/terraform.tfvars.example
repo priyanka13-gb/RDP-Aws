@@ -1,8 +1,20 @@
 # Copy to terraform.tfvars only if you need local overrides. Never put credentials here.
+aws_region         = "ap-southeast-2"
+environment        = "dev"
 network_mode       = "cost_saver"
 nat_gateway_mode   = "none"
-availability_zones = ["ap-south-1a", "ap-south-1b"]
+# Discover two available standard AZs in aws_region; optionally pin the selected pair later.
+availability_zones = []
 alb_ingress_cidrs  = ["0.0.0.0/0"]
+desired_count      = 1
+enable_rds         = false
+app_version        = "0.1.0"
+git_sha            = "replace-with-release-commit"
+# Replace placeholders with an existing image in THIS environment's ECR repository.
+container_image = "<account-id>.dkr.ecr.ap-southeast-2.amazonaws.com/aws-resilient-delivery-platform-dev:<release-tag>"
+enable_ssm_parameters = false
+ssm_parameters        = {}
+ssm_kms_key_arns      = []
 
 # BILLABLE opt-in: change BOTH settings above, not just network_mode:
 # network_mode     = "production_like"

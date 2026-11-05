@@ -19,6 +19,8 @@ dist/
 *.key
 
 # Terraform
+backend.hcl
+*.tfbackend
 .tools/
 **/.terraform/*
 *.tfstate

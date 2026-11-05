@@ -1,7 +1,7 @@
 # Standalone rule resources avoid dependency cycles between security groups.
 resource "aws_security_group" "alb" {
   name_prefix = "${local.name}-alb-"
-  description = "Future public ALB: HTTPS clients to ECS only"
+  description = "Public ALB: configured client port to ECS only"
   vpc_id      = aws_vpc.this.id
   tags        = merge(local.tags, { Name = "${local.name}-alb" })
 }
@@ -20,15 +20,16 @@ resource "aws_security_group" "postgresql" {
   tags        = merge(local.tags, { Name = "${local.name}-postgresql" })
 }
 
+# Preserve the existing resource address while allowing the explicit HTTP demo port.
 resource "aws_vpc_security_group_ingress_rule" "alb_https" {
   for_each = var.alb_ingress_cidrs
 
   security_group_id = aws_security_group.alb.id
-  description       = "HTTPS clients"
+  description       = "ALB clients on port ${var.alb_ingress_port}"
   cidr_ipv4         = each.value
   ip_protocol       = "tcp"
-  from_port         = 443
-  to_port           = 443
+  from_port         = var.alb_ingress_port
+  to_port           = var.alb_ingress_port
   tags              = local.tags
 }
 
@@ -72,10 +73,10 @@ resource "aws_vpc_security_group_ingress_rule" "postgresql_from_ecs" {
   tags                         = local.tags
 }
 
-# This permission alone does not supply internet routing in cost_saver mode.
+# Public demo task ENIs use the IGW; private tasks require NAT or VPC endpoints.
 resource "aws_vpc_security_group_egress_rule" "ecs_https" {
   security_group_id = aws_security_group.ecs.id
-  description       = "HTTPS for future image pulls and AWS APIs; requires NAT or endpoints"
+  description       = "HTTPS for image pulls and AWS APIs via configured outbound path"
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "tcp"
   from_port         = 443
