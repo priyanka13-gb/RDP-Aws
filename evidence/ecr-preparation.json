@@ -1,0 +1,34 @@
+{
+  "profile": "rdp-dev",
+  "region": "ap-southeast-2",
+  "checks": {
+    "authentication": {
+      "ok": true
+    },
+    "ecr": {
+      "ok": false,
+      "error": "RepositoryNotFoundException",
+      "plan_restriction_mentioned": false
+    },
+    "state": {
+      "ok": false,
+      "error": "404",
+      "plan_restriction_mentioned": false
+    },
+    "lock": {
+      "ok": false,
+      "error": "404",
+      "plan_restriction_mentioned": false
+    }
+  },
+  "backend": {
+    "type": "s3",
+    "expected_location": false,
+    "encrypt": true,
+    "use_lockfile": true,
+    "profile": null,
+    "bucket_key_match": true,
+    "cached_region": null,
+    "note": "Location comparison false because cached region is null; bucket and key match. Explicit region/profile present in backend.hcl."
+  }
+}

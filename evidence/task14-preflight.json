@@ -1,0 +1,22 @@
+{
+  "state": {
+    "ok": false,
+    "error": "404",
+    "plan_restriction_mentioned": false
+  },
+  "lock": {
+    "ok": false,
+    "error": "404",
+    "plan_restriction_mentioned": false
+  },
+  "versions": {
+    "ok": true,
+    "count": 0
+  },
+  "repository": {
+    "ok": false,
+    "error": "RepositoryNotFoundException",
+    "plan_restriction_mentioned": false
+  },
+  "dev_managed_resources": 0
+}

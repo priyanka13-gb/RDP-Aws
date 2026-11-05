@@ -1,0 +1,271 @@
+{
+  "identity_boundary_present": false,
+  "simulation_context_keys": {
+    "ok": true,
+    "keys": []
+  },
+  "regional_permission_simulation": {
+    "ok": true,
+    "results": [
+      {
+        "action": "ec2:CreateVpc",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ec2:CreateSubnet",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ec2:CreateInternetGateway",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ec2:CreateRouteTable",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ec2:CreateRoute",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ec2:CreateSecurityGroup",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ec2:AuthorizeSecurityGroupIngress",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ec2:AuthorizeSecurityGroupEgress",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ec2:CreateTags",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ec2:ModifyVpcAttribute",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ec2:AttachInternetGateway",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ec2:AssociateRouteTable",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ecs:CreateCluster",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ecs:RegisterTaskDefinition",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ecs:CreateService",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ecr:CreateRepository",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "ecr:PutLifecyclePolicy",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "elasticloadbalancing:CreateLoadBalancer",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "elasticloadbalancing:CreateTargetGroup",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "elasticloadbalancing:CreateListener",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "iam:CreateRole",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "iam:PutRolePolicy",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "iam:PassRole",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "iam:CreateServiceLinkedRole",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "logs:CreateLogGroup",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "logs:PutRetentionPolicy",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "s3:CreateBucket",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "s3:PutBucketVersioning",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "s3:PutEncryptionConfiguration",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "s3:PutBucketPublicAccessBlock",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "s3:PutBucketOwnershipControls",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      },
+      {
+        "action": "s3:PutBucketPolicy",
+        "decision": "allowed",
+        "missing_context": [],
+        "organizations_allowed": true,
+        "boundary_allowed": null
+      }
+    ]
+  },
+  "iam_global_quotas": {
+    "ok": true,
+    "summary": [
+      {
+        "name": "Roles per account",
+        "value": 1000.0
+      }
+    ]
+  },
+  "s3_global_quotas": {
+    "ok": true,
+    "summary": [
+      {
+        "name": "General purpose buckets",
+        "value": 10000.0
+      }
+    ]
+  },
+  "ecr_default_quotas": {
+    "ok": true,
+    "summary": [
+      {
+        "name": "Registered repositories",
+        "value": 100000.0
+      }
+    ]
+  },
+  "internet_gateways": {
+    "ok": true,
+    "count": 1
+  },
+  "project_logs": {
+    "ok": true,
+    "count": 0
+  }
+}

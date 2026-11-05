@@ -1,0 +1,45 @@
+{
+  "bucket": "rdp-tfstate-sydney-be4bb3dfae",
+  "key": "aws-resilient-delivery-platform/dev/terraform.tfstate",
+  "profile": "rdp-dev",
+  "region": "ap-southeast-2",
+  "checks": {
+    "authentication": {
+      "ok": true
+    },
+    "location": {
+      "ok": true,
+      "sydney": true
+    },
+    "encryption": {
+      "ok": true,
+      "sse_s3": true
+    },
+    "versioning": {
+      "ok": true,
+      "enabled": true
+    },
+    "public_access": {
+      "ok": true,
+      "all_blocked": true
+    },
+    "policy": {
+      "ok": true,
+      "https_deny": true
+    },
+    "state": {
+      "ok": false,
+      "error": "404",
+      "plan_restriction_mentioned": false
+    },
+    "lock": {
+      "ok": false,
+      "error": "404",
+      "plan_restriction_mentioned": false
+    },
+    "versions": {
+      "ok": true,
+      "exact_key_versions_or_markers": 0
+    }
+  }
+}

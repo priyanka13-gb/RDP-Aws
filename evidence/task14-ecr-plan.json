@@ -1,0 +1,41 @@
+{
+  "changes": [
+    {
+      "address": "module.ecr.aws_ecr_lifecycle_policy.this",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.ecr.aws_ecr_repository.this",
+      "actions": [
+        "create"
+      ]
+    }
+  ],
+  "create": 2,
+  "update": 0,
+  "delete": 0,
+  "repository": "aws-resilient-delivery-platform-dev",
+  "immutable": "IMMUTABLE",
+  "scan_on_push": true,
+  "encryption": "AES256",
+  "tags": {
+    "Component": "ecr",
+    "Environment": "dev",
+    "ManagedBy": "Terraform",
+    "Project": "aws-resilient-delivery-platform"
+  },
+  "saved_plan": "infra/envs/ecr/ecr.tfplan",
+  "targeting_used": false,
+  "post_plan_state": {
+    "ok": false,
+    "error": "404",
+    "plan_restriction_mentioned": false
+  },
+  "post_plan_lock": {
+    "ok": false,
+    "error": "404",
+    "plan_restriction_mentioned": false
+  }
+}

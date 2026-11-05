@@ -1,0 +1,37 @@
+{
+  "repository_name": "aws-resilient-delivery-platform-dev",
+  "terraform_output_matches_aws": true,
+  "immutable": "IMMUTABLE",
+  "region": "ap-southeast-2",
+  "profile": "rdp-dev",
+  "git_sha": "24c67e6e52e86ae975e7136b8300e0d77d24bb16",
+  "tag": "git-24c67e6e52e8-dirty-20261105T160350Z",
+  "local_image": "rdp-release:git-24c67e6e52e8-dirty-20261105T160350Z",
+  "build_context_sha256": "9cd935bcc44bf662f6dbe005240de7f5f0b99a62147f05e789e2f9665220ffb2",
+  "dirty_context": true,
+  "tests": {
+    "passed": 16,
+    "skipped": 2,
+    "ruff": "passed",
+    "host_python": "3.15.2"
+  },
+  "image_id": "sha256:79e1513d1525ffa621dddf61cf82ad36a00a834ab8f3fae1aac6fbf98a7b47f0",
+  "architecture": "linux/amd64",
+  "user": "10001:10001",
+  "size_bytes": 295940018,
+  "runtime": {
+    "http": {
+      "/health": 200,
+      "/ready": 200,
+      "/version": 200,
+      "/metrics": 200
+    },
+    "response_content_verified": true,
+    "network": "none",
+    "postgresql": "disabled",
+    "limits": "0.25 CPU / 512 MiB",
+    "python": "Python 3.12.16",
+    "logs_traceback": false
+  },
+  "test_container_removed": true
+}

@@ -1,0 +1,153 @@
+{
+  "profile": "rdp-dev",
+  "region": "ap-southeast-2",
+  "local_states": [
+    {
+      "path": "infra/bootstrap/terraform.tfstate",
+      "sha256": "e29e81f4bf3817745cd9238ddba4109db87658bea31a9d6779603cc61b6280b9",
+      "serial": 7,
+      "resources": [
+        {
+          "address": "aws_s3_bucket.state",
+          "instances": 1
+        },
+        {
+          "address": "aws_s3_bucket_ownership_controls.state",
+          "instances": 1
+        },
+        {
+          "address": "aws_s3_bucket_policy.https_only",
+          "instances": 1
+        },
+        {
+          "address": "aws_s3_bucket_public_access_block.state",
+          "instances": 1
+        },
+        {
+          "address": "aws_s3_bucket_server_side_encryption_configuration.state",
+          "instances": 1
+        },
+        {
+          "address": "aws_s3_bucket_versioning.state",
+          "instances": 1
+        }
+      ],
+      "outputs": {
+        "state_bucket_arn": "arn:aws:s3:::rdp-tfstate-sydney-be4bb3dfae",
+        "state_bucket_name": "rdp-tfstate-sydney-be4bb3dfae"
+      }
+    }
+  ],
+  "checks": {
+    "authentication": {
+      "ok": true
+    },
+    "ecr": {
+      "ok": false,
+      "error": "RepositoryNotFoundException",
+      "plan_restriction_mentioned": false
+    },
+    "images": {
+      "ok": false,
+      "error": "RepositoryNotFoundException",
+      "plan_restriction_mentioned": false
+    },
+    "ecs": {
+      "ok": true,
+      "summary": []
+    },
+    "alb": {
+      "ok": true,
+      "summary": []
+    },
+    "iam": {
+      "ok": true,
+      "summary": []
+    },
+    "vpcs": {
+      "ok": true,
+      "summary": [
+        {
+          "cidr": "172.31.0.0/16",
+          "default": true,
+          "project": null
+        }
+      ]
+    },
+    "subnets": {
+      "ok": true,
+      "summary": 0
+    },
+    "nat": {
+      "ok": true,
+      "summary": []
+    },
+    "eips": {
+      "ok": true,
+      "summary": 0
+    },
+    "logs": {
+      "ok": true,
+      "summary": 0
+    },
+    "credits": {
+      "ok": true,
+      "summary": {
+        "accountPlanType": "FREE",
+        "accountPlanStatus": "ACTIVE",
+        "accountPlanRemainingCredits": {
+          "amount": 120.0,
+          "unit": "USD"
+        },
+        "accountPlanExpirationDate": "2027-05-05T09:35:47.986000+00:00"
+      }
+    },
+    "all_ecr": {
+      "ok": true,
+      "summary": []
+    },
+    "bucket_location": {
+      "ok": true,
+      "sydney": true
+    },
+    "bucket_encryption": {
+      "ok": true,
+      "aes256": true
+    },
+    "bucket_versioning": {
+      "ok": true,
+      "enabled": true
+    },
+    "bucket_public_block": {
+      "ok": true,
+      "all_true": true
+    },
+    "bucket_ownership": {
+      "ok": true,
+      "enforced": true
+    },
+    "bucket_policy": {
+      "ok": true,
+      "tls_deny": true
+    },
+    "dev_object": {
+      "ok": false,
+      "error": "404",
+      "plan_restriction_mentioned": false
+    }
+  },
+  "backend": {
+    "bucket": "rdp-tfstate-sydney-be4bb3dfae",
+    "key": "aws-resilient-delivery-platform/dev/terraform.tfstate",
+    "region": null,
+    "profile": null,
+    "encrypt": true,
+    "use_lockfile": true
+  },
+  "dev_state": {
+    "ok": true,
+    "serial": 0,
+    "resources": [],
+    "outputs": {}
+  }
+}

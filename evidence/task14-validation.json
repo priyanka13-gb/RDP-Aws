@@ -1,0 +1,52 @@
+[
+  {
+    "check": "ecr init",
+    "exit": 0,
+    "summary": "\u001b[0m\u001b[1mInitializing the backend...\u001b[0m\n\u001b[0m\u001b[32m\nSuccessfully configured the backend \"s3\"! Terraform will automatically\nuse this backend unless the backend configuration changes.\u001b[0m\n\n\u001b[0m\u001b[1mInitializing modules...\u001b[0m\n- ecr in ..\\..\\modules\\ecr\n\n\u001b[0m\u001b[1mInitializing provider plugins...\u001b[0m\n- Reusing version 6.71.0 of hashicorp/aws from the dependency lock file\n- Installing hashicorp/aws v6.71.0...\n- Installed hashicorp/aws v6.71.0 (signed by HashiCorp)\n\n\u001b[0m\u001b[1m\u001b[32mTerraform has been successfully initialized!\u001b[0m\u001b[32m\u001b[0m\n\u001b[0m\u001b[32m\nYou may now begin working with Terraform. Try running \"terraform plan\" to see\nany changes that are required for your infrastructure. All Terraform commands\nshould now work.\n\nIf you ever set or change modules or backend configuration for Terraform,\nrerun this command to reinitialize your working directory. If you forget, other\ncommands will detect it and remind you to do so if necessary.\u001b[0m\n"
+  },
+  {
+    "check": "dev module init",
+    "exit": 0,
+    "summary": "\u001b[0m\u001b[1mInitializing modules...\u001b[0m\n\n\u001b[0m\u001b[1mInitializing provider plugins...\u001b[0m\n- Reusing version 6.71.0 of hashicorp/aws from the dependency lock file\n- Using previously-installed hashicorp/aws v6.71.0\n\n\u001b[0m\u001b[1m\u001b[32mTerraform has been successfully initialized!\u001b[0m\u001b[32m\u001b[0m\n\u001b[0m\u001b[32m\nYou may now begin working with Terraform. Try running \"terraform plan\" to see\nany changes that are required for your infrastructure. All Terraform commands\nshould now work.\n\nIf you ever set or change modules or backend configuration for Terraform,\nrerun this command to reinitialize your working directory. If you forget, other\ncommands will detect it and remind you to do so if necessary.\u001b[0m\n"
+  },
+  {
+    "check": "infra/envs/ecr validate",
+    "exit": 0,
+    "summary": "Success! The configuration is valid.\n\n"
+  },
+  {
+    "check": "infra/envs/ecr tests",
+    "exit": 0,
+    "summary": "tests\\root.tftest.hcl... in progress\n  run \"isolated_repository\"... pass\ntests\\root.tftest.hcl... tearing down\ntests\\root.tftest.hcl... pass\n\nSuccess! 1 passed, 0 failed.\n"
+  },
+  {
+    "check": "infra/envs/dev validate",
+    "exit": 0,
+    "summary": "Success! The configuration is valid.\n\n"
+  },
+  {
+    "check": "infra/envs/dev tests",
+    "exit": 0,
+    "summary": "tests\\ecs.tftest.hcl... in progress\n  run \"public_demo_task\"... pass\n  run \"private_production_task\"... pass\n  run \"reject_wrong_repository\"... pass\n  run \"reject_database_override\"... pass\n  run \"reject_latest_tag\"... pass\n  run \"reject_malformed_digest\"... pass\ntests\\ecs.tftest.hcl... tearing down\ntests\\ecs.tftest.hcl... pass\ntests\\modules.tftest.hcl... in progress\n  run \"ecr_immutability_and_retention\"... pass\n  run \"alb_ip_targets\"... pass\n  run \"scoped_execution_role\"... pass\n  run \"optional_ssm_is_scoped\"... pass\n  run \"log_retention\"... pass\n  run \"http_demo_network_boundaries\"... pass\ntests\\modules.tftest.hcl... tearing down\ntests\\modules.tftest.hcl... pass\ntests\\wiring.tftest.hcl... in progress\n  run \"dev_modules_integrate\"... pass\n  run \"pinned_az_order_is_preserved\"... pass\n  run \"rds_is_not_enabled\"... pass\n  run \"ssm_requires_opt_in\"... pass\ntests\\wiring.tftest.hcl... tearing down\ntests\\wiring.tftest.hcl... pass\n\nSuccess! 16 passed, 0 failed.\n"
+  },
+  {
+    "check": "infra/bootstrap validate",
+    "exit": 0,
+    "summary": "Success! The configuration is valid.\n\n"
+  },
+  {
+    "check": "infra/bootstrap tests",
+    "exit": 0,
+    "summary": "tests\\state.tftest.hcl... in progress\n  run \"private_versioned_encrypted_state\"... pass\ntests\\state.tftest.hcl... tearing down\ntests\\state.tftest.hcl... pass\n\nSuccess! 1 passed, 0 failed.\n"
+  },
+  {
+    "check": "infra/modules/network validate",
+    "exit": 0,
+    "summary": "Success! The configuration is valid.\n\n"
+  },
+  {
+    "check": "infra/modules/network tests",
+    "exit": 0,
+    "summary": "tests\\network.tftest.hcl... in progress\n  run \"cost_saver_has_no_nat\"... pass\n  run \"per_az_nat\"... pass\n  run \"single_nat\"... pass\n  run \"reject_nat_in_cost_saver\"... pass\n  run \"require_explicit_production_nat\"... pass\ntests\\network.tftest.hcl... tearing down\ntests\\network.tftest.hcl... pass\n\nSuccess! 5 passed, 0 failed.\n"
+  }
+]

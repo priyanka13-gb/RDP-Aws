@@ -1,0 +1,215 @@
+{
+  "profile": "rdp-dev",
+  "region": "ap-southeast-2",
+  "checks": {
+    "vpcs": {
+      "ok": true,
+      "summary": {
+        "count": 1,
+        "matching_project_cidr": 0
+      }
+    },
+    "availability_zones": {
+      "ok": true,
+      "summary": {
+        "names": [
+          "ap-southeast-2a",
+          "ap-southeast-2b",
+          "ap-southeast-2c"
+        ]
+      }
+    },
+    "ecs": {
+      "ok": true,
+      "summary": {
+        "count": 0
+      }
+    },
+    "ecr": {
+      "ok": true,
+      "summary": {
+        "count": 0,
+        "project_repository_exists": false
+      }
+    },
+    "s3": {
+      "ok": true,
+      "summary": {
+        "count": 0
+      }
+    },
+    "iam": {
+      "ok": true,
+      "summary": {
+        "Policies": 0,
+        "PoliciesQuota": 1500,
+        "Roles": 10,
+        "RolesQuota": 1000
+      }
+    },
+    "iam_roles": {
+      "ok": true,
+      "summary": {
+        "count": 10,
+        "ecs_service_linked_role_exists": false,
+        "elb_service_linked_role_exists": false
+      }
+    },
+    "elb": {
+      "ok": true,
+      "summary": {
+        "count": 0
+      }
+    },
+    "elb_limits": {
+      "ok": true,
+      "summary": {
+        "target-groups": "3000",
+        "application-load-balancers": "50"
+      }
+    },
+    "free_plan": {
+      "ok": true,
+      "summary": {
+        "accountPlanType": "FREE",
+        "accountPlanStatus": "ACTIVE",
+        "accountPlanRemainingCredits": {
+          "amount": 120.0,
+          "unit": "USD"
+        },
+        "accountPlanExpirationDate": "2027-05-05T09:35:47.986000+00:00"
+      }
+    },
+    "quotas_fargate": {
+      "ok": true,
+      "summary": [
+        {
+          "name": "Fargate On-Demand Burst Launch Rate",
+          "value": 100.0,
+          "adjustable": true
+        },
+        {
+          "name": "Fargate On-Demand Sustained Launch Rate",
+          "value": 20.0,
+          "adjustable": true
+        },
+        {
+          "name": "Fargate On-Demand vCPU resource count",
+          "value": 30.0,
+          "adjustable": true
+        }
+      ]
+    },
+    "quotas_vpc": {
+      "ok": true,
+      "summary": [
+        {
+          "name": "VPC security groups per Region",
+          "value": 2500.0,
+          "adjustable": true
+        },
+        {
+          "name": "Egress-only internet gateways per Region",
+          "value": 5.0,
+          "adjustable": true
+        },
+        {
+          "name": "Subnets per VPC",
+          "value": 200.0,
+          "adjustable": true
+        },
+        {
+          "name": "VPCs per Region",
+          "value": 5.0,
+          "adjustable": true
+        },
+        {
+          "name": "Security groups per network interface",
+          "value": 5.0,
+          "adjustable": true
+        },
+        {
+          "name": "Internet gateways per Region",
+          "value": 5.0,
+          "adjustable": true
+        }
+      ]
+    },
+    "quotas_elasticloadbalancing": {
+      "ok": true,
+      "summary": [
+        {
+          "name": "Application Load Balancers per Region",
+          "value": 50.0,
+          "adjustable": true
+        },
+        {
+          "name": "Target Groups per Region",
+          "value": 3000.0,
+          "adjustable": true
+        }
+      ]
+    },
+    "quotas_iam": {
+      "ok": false,
+      "error": "NoSuchResourceException",
+      "plan_restriction_mentioned": false
+    },
+    "quotas_ecr": {
+      "ok": true,
+      "summary": []
+    },
+    "quotas_s3": {
+      "ok": true,
+      "summary": []
+    }
+  },
+  "authentication": {
+    "ok": true,
+    "principal_type": "assumed_role"
+  },
+  "permission_simulation": {
+    "ok": true,
+    "decisions_at_wildcard_resource": {
+      "ec2:CreateVpc": "explicitDeny",
+      "ec2:CreateSubnet": "explicitDeny",
+      "ec2:CreateInternetGateway": "explicitDeny",
+      "ec2:CreateRouteTable": "explicitDeny",
+      "ec2:CreateRoute": "explicitDeny",
+      "ec2:CreateSecurityGroup": "explicitDeny",
+      "ec2:AuthorizeSecurityGroupIngress": "explicitDeny",
+      "ec2:AuthorizeSecurityGroupEgress": "explicitDeny",
+      "ec2:CreateTags": "explicitDeny",
+      "ec2:ModifyVpcAttribute": "explicitDeny",
+      "ec2:AttachInternetGateway": "explicitDeny",
+      "ec2:AssociateRouteTable": "explicitDeny",
+      "ecs:CreateCluster": "explicitDeny",
+      "ecs:RegisterTaskDefinition": "explicitDeny",
+      "ecs:CreateService": "explicitDeny",
+      "ecr:CreateRepository": "explicitDeny",
+      "ecr:PutLifecyclePolicy": "explicitDeny",
+      "elasticloadbalancing:CreateLoadBalancer": "explicitDeny",
+      "elasticloadbalancing:CreateTargetGroup": "explicitDeny",
+      "elasticloadbalancing:CreateListener": "explicitDeny",
+      "iam:CreateRole": "allowed",
+      "iam:PutRolePolicy": "allowed",
+      "iam:PassRole": "allowed",
+      "iam:CreateServiceLinkedRole": "allowed",
+      "logs:CreateLogGroup": "allowed",
+      "logs:PutRetentionPolicy": "allowed",
+      "s3:CreateBucket": "explicitDeny",
+      "s3:PutBucketVersioning": "explicitDeny",
+      "s3:PutEncryptionConfiguration": "explicitDeny",
+      "s3:PutBucketPublicAccessBlock": "explicitDeny",
+      "s3:PutBucketOwnershipControls": "explicitDeny",
+      "s3:PutBucketPolicy": "explicitDeny"
+    },
+    "limitation": "No request context or concrete resource ARNs: not proof of actual deployment permissions or plan entitlement."
+  },
+  "local_state_inventory": [],
+  "local_configuration": {
+    "infra\\bootstrap\\terraform.tfvars": false,
+    "infra\\envs\\dev\\terraform.tfvars": false,
+    "infra\\envs\\dev\\backend.hcl": false
+  }
+}

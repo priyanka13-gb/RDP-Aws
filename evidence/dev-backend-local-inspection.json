@@ -1,0 +1,21 @@
+{
+  "infra/bootstrap": [
+    {
+      "path": "infra/bootstrap/terraform.tfstate",
+      "sha256": "e29e81f4bf3817745cd9238ddba4109db87658bea31a9d6779603cc61b6280b9",
+      "resources": 6,
+      "managed_instances": 6,
+      "resource_types": [
+        "aws_s3_bucket",
+        "aws_s3_bucket_ownership_controls",
+        "aws_s3_bucket_policy",
+        "aws_s3_bucket_public_access_block",
+        "aws_s3_bucket_server_side_encryption_configuration",
+        "aws_s3_bucket_versioning"
+      ],
+      "backend_type": null
+    }
+  ],
+  "infra/envs/dev": [],
+  "backend_file_exists": false
+}
