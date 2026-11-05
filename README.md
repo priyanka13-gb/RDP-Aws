@@ -1,9 +1,9 @@
 # AWS Resilient Delivery Platform
 
 FastAPI service with health and dependency readiness probes, JSON application logs,
-and Prometheus request metrics. The Terraform networking foundation is under
-`infra/modules/network` with an example dev root in `infra/envs/dev`; other
-infrastructure and workflow directories remain scaffolds.
+and Prometheus request metrics. Terraform now defines the network, ECR, IAM,
+ALB, logging and ECS Fargate demo under `infra/envs/dev`, with an independent
+state bootstrap in `infra/bootstrap`. This infrastructure has not been deployed.
 
 ## Local setup
 
@@ -207,7 +207,7 @@ and [startup ordering](https://docs.docker.com/compose/how-tos/startup-order).
 ## Terraform networking foundation
 
 See [network architecture, file guide, validation and cost tradeoffs](docs/networking.md).
-The dev configuration targets Mumbai (`ap-south-1`) with VPC `10.0.0.0/16`, two
+The dev configuration targets Sydney (`ap-southeast-2`) with VPC `10.0.0.0/16`, two
 public and two private subnets, and security groups for a future ALB, ECS tasks,
 and PostgreSQL. Default `cost_saver` mode creates no NAT gateways or Elastic IPs.
 `production_like` requires an explicit billable `single` or `per_az` NAT choice.
@@ -220,3 +220,60 @@ terraform -chdir=infra/envs/dev validate
 
 These are local validation commands, not a deployment. No apply/destroy is part of
 this milestone. The existing Docker/PostgreSQL workflow is independent of Terraform.
+
+## ECS Fargate infrastructure (not deployed)
+
+See the [ECS architecture, file guide, security and deployment prerequisites](docs/ecs-infrastructure.md)
+and [state bootstrap procedure](infra/bootstrap/README.md).
+
+The current dev demo uses **HTTP port 80** on the ALB, public-subnet Fargate tasks
+with public IPs in cost_saver, and ALB-only ingress to task port 8000. It creates
+no NAT by default. Private production_like tasks require an explicit NAT choice.
+Database settings are empty in ECS; local Docker/PostgreSQL behavior is unchanged.
+HTTP must carry only non-sensitive demo traffic. RDS is deferred.
+
+Dev requires an actual release image URI in its ECR repository before deployment.
+The S3 backend is prepared with native locking but must not be initialized remotely
+until an approved bootstrap deployment creates the bucket. For local checks use:
+
+```powershell
+terraform -chdir=infra/bootstrap init -backend=false
+terraform -chdir=infra/bootstrap validate
+terraform -chdir=infra/bootstrap test
+terraform -chdir=infra/envs/dev init -backend=false
+terraform -chdir=infra/envs/dev validate
+terraform -chdir=infra/envs/dev test
+```
+
+These tests use mocked plans and do not deploy resources. No image push, credential
+creation, real apply/destroy, or state migration is part of this implementation.
+
+## AWS deployment readiness
+
+See the [read-only readiness results](evidence/aws-deployment-readiness.md),
+[first deployment procedure](docs/first-aws-deployment.md), and separate
+[teardown and cost-audit procedure](docs/teardown-cost-audit.md).
+Deployment and image upload still require authorization; these checks deploy nothing.
+
+The [S3 bootstrap deployment review](docs/bootstrap-deployment-review.md) records the
+proposed bucket, exact dev state key, read-only existence checks, and commands for a
+future approved first apply; it is the historical pre-creation review.
+The bucket now exists. See the [Task 11 dev backend review](docs/dev-backend-initialization-review.md)
+for verified bucket protections and the prepared initialization procedure. Dev backend
+initialization has not been performed.
+
+The subsequent [Task 12 ECR deployment plan](docs/ecr-deployment-plan.md) records the
+now-initialized backend metadata, proposed ECR-only bootstrap, image commands and
+remaining verification blockers. No ECR repository or image was created by that review.
+
+See [Task 13 actual deployment verification](docs/task13-deployment-status.md) for the
+latest observed state: bootstrap S3 resources exist; dev state is empty and the
+expected ECR repository is absent. Deployment/image commands remain unexecuted.
+
+## Isolated ECR deployment root
+
+[infra/envs/ecr](infra/envs/ecr/README.md) now owns ECR under a dedicated S3 state key.
+Dev reads the repository through an AWS data source and no longer creates it.
+Deploy ECR and publish an approved image before planning dev. This supersedes the
+older targeted-dev ECR bootstrap instructions; no state migration is required for
+the currently empty dev state.
