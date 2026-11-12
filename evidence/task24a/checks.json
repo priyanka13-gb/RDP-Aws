@@ -1,0 +1,8 @@
+{
+  "fmt": 0,
+  "validate": 0,
+  "dev-tests": 0,
+  "network-tests": 0,
+  "bootstrap-tests": 0,
+  "ecr-tests": 0
+}

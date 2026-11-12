@@ -1,0 +1,72 @@
+{
+  "auth": {
+    "ok": true,
+    "authenticated": true
+  },
+  "state": {
+    "ok": false,
+    "error": "Not Found"
+  },
+  "lock": {
+    "ok": false,
+    "error": "Not Found"
+  },
+  "bucket": {
+    "ok": true,
+    "region": "ap-southeast-2"
+  },
+  "image": {
+    "ok": true,
+    "digests": [
+      {
+        "digest": "sha256:e86be3d8597649995145a5e1633bfc4ccf19b8ca1185127ea6720d72d2bf0be1",
+        "tags": []
+      }
+    ]
+  },
+  "scan": {
+    "ok": true,
+    "status": {
+      "status": "COMPLETE",
+      "description": "The scan was completed successfully."
+    },
+    "counts": {}
+  },
+  "ec2": {
+    "ok": true,
+    "count": 1
+  },
+  "ecs": {
+    "ok": true,
+    "count": 0
+  },
+  "alb": {
+    "ok": true,
+    "count": 0
+  },
+  "iam": {
+    "ok": false,
+    "error": "NoSuchEntity"
+  },
+  "fargate_quota": {
+    "ok": true,
+    "value": 30.0,
+    "unit": "None"
+  },
+  "free_plan": {
+    "ok": true,
+    "plan": {
+      "accountPlanType": "FREE",
+      "accountPlanStatus": "ACTIVE",
+      "accountPlanRemainingCredits": {
+        "amount": 120.0,
+        "unit": "USD"
+      },
+      "accountPlanExpirationDate": "2027-05-05T09:35:47.986000+00:00"
+    }
+  },
+  "free_credits": {
+    "ok": true,
+    "usage_records": 0
+  }
+}

@@ -1,0 +1,6 @@
+tests\root.tftest.hcl... in progress
+  run "isolated_repository"... pass
+tests\root.tftest.hcl... tearing down
+tests\root.tftest.hcl... pass
+
+Success! 1 passed, 0 failed.

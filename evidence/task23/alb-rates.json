@@ -1,0 +1,106 @@
+[
+  {
+    "usage": "APS2-ReservedLCUUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer-Network",
+    "unit": "ReservedLCU-Hr",
+    "usd": "0.0060000000",
+    "description": "$0.006 per reserved Network load balancer capacity unit-hour"
+  },
+  {
+    "usage": "APS2-LCUUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer-Gateway",
+    "unit": "LCU-Hrs",
+    "usd": "0.0040000000",
+    "description": "$0.0040 per used Gateway load balancer capacity unit-hour (or partial hour) in Asia Pacific (Sydney)"
+  },
+  {
+    "usage": "APS2-Outposts-LCUUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer-Application",
+    "unit": "LCU-Hrs",
+    "usd": "0.0000000000",
+    "description": "$0.0 per LCU-Hrs for Outposts-LCUUsage:LoadBalancing:Application in Asia Pacific (Sydney)"
+  },
+  {
+    "usage": "APS2-LoadBalancerUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer-Application",
+    "unit": "Hrs",
+    "usd": "0.0252000000",
+    "description": "$0.0252 per Application LoadBalancer-hour (or partial hour)"
+  },
+  {
+    "usage": "APS2-ReservedLCUUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer-Application",
+    "unit": "ReservedLCU-Hr",
+    "usd": "0.0080000000",
+    "description": "$0.008 per reserved Application load balancer capacity unit-hour"
+  },
+  {
+    "usage": "APS2-LoadBalancerUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer-Network",
+    "unit": "Hrs",
+    "usd": "0.0252000000",
+    "description": "$0.0252 per Network LoadBalancer-hour (or partial hour)"
+  },
+  {
+    "usage": "APS2-ReservedLCUUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer-Gateway",
+    "unit": "ReservedLCU-Hr",
+    "usd": "0.0040000000",
+    "description": "$0.004 per ReservedLCU-Hr gateway load balancer capacity unit-hour"
+  },
+  {
+    "usage": "APS2-TS-LoadBalancerUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer-Application",
+    "unit": "Hrs",
+    "usd": "0.0056000000",
+    "description": "$0.0056 per associated Application load balancer Trust Store unit-hour "
+  },
+  {
+    "usage": "APS2-Outposts-LoadBalancerUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer-Application",
+    "unit": "Hrs",
+    "usd": "0.0252000000",
+    "description": "$0.0252 per Hrs for Outposts-LoadBalancerUsage:LoadBalancing:Application in Asia Pacific (Sydney)"
+  },
+  {
+    "usage": "APS2-LoadBalancerUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer-Gateway",
+    "unit": "Hrs",
+    "usd": "0.0140000000",
+    "description": "$0.0140 per Gateway LoadBalancer-hour (or partial hour) in Asia Pacific (Sydney)"
+  },
+  {
+    "usage": "APS2-LCUUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer-Network",
+    "unit": "LCU-Hrs",
+    "usd": "0.0060000000",
+    "description": "$0.006 per used Network load balancer capacity unit-hour (or partial hour)"
+  },
+  {
+    "usage": "APS2-LoadBalancerUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer",
+    "unit": "Hrs",
+    "usd": "0.0280000000",
+    "description": "$0.028 per LoadBalancer-hour (or partial hour)"
+  },
+  {
+    "usage": "APS2-LCUUsage",
+    "group": "ELB:Balancing",
+    "family": "Load Balancer-Application",
+    "unit": "LCU-Hrs",
+    "usd": "0.0080000000",
+    "description": "$0.008 per used Application load balancer capacity unit-hour (or partial hour)"
+  }
+]

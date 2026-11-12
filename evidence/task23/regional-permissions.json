@@ -1,0 +1,57 @@
+[
+  {
+    "action": "ec2:CreateVpc",
+    "decision": "allowed",
+    "missing_context": []
+  },
+  {
+    "action": "ec2:CreateSubnet",
+    "decision": "allowed",
+    "missing_context": []
+  },
+  {
+    "action": "ecs:CreateCluster",
+    "decision": "allowed",
+    "missing_context": []
+  },
+  {
+    "action": "ecs:CreateService",
+    "decision": "allowed",
+    "missing_context": []
+  },
+  {
+    "action": "ecs:RegisterTaskDefinition",
+    "decision": "allowed",
+    "missing_context": []
+  },
+  {
+    "action": "elasticloadbalancing:CreateLoadBalancer",
+    "decision": "allowed",
+    "missing_context": []
+  },
+  {
+    "action": "elasticloadbalancing:CreateTargetGroup",
+    "decision": "allowed",
+    "missing_context": []
+  },
+  {
+    "action": "elasticloadbalancing:CreateListener",
+    "decision": "allowed",
+    "missing_context": []
+  },
+  {
+    "action": "s3:PutObject",
+    "decision": "allowed",
+    "missing_context": []
+  },
+  {
+    "action": "s3:GetObject",
+    "decision": "allowed",
+    "missing_context": []
+  },
+  {
+    "action": "s3:DeleteObject",
+    "decision": "allowed",
+    "missing_context": []
+  }
+]

@@ -1,0 +1,277 @@
+{
+  "resources": [
+    {
+      "address": "module.alb.aws_lb.this",
+      "type": "aws_lb",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.alb.aws_lb_listener.http",
+      "type": "aws_lb_listener",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.alb.aws_lb_target_group.app",
+      "type": "aws_lb_target_group",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.ecs_service.aws_ecs_cluster.this",
+      "type": "aws_ecs_cluster",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.ecs_service.aws_ecs_service.app",
+      "type": "aws_ecs_service",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.ecs_service.aws_ecs_task_definition.app",
+      "type": "aws_ecs_task_definition",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.iam.aws_iam_role.execution",
+      "type": "aws_iam_role",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.iam.aws_iam_role.task",
+      "type": "aws_iam_role",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.iam.aws_iam_role_policy.execution",
+      "type": "aws_iam_role_policy",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_default_security_group.this",
+      "type": "aws_default_security_group",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_internet_gateway.this",
+      "type": "aws_internet_gateway",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_route.public_internet",
+      "type": "aws_route",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_route_table.private[\"ap-southeast-2a\"]",
+      "type": "aws_route_table",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_route_table.private[\"ap-southeast-2b\"]",
+      "type": "aws_route_table",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_route_table.public",
+      "type": "aws_route_table",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_route_table_association.private[\"ap-southeast-2a\"]",
+      "type": "aws_route_table_association",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_route_table_association.private[\"ap-southeast-2b\"]",
+      "type": "aws_route_table_association",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_route_table_association.public[\"ap-southeast-2a\"]",
+      "type": "aws_route_table_association",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_route_table_association.public[\"ap-southeast-2b\"]",
+      "type": "aws_route_table_association",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_security_group.alb",
+      "type": "aws_security_group",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_security_group.ecs",
+      "type": "aws_security_group",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_security_group.postgresql",
+      "type": "aws_security_group",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_subnet.private[\"ap-southeast-2a\"]",
+      "type": "aws_subnet",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_subnet.private[\"ap-southeast-2b\"]",
+      "type": "aws_subnet",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_subnet.public[\"ap-southeast-2a\"]",
+      "type": "aws_subnet",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_subnet.public[\"ap-southeast-2b\"]",
+      "type": "aws_subnet",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_vpc.this",
+      "type": "aws_vpc",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_vpc_security_group_egress_rule.alb_to_ecs",
+      "type": "aws_vpc_security_group_egress_rule",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_vpc_security_group_egress_rule.ecs_https",
+      "type": "aws_vpc_security_group_egress_rule",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_vpc_security_group_egress_rule.ecs_to_postgresql",
+      "type": "aws_vpc_security_group_egress_rule",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_vpc_security_group_ingress_rule.alb_https[\"0.0.0.0/0\"]",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_vpc_security_group_ingress_rule.ecs_from_alb",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.network.aws_vpc_security_group_ingress_rule.postgresql_from_ecs",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "module.observability.aws_cloudwatch_log_group.app",
+      "type": "aws_cloudwatch_log_group",
+      "actions": [
+        "create"
+      ]
+    }
+  ],
+  "counts": {
+    "aws_lb": 1,
+    "aws_lb_listener": 1,
+    "aws_lb_target_group": 1,
+    "aws_ecs_cluster": 1,
+    "aws_ecs_service": 1,
+    "aws_ecs_task_definition": 1,
+    "aws_iam_role": 2,
+    "aws_iam_role_policy": 1,
+    "aws_default_security_group": 1,
+    "aws_internet_gateway": 1,
+    "aws_route": 1,
+    "aws_route_table": 3,
+    "aws_route_table_association": 4,
+    "aws_security_group": 3,
+    "aws_subnet": 4,
+    "aws_vpc": 1,
+    "aws_vpc_security_group_egress_rule": 3,
+    "aws_vpc_security_group_ingress_rule": 3,
+    "aws_cloudwatch_log_group": 1
+  },
+  "create": 34,
+  "update": 0,
+  "delete": 0,
+  "replace": 0,
+  "prior_managed_resources": 0,
+  "planned_image_digest": "sha256:e86be3d8597649995145a5e1633bfc4ccf19b8ca1185127ea6720d72d2bf0be1",
+  "cpu": "256",
+  "memory": "512",
+  "architecture": "X86_64",
+  "log_retention_days": 7,
+  "alb_listener": "HTTP",
+  "health_path": "/ready",
+  "nat": 0,
+  "rds": 0
+}

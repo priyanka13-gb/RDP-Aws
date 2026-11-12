@@ -1,0 +1,26 @@
+[
+  {
+    "usage": "APS2-PublicIPv4:ContiguousBlock",
+    "group": "VPCIPv4ContiguousBlocks",
+    "family": null,
+    "unit": "Hrs",
+    "usd": "0.0080000000",
+    "description": "$0.008 per hour per IPv4 address in contiguous IPv4 block"
+  },
+  {
+    "usage": "APS2-PublicIPv4:InUseAddress",
+    "group": "VPCPublicIPv4Address",
+    "family": null,
+    "unit": "Hrs",
+    "usd": "0.0050000000",
+    "description": "$0.005 per In-use public IPv4 address per hour"
+  },
+  {
+    "usage": "APS2-PublicIPv4:IdleAddress",
+    "group": "VPCPublicIPv4Address",
+    "family": null,
+    "unit": "Hrs",
+    "usd": "0.0050000000",
+    "description": "$0.005 per Idle public IPv4 address per hour"
+  }
+]

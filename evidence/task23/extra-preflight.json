@@ -1,0 +1,14 @@
+{
+  "AWSServiceRoleForECS": {
+    "exists_and_readable": false
+  },
+  "AWSServiceRoleForElasticLoadBalancing": {
+    "exists_and_readable": false
+  },
+  "vpc": {
+    "quota": 5.0
+  },
+  "alb": {
+    "quota": 50.0
+  }
+}

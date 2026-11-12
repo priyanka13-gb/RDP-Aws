@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-12",
+  "source_commit": "9b18a3109aa2fd1d3bc6a2dc0ffb0fc17ec27823",
+  "working_tree_clean": false,
+  "post_commit_plan": "PENDING manual final source commit",
+  "precommit_review_plan": {
+    "path": ".tools/task24a/dev.tfplan",
+    "sha256": "c502fd2f2bd84db34f43601e96ba6ba5e7b13d5b51988d0c41f0b2b0a297fafc",
+    "creates": 34,
+    "updates": 0,
+    "deletes": 0,
+    "replacements": 0,
+    "resource_actions_identical_to_task23": true
+  },
+  "secret_scan": {
+    "findings": 0,
+    "files": 173,
+    "scanner": "Trivy fs --scanners secret",
+    "exit_code": 0
+  },
+  "mock_tests_passed": 23,
+  "fmt": "passed",
+  "validate": "passed",
+  "apply_executed": false,
+  "state_modified": false,
+  "gitignore_checks": "all representative sensitive/generated paths ignored",
+  "postcommit_script_guard": "refused dirty tree as expected"
+}

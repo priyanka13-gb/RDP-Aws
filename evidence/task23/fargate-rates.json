@@ -1,0 +1,26 @@
+[
+  {
+    "usage": "APS2-Fargate-EphemeralStorage-GB-Hours",
+    "group": null,
+    "family": "Compute",
+    "unit": "GB-Hours",
+    "usd": "0.0001330000",
+    "description": "AWS Fargate - Ephemeral Storage - Asia Pacific (Sydney)"
+  },
+  {
+    "usage": "APS2-Fargate-GB-Hours",
+    "group": null,
+    "family": "Compute",
+    "unit": "hours",
+    "usd": "0.0053200000",
+    "description": "AWS Fargate - Memory - Asia Pacific (Sydney)"
+  },
+  {
+    "usage": "APS2-Fargate-vCPU-Hours:perCPU",
+    "group": null,
+    "family": "Compute",
+    "unit": "hours",
+    "usd": "0.0485600000",
+    "description": "AWS Fargate - vCPU - Asia Pacific (Sydney)"
+  }
+]

@@ -1,0 +1,10 @@
+tests\network.tftest.hcl... in progress
+  run "cost_saver_has_no_nat"... pass
+  run "per_az_nat"... pass
+  run "single_nat"... pass
+  run "reject_nat_in_cost_saver"... pass
+  run "require_explicit_production_nat"... pass
+tests\network.tftest.hcl... tearing down
+tests\network.tftest.hcl... pass
+
+Success! 5 passed, 0 failed.

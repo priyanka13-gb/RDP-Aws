@@ -1,0 +1,34 @@
+[
+  {
+    "usage": "APS2-DataProcessing-Bytes",
+    "group": "Ingested Logs",
+    "family": "Data Payload",
+    "unit": "GB",
+    "usd": "0.6700000000",
+    "description": "$0.67 per GB custom log data ingested in Standard log class - Asia Pacific (Sydney)"
+  },
+  {
+    "usage": "APS2-TimedStorage-ByteHrs",
+    "group": "Amazon CloudWatch Standard Storage pricing current",
+    "family": "Storage Snapshot",
+    "unit": "GB-Mo",
+    "usd": "0.0330000000",
+    "description": "$0.033 per GB-mo of log storage - Asia Pacific (Sydney)"
+  },
+  {
+    "usage": "Global-DataProcessing-Bytes",
+    "group": "CW-MonthlyFree-DataProcessing",
+    "family": "Bundle",
+    "unit": "GB",
+    "usd": "0.0000000000",
+    "description": "Global"
+  },
+  {
+    "usage": "Global-TimedStorage-ByteHrs",
+    "group": "CW-MonthlyFree-Archival",
+    "family": "Bundle",
+    "unit": "GB-Mo",
+    "usd": "0.0000000000",
+    "description": "Global"
+  }
+]

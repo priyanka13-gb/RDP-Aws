@@ -1,0 +1,11 @@
+{
+  "infra/envs/dev/terraform.tfstate": true,
+  "infra/envs/dev/terraform.tfstate.backup": true,
+  "infra/envs/dev/.terraform/providers/x": true,
+  "dev.tfplan": true,
+  ".env": true,
+  ".secrets/db_password.txt": true,
+  ".tools/task24a/dev.tfplan": true,
+  ".aws/credentials": true,
+  "credentials.csv": true
+}

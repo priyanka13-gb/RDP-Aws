@@ -1,0 +1,70 @@
+{
+  "AWSServiceRoleForECS": "NoSuchEntity",
+  "AWSServiceRoleForElasticLoadBalancing": "NoSuchEntity",
+  "simulation": [
+    {
+      "action": "iam:CreateRole",
+      "decision": "allowed"
+    },
+    {
+      "action": "iam:PutRolePolicy",
+      "decision": "allowed"
+    },
+    {
+      "action": "iam:PassRole",
+      "decision": "allowed"
+    },
+    {
+      "action": "iam:CreateServiceLinkedRole",
+      "decision": "allowed"
+    },
+    {
+      "action": "ec2:CreateVpc",
+      "decision": "explicitDeny"
+    },
+    {
+      "action": "ec2:CreateSubnet",
+      "decision": "explicitDeny"
+    },
+    {
+      "action": "ecs:CreateCluster",
+      "decision": "explicitDeny"
+    },
+    {
+      "action": "ecs:CreateService",
+      "decision": "explicitDeny"
+    },
+    {
+      "action": "ecs:RegisterTaskDefinition",
+      "decision": "explicitDeny"
+    },
+    {
+      "action": "elasticloadbalancing:CreateLoadBalancer",
+      "decision": "explicitDeny"
+    },
+    {
+      "action": "elasticloadbalancing:CreateTargetGroup",
+      "decision": "explicitDeny"
+    },
+    {
+      "action": "elasticloadbalancing:CreateListener",
+      "decision": "explicitDeny"
+    },
+    {
+      "action": "logs:CreateLogGroup",
+      "decision": "allowed"
+    },
+    {
+      "action": "s3:PutObject",
+      "decision": "explicitDeny"
+    },
+    {
+      "action": "s3:GetObject",
+      "decision": "explicitDeny"
+    },
+    {
+      "action": "s3:DeleteObject",
+      "decision": "explicitDeny"
+    }
+  ]
+}

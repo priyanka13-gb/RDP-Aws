@@ -1,0 +1,6 @@
+tests\state.tftest.hcl... in progress
+  run "private_versioned_encrypted_state"... pass
+tests\state.tftest.hcl... tearing down
+tests\state.tftest.hcl... pass
+
+Success! 1 passed, 0 failed.
