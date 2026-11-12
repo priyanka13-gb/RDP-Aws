@@ -277,3 +277,24 @@ Dev reads the repository through an AWS data source and no longer creates it.
 Deploy ECR and publish an approved image before planning dev. This supersedes the
 older targeted-dev ECR bootstrap instructions; no state migration is required for
 the currently empty dev state.
+
+
+## On-demand interview demo
+
+Keep the dev AWS stack absent between interviews. The reviewed PowerShell workflow
+prepares a plan, requires typed confirmation to deploy or clean up, and verifies AWS
+resources after teardown. Bootstrap S3 state and the existing ECR image are retained.
+
+```powershell
+.\scripts\status-demo.ps1
+.\scripts\prepare-demo.ps1
+.\scripts\deploy-demo.ps1
+.\scripts\verify-demo.ps1
+.\scripts\cleanup-demo.ps1
+.\scripts\status-demo.ps1
+```
+
+Review and commit source before preparation/deployment. No deployment is authorized
+by installing these scripts. See [the interview demo guide](docs/interview-demo-guide.md)
+for costs, execution-policy alternatives, safety checks, budget guidance, failure
+recovery, and five/fifteen-minute interview sequences.

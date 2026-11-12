@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-12",
+  "source_head": "07bd46b4a922841ee151ac40430c39e02a8e7933",
+  "unit_tests_linux": 41,
+  "workflow_tests_host": 25,
+  "postgresql_integration_tests": 2,
+  "terraform_mock_tests": 23,
+  "ruff": "passed",
+  "powershell_wrappers": "all five parsed on Windows PowerShell",
+  "host_full_suite": "blocked by Windows Application Control on psycopg DLL; full unit suite passed inside Linux instead",
+  "known_warning": "Starlette httpx TestClient deprecation",
+  "live_deploy_destroy": "not executed; explicit authorization and future end-to-end validation required",
+  "prepare_dirty_guard": "refused as expected before AWS access or planning",
+  "terraform_application_docker_files_modified": false,
+  "source_hashes": {
+    "app\\Dockerfile": "d0cb49b9e6a097f249b54f531ec9828ce22b9c8ea4be31594b658cfb6d6e99fc",
+    "app\\main.py": "fed62dcc797901402248da5b656bf70baff6ef1564331093a1d19e0883384618",
+    "infra\\envs\\dev\\main.tf": "ab5c56c3d69ecf91784e835882dbb8715f7764c27e193f17fdcd4706133d4dbc",
+    "infra\\envs\\dev\\variables.tf": "3b0177d962e14a297c0d868e224900a1e6dbc6376c516618f450d3f910ed3e9b"
+  },
+  "secret_scan": {
+    "scanner": "Trivy secret scanner",
+    "exit_code": 0,
+    "findings": 0,
+    "files": 188
+  }
+}
