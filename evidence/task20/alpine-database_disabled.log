@@ -1,0 +1,12 @@
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+{"timestamp": "2026-11-06T12:11:54.141943+00:00", "level": "INFO", "logger": "delivery_platform", "message": "http_request", "method": "GET", "route": "/health", "status_code": 200, "duration_seconds": 0.003724}
+{"timestamp": "2026-11-06T12:11:54.145235+00:00", "level": "INFO", "logger": "delivery_platform", "message": "http_request", "method": "GET", "route": "/ready", "status_code": 200, "duration_seconds": 0.000984}
+{"timestamp": "2026-11-06T12:11:54.225351+00:00", "level": "INFO", "logger": "delivery_platform", "message": "http_request", "method": "GET", "route": "/version", "status_code": 200, "duration_seconds": 0.001189}
+{"timestamp": "2026-11-06T12:11:54.228878+00:00", "level": "INFO", "logger": "delivery_platform", "message": "http_request", "method": "GET", "route": "/metrics", "status_code": 200, "duration_seconds": 0.001614}
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1]

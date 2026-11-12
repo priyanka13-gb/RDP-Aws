@@ -1,0 +1,268 @@
+{
+  "date": "2026-11-06",
+  "bases": {
+    "python:3.12-slim": "python@sha256:4840d514c583a4d3d8cad3940e68dee6f0f6f3635c12fcd0a3d74c21a5b93a54",
+    "python:3.12-alpine": "python@sha256:e064671ca452259bab50e8e2c7bd896e39e9a343bb06ca25234adf6fe18d0fc7",
+    "python:3.13-slim-trixie": "python@sha256:09a17cad02668ae61ece136b4fd36ac3849e14f670ebedb637ea3e15580525bc",
+    "gcr.io/distroless/python3-debian13:nonroot": "gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6"
+  },
+  "trivy_image": "aquasec/trivy@sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb",
+  "database": {
+    "Version": 2,
+    "NextUpdate": "2026-11-07T06:50:38.697106816Z",
+    "UpdatedAt": "2026-11-06T06:50:38.697107077Z",
+    "DownloadedAt": "2026-11-06T07:50:25.746396835Z"
+  },
+  "candidates": {
+    "slim": {
+      "image": "rdp-eval:task20-slim",
+      "build_exit": 0,
+      "image_id": "sha256:8415b3e15ad2bc858597aee6074992410aa8f2f1cfabaa8c0dd7249dde7ba326",
+      "size_bytes": 319338186,
+      "architecture": "amd64",
+      "user": "10001:10001",
+      "runtime": {
+        "database_disabled": {
+          "/health": 200,
+          "/ready": 200,
+          "/version": 200,
+          "/metrics": 200
+        },
+        "database_disabled_shutdown": {
+          "exit_code": 0,
+          "oom": false,
+          "graceful_log": true
+        },
+        "database_unreachable": {
+          "/health": 200,
+          "/ready": 503,
+          "/version": 200,
+          "/metrics": 200
+        },
+        "database_unreachable_shutdown": {
+          "exit_code": 0,
+          "oom": false,
+          "graceful_log": true
+        }
+      },
+      "environment": {
+        "python": "3.12.16 (main, Nov  5 2026, 07:58:20) [GCC 14.2.0]",
+        "soabi": "cpython-312-x86_64-linux-gnu",
+        "uid": 10001,
+        "packages": {
+          "click": "8.5.0",
+          "h11": "0.16.0",
+          "prometheus_client": "0.26.0",
+          "typing-inspection": "0.4.5",
+          "annotated-doc": "0.0.5",
+          "aws-resilient-delivery-platform": "0.1.0",
+          "psycopg": "3.3.8",
+          "idna": "3.20",
+          "typing_extensions": "4.16.0",
+          "fastapi": "0.162.0",
+          "annotated-types": "0.8.0",
+          "pydantic_core": "2.50.4",
+          "opentelemetry-api": "1.45.2",
+          "psycopg-binary": "3.3.8",
+          "starlette": "1.10.0",
+          "anyio": "4.16.0",
+          "pydantic": "2.14.3",
+          "SQLAlchemy": "2.1.8",
+          "uvicorn": "0.54.0"
+        }
+      },
+      "integration_exit": 0
+    },
+    "alpine": {
+      "image": "rdp-eval:task20-alpine",
+      "build_exit": 0,
+      "image_id": "sha256:bdaa2a18046aeb821d8b6aba592ad180d64df51a7519876fdf6ab9c3e8e722a3",
+      "size_bytes": 166188040,
+      "architecture": "amd64",
+      "user": "10001:10001",
+      "runtime": {
+        "database_disabled": {
+          "/health": 200,
+          "/ready": 200,
+          "/version": 200,
+          "/metrics": 200
+        },
+        "database_disabled_shutdown": {
+          "exit_code": 0,
+          "oom": false,
+          "graceful_log": true
+        },
+        "database_unreachable": {
+          "/health": 200,
+          "/ready": 503,
+          "/version": 200,
+          "/metrics": 200
+        },
+        "database_unreachable_shutdown": {
+          "exit_code": 0,
+          "oom": false,
+          "graceful_log": true
+        }
+      },
+      "environment": {
+        "python": "3.12.16 (main, Nov  5 2026, 19:26:55) [GCC 15.2.0]",
+        "soabi": "cpython-312-x86_64-linux-musl",
+        "uid": 10001,
+        "packages": {
+          "click": "8.5.0",
+          "h11": "0.16.0",
+          "prometheus_client": "0.26.0",
+          "typing-inspection": "0.4.5",
+          "annotated-doc": "0.0.5",
+          "aws-resilient-delivery-platform": "0.1.0",
+          "psycopg": "3.3.8",
+          "idna": "3.20",
+          "typing_extensions": "4.16.0",
+          "fastapi": "0.162.0",
+          "annotated-types": "0.8.0",
+          "pydantic_core": "2.50.4",
+          "opentelemetry-api": "1.45.2",
+          "psycopg-binary": "3.3.8",
+          "starlette": "1.10.0",
+          "anyio": "4.16.0",
+          "pydantic": "2.14.3",
+          "SQLAlchemy": "2.1.8",
+          "uvicorn": "0.54.0"
+        }
+      },
+      "integration_exit": 0
+    },
+    "distroless": {
+      "image": "rdp-eval:task20-distroless",
+      "build_exit": 0,
+      "image_id": "sha256:668e38dd00e0dcf5e33954690a36c354179085ab75df26a7dc5d7e4058030bf4",
+      "size_bytes": 181202912,
+      "architecture": "amd64",
+      "user": "10001:10001",
+      "runtime": {
+        "database_disabled": {
+          "/health": 200,
+          "/ready": 200,
+          "/version": 200,
+          "/metrics": 200
+        },
+        "database_disabled_shutdown": {
+          "exit_code": 0,
+          "oom": false,
+          "graceful_log": true
+        },
+        "database_unreachable": {
+          "/health": 200,
+          "/ready": 503,
+          "/version": 200,
+          "/metrics": 200
+        },
+        "database_unreachable_shutdown": {
+          "exit_code": 0,
+          "oom": false,
+          "graceful_log": true
+        }
+      },
+      "environment": {
+        "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]",
+        "soabi": "cpython-313-x86_64-linux-gnu",
+        "uid": 10001,
+        "packages": {
+          "click": "8.5.0",
+          "h11": "0.16.0",
+          "prometheus_client": "0.26.0",
+          "typing-inspection": "0.4.5",
+          "annotated-doc": "0.0.5",
+          "aws-resilient-delivery-platform": "0.1.0",
+          "psycopg": "3.3.8",
+          "idna": "3.20",
+          "typing_extensions": "4.16.0",
+          "fastapi": "0.162.0",
+          "annotated-types": "0.8.0",
+          "pydantic_core": "2.50.4",
+          "opentelemetry-api": "1.45.2",
+          "psycopg-binary": "3.3.8",
+          "starlette": "1.10.0",
+          "anyio": "4.16.0",
+          "pydantic": "2.14.3",
+          "SQLAlchemy": "2.1.8",
+          "uvicorn": "0.54.0"
+        }
+      },
+      "integration_exit": 0
+    }
+  },
+  "scans": {
+    "slim": {
+      "scan_exit": 1,
+      "counts": {
+        "LOW": 62,
+        "HIGH": 49,
+        "MEDIUM": 75
+      },
+      "fixable_entries": 0,
+      "packages": {
+        "os-pkgs": 87,
+        "lang-pkgs": 19
+      }
+    },
+    "alpine": {
+      "scan_exit": 0,
+      "counts": {},
+      "fixable_entries": 0,
+      "packages": {
+        "os-pkgs": 38,
+        "lang-pkgs": 19
+      }
+    },
+    "distroless": {
+      "scan_exit": 1,
+      "counts": {
+        "MEDIUM": 114,
+        "LOW": 54,
+        "HIGH": 35
+      },
+      "fixable_entries": 0,
+      "packages": {
+        "os-pkgs": 38,
+        "lang-pkgs": 19
+      }
+    }
+  },
+  "container_unit_exit": {
+    "slim": 0,
+    "alpine": 0,
+    "distroless": 0
+  },
+  "host_unit": "16 passed, 2 integration skipped",
+  "ruff": "passed",
+  "source_hashes": {
+    "app/main.py": "fed62dcc797901402248da5b656bf70baff6ef1564331093a1d19e0883384618",
+    "app/Dockerfile": "9283caea2e9737c596e9de394b81b1ab372cb56fba1b0a3fa430d5f8227fa97c",
+    "pyproject.toml": "be0ce7810ab574007b6d33293ed6b3f2341b57a8e8890300c561e7eeab7d0450",
+    "compose.yaml": "4ac92bd63a2bbabb8a15fa43ec4c74a740184a0219dd5f092f85c8699266d304"
+  },
+  "report_hashes": {
+    "slim-scan.json": "f3edebb3d74a9db630f97934eaa778338692677236f70879e74b9d72fdaabdc7",
+    "slim-scan.log": "7cd92f14cca6f46d9ddb62874ded4761ab9f3d6b32a7ff3653b3b7708aa4631c",
+    "slim-build.log": "e27a6755e60afac62d806e21c3eabcc9eae589681da9644c9958e26ddcd1d72a",
+    "slim-unit.log": "904816f376e3ddd33ec3152591a22fdd81f7c29d03080ee1e08db017a122ce62",
+    "slim-integration.log": "6724769f0df5917387661d6acd90917a1e08eab08834dd60265aff4367da8ad8",
+    "slim-database_disabled.log": "fa9bcccc29d1b1ddc55bdab65d272962ce5b600359cd82c17e61772150b8fa4d",
+    "slim-database_unreachable.log": "ee71b2eabd46a14a11fd234c6316097357714d02bb8d3e53457dc4203339c808",
+    "alpine-scan.json": "8a3510a5eee4291ffb6fb7d280a4aa98c67833c3715ff816237c3a794d942764",
+    "alpine-scan.log": "697df403c94511a587fb7d7b9e469e70579214959fc0119f7d1731f576ad4f3d",
+    "alpine-build.log": "17a39953c48a6e46daa0ed261738f3d4056dde13874182881adea7d808ad8db8",
+    "alpine-unit.log": "fdc9c6de509885fad667fac1ed2f94c8aaa9bf9f7178c66e49d142360c604c54",
+    "alpine-integration.log": "3d1342d98e8de46063e699243b9af3b19a04a43cfa329bc8eee7a6d30a6a7d4c",
+    "alpine-database_disabled.log": "b180d4b4e8ea4f89716101438243c243303f1e2914203122476ee47f5303e50b",
+    "alpine-database_unreachable.log": "774af8c169d5401039504394056357d69e6616b1904d7e4bf0ff5212640fca5c",
+    "distroless-scan.json": "16aba3722652163c91505736f0c9d92689bb4d7d7069afd3439141dd2310eb84",
+    "distroless-scan.log": "37e1ff0361673313a62365fb886da3990cc025e90eaf4cbe22bc363b1607a81a",
+    "distroless-build.log": "f25d5386828cad3e59d35c91de343cef9268f2f1a5327f5e8092aaca1a25e7b3",
+    "distroless-unit.log": "fab919fde9b253a810a76020a9ff75d6aa29b8338b33879fc1e69c3da6c3cac5",
+    "distroless-integration.log": "f5a5a52a035ad527274e1e2e6757e7d2248b4849b3ff4ab8df78f582e5e0585e",
+    "distroless-database_disabled.log": "614d9b9737fc66db69714053eadd3a129108178cd6f94e6d5ff08c5970c1f672",
+    "distroless-database_unreachable.log": "af76e41d4a9ef2678a89c58b7f55a3be3a23be89ba71973b3a0947d5c8046d5f"
+  }
+}

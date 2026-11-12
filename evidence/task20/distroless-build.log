@@ -1,0 +1,307 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from distroless.Dockerfile
+#1 transferring dockerfile: 797B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python@sha256:09a17cad02668ae61ece136b4fd36ac3849e14f670ebedb637ea3e15580525bc
+#2 DONE 0.0s
+
+#3 [internal] load metadata for gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#3 DONE 0.5s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 183B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 367B done
+#5 DONE 0.0s
+
+#6 [builder 1/5] FROM docker.io/library/python@sha256:09a17cad02668ae61ece136b4fd36ac3849e14f670ebedb637ea3e15580525bc
+#6 resolve docker.io/library/python@sha256:09a17cad02668ae61ece136b4fd36ac3849e14f670ebedb637ea3e15580525bc 0.0s done
+#6 DONE 0.2s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 resolve gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6 0.0s done
+#7 ...
+
+#6 [builder 1/5] FROM docker.io/library/python@sha256:09a17cad02668ae61ece136b4fd36ac3849e14f670ebedb637ea3e15580525bc
+#6 extracting sha256:0069ea31add00b9f63dbb3f0bcee44990654c5e2c17ccfeaeae47e74edf44498 0.2s done
+#6 DONE 0.4s
+
+#6 [builder 1/5] FROM docker.io/library/python@sha256:09a17cad02668ae61ece136b4fd36ac3849e14f670ebedb637ea3e15580525bc
+#6 extracting sha256:faa890a31e98e11bc3138d9549c86441024fdb24bd555bb0bca17dc9a6c5b565
+#6 extracting sha256:faa890a31e98e11bc3138d9549c86441024fdb24bd555bb0bca17dc9a6c5b565 0.6s done
+#6 DONE 1.0s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 ...
+
+#6 [builder 1/5] FROM docker.io/library/python@sha256:09a17cad02668ae61ece136b4fd36ac3849e14f670ebedb637ea3e15580525bc
+#6 extracting sha256:f7a79299dedd5c817d47e3f61cf6eecae73b92cb193a1ef52180a46b0161c50a 0.0s done
+#6 DONE 1.0s
+
+#8 [builder 2/5] WORKDIR /build
+#8 DONE 1.5s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 ...
+
+#9 [builder 3/5] COPY pyproject.toml README.md ./
+#9 DONE 0.1s
+
+#10 [builder 4/5] COPY app/ ./app/
+#10 DONE 0.1s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 DONE 3.4s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python . && mkdir /aliases && ln -s /usr/bin/python3 /aliases/python
+#11 ...
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:2cc7ee286bf3a9e6af5f71756d7fc8e22e23ce65fec9047d774511ffcef79fa8 0.1s done
+#7 extracting sha256:c172f21841dff4c8cf45cde46589c1c2616cefe7e819965e92e6d3475c428aa0 0.0s done
+#7 DONE 3.5s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:fc4330146a1cc76e06ce6def693f5da42c16e2615be6f49e1ea5b6e249ff8262 0.1s done
+#7 DONE 3.7s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python . && mkdir /aliases && ln -s /usr/bin/python3 /aliases/python
+#11 ...
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:777e9d0975e474519f4f14ff87e547cbb8f9fff4cfc4f1a147ac81906880e503 0.2s done
+#7 extracting sha256:d6b1b89eccacc15c2420b2776d72c1dae334a00805ed9af54bf2f71e4d536f28 0.0s done
+#7 extracting sha256:2780920e5dbfbe103d03a583ed75345306e572ec5a48cb10361f046767d9f29a 0.0s done
+#7 extracting sha256:7c12895b777bcaa8ccae0605b4de635b68fc32d60fa08f421dc3818bf55ee212 0.0s done
+#7 extracting sha256:3214acf345c0cc6bbdb56b698a41ccdefc624a09d6beb0d38b5de0b2303ecaf4 0.0s done
+#7 DONE 3.9s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:52630fc75a18675c530ed9eba5f55eca09b03e91bd5bc15307918bbc1a7e7296 0.0s done
+#7 extracting sha256:dd64bf2dd177757451a98fcdc999a339c35dee5d9872d8f4dc69c8f3c4dd0112 0.0s done
+#7 extracting sha256:b839dfae01f66e15c6a8b63520557ed315bdfe036342fa7a0c537259f10d7a9a 0.0s done
+#7 extracting sha256:ebddc55facdc6b1f7e0f30816a5fc7cc62f38abdf76c0a8b0a0ce52085754795 0.0s done
+#7 DONE 4.0s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python . && mkdir /aliases && ln -s /usr/bin/python3 /aliases/python
+#11 ...
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:ec1b04bf2eb2122e86781f791b03ea0cf6588694e0f4a88245250224c186cdf0 0.0s done
+#7 extracting sha256:b96fe2995f90d0ef0bf14f9b4a67b5f4e77d478e6108166e0565adc9efd6e4a3 0.2s done
+#7 DONE 4.2s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:810e2b405a0884835290e120ef380aa14dd1f53198a0cfa2260147e736d82cd5 0.1s done
+#7 extracting sha256:bd8962e292918c50c90edebd9684c053bc386b9c5503acd8fec75d0c6f93a0b7 0.0s done
+#7 DONE 4.3s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python . && mkdir /aliases && ln -s /usr/bin/python3 /aliases/python
+#11 ...
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:cac2ae0193cb073e7492050b05fc342a888651b4bbc966908c8793f889c299ba 0.0s done
+#7 extracting sha256:dd0d9bfd3bee080ad25a464362ec4f37ec5ca625695a4d7179fe69d207dc068d 0.0s done
+#7 extracting sha256:7cc70dfd88cf2327bb827123c9156f7cb95de95b2f98f3a7a931296aacec5786 0.0s done
+#7 DONE 4.4s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:8224d91da70b7992430d3b04040ea38ecdef4a7b719bee38397c89aaa886e198 0.0s done
+#7 extracting sha256:1a4be5562d92d659f95e0b44b245ea5208bf5317481b9a351b07fad7fe5265ec 0.0s done
+#7 extracting sha256:eb67871efa33e87704117238d677edbb342661f9c8015b2d557665572460aa14 0.0s done
+#7 DONE 4.5s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python . && mkdir /aliases && ln -s /usr/bin/python3 /aliases/python
+#11 1.724 Processing ./.
+#11 1.728   Installing build dependencies: started
+#11 ...
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:bfbbbff6135e75405b14917fae417b32e0fea5b9fcc1d9c180613dc41e7005bd 0.1s done
+#7 extracting sha256:6263361de83b4edb838f5da7fbb0787e0d458a19e21cc67ca1fe684c5206ad02 0.1s done
+#7 DONE 4.7s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:51ee0c14c60668541818e38349258f3aa25698175b6c9d874570959435100312 0.1s done
+#7 extracting sha256:5d37401fbe31e0ada67eea3a8f973a8b9ac278a056ae8fa496b487e8b20f06db 0.0s done
+#7 extracting sha256:74eb32e2067b5ac3db95d8ca712eda9971c72bf249715fefbb43171d1ff2466d 0.0s done
+#7 DONE 4.8s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python . && mkdir /aliases && ln -s /usr/bin/python3 /aliases/python
+#11 ...
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:72de13441b4ec5bc35736b5d885e4f25fceae5f24f34b9a6ec7a255b74edb73e 0.1s done
+#7 extracting sha256:057280cdd6f408048417d4d17ff672bb37bcf6de4969fb50f12fd42a8269d51c 0.1s done
+#7 DONE 5.0s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:cac2ae0193cb073e7492050b05fc342a888651b4bbc966908c8793f889c299ba 0.1s done
+#7 extracting sha256:92c9dfde1fdaf069d56d2c4b7661f8fb4df573e2c09cb6e10bcfb161627f6b02
+#7 extracting sha256:92c9dfde1fdaf069d56d2c4b7661f8fb4df573e2c09cb6e10bcfb161627f6b02 0.1s done
+#7 extracting sha256:129b9479d271ccf8432ec4a797b2f9911c272dd6518eb25b51d8739665b6f964 0.1s done
+#7 DONE 5.3s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python . && mkdir /aliases && ln -s /usr/bin/python3 /aliases/python
+#11 ...
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:e04c752b24bedca36ebcd64b7bf712b75c52a22e9b9ad83123bd64e580912c45 0.1s done
+#7 extracting sha256:776bc2862f139b174c61cba8d482dd200c8f2f643346b0b5bfe9e2f1fa391770 0.0s done
+#7 DONE 5.4s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:18d21762963e311c7e71db9716caa82fbf9dfe566c08ae4c09f1069d7831bc51 0.0s done
+#7 extracting sha256:ddb8a30322228cf45462c56f5d3d925d30c63ca203afb4cf6264243f30ee24e0 0.1s done
+#7 DONE 5.5s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python . && mkdir /aliases && ln -s /usr/bin/python3 /aliases/python
+#11 ...
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:694a6209151b63d149679d7ab145bf18961d29a63b24c0cf31c807df889f1b3a 0.1s done
+#7 extracting sha256:7a3f4f24b65c61314513e7addee4f3157f809f3c8b3a10d3085214416fde5631 0.1s done
+#7 DONE 5.7s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:26cd05a2ae7538288ab89786af95a67cc821627d3bb65dc1b816b4be9d671199 0.1s done
+#7 DONE 5.8s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python . && mkdir /aliases && ln -s /usr/bin/python3 /aliases/python
+#11 ...
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:e01111d62b573996d2726e13c154d94c47f4d14aebaad0d2aa73564a196c8e6f 0.1s done
+#7 extracting sha256:dd8f7147061268599a07c92b897e3b0af2b7d9afb3f5130432f0a00bba12edbb 0.0s done
+#7 DONE 5.9s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python . && mkdir /aliases && ln -s /usr/bin/python3 /aliases/python
+#11 3.083   Installing build dependencies: finished with status 'done'
+#11 3.085   Getting requirements to build wheel: started
+#11 ...
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:82a374cec66208faffdeab1ab94159c0b5e937040f3088307d4325d3127ae155 0.0s done
+#7 extracting sha256:7102ad36cb243d5baf44e1867f10f7ed34245ecaa9db15853bb18e035bcfe36b 0.1s done
+#7 DONE 6.0s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:d7fedf47a718b9c97a732d2a672b7cbd78f228f97f2a2bc7bf5eb808efd4e474
+#7 extracting sha256:d7fedf47a718b9c97a732d2a672b7cbd78f228f97f2a2bc7bf5eb808efd4e474 0.2s done
+#7 DONE 6.2s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python . && mkdir /aliases && ln -s /usr/bin/python3 /aliases/python
+#11 ...
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:633f76c944150adc2f11a1a419da34f89fb1d6a2d1d4779088af1c717b3ee312 0.1s done
+#7 extracting sha256:cdd92a3f249a8e1420d9897fbb2ed380f7791593961e58a47500793bfc46b9ae 0.0s done
+#7 DONE 6.3s
+
+#7 [stage-1 1/4] FROM gcr.io/distroless/python3-debian13@sha256:1c32c3720dc4c7f0c7dbe998737f32c200add6511eca7cec705008be488b87d6
+#7 extracting sha256:345d82d2f3e7ba974d1732e5a2f5b3678050ea9282fd58dfd999b320378aaa0e 0.0s done
+#7 extracting sha256:5d04f373953835c0c7e6f8f409e905dbc8c9761223a0efead3c7fd4b99338f8d 0.0s done
+#7 DONE 6.4s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python . && mkdir /aliases && ln -s /usr/bin/python3 /aliases/python
+#11 3.649   Getting requirements to build wheel: finished with status 'done'
+#11 3.652   Preparing metadata (pyproject.toml): started
+#11 3.862   Preparing metadata (pyproject.toml): finished with status 'done'
+#11 4.024 Collecting fastapi<1,>=0.115 (from aws-resilient-delivery-platform==0.1.0)
+#11 4.158   Downloading fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+#11 4.210 Collecting uvicorn<1,>=0.30 (from aws-resilient-delivery-platform==0.1.0)
+#11 4.249   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+#11 4.285 Collecting prometheus-client<1,>=0.21 (from aws-resilient-delivery-platform==0.1.0)
+#11 4.325   Downloading prometheus_client-0.26.0-py3-none-any.whl.metadata (2.1 kB)
+#11 4.360 Collecting psycopg<4,>=3.2 (from psycopg[binary]<4,>=3.2->aws-resilient-delivery-platform==0.1.0)
+#11 4.403   Downloading psycopg-3.3.8-py3-none-any.whl.metadata (4.4 kB)
+#11 4.710 Collecting sqlalchemy<3,>=2.0 (from aws-resilient-delivery-platform==0.1.0)
+#11 4.750   Downloading sqlalchemy-2.1.8-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+#11 4.797 Collecting starlette>=0.46.0 (from fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 4.839   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+#11 4.945 Collecting pydantic>=2.9.0 (from fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 4.982   Downloading pydantic-2.14.3-py3-none-any.whl.metadata (141 kB)
+#11 5.084 Collecting typing-extensions>=4.8.0 (from fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 5.120   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#11 5.151 Collecting typing-inspection>=0.4.2 (from fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 5.188   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+#11 5.217 Collecting annotated-doc>=0.0.2 (from fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 5.256   Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+#11 5.291 Collecting opentelemetry-api>=1.44.0 (from fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 5.328   Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+#11 5.477 Collecting psycopg-binary==3.3.8 (from psycopg[binary]<4,>=3.2->aws-resilient-delivery-platform==0.1.0)
+#11 5.516   Downloading psycopg_binary-3.3.8-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+#11 5.554 Collecting click>=7.0 (from uvicorn<1,>=0.30->aws-resilient-delivery-platform==0.1.0)
+#11 5.593   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+#11 5.624 Collecting h11>=0.8 (from uvicorn<1,>=0.30->aws-resilient-delivery-platform==0.1.0)
+#11 5.661   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#11 5.695 Collecting annotated-types>=0.6.0 (from pydantic>=2.9.0->fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 5.732   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+#11 6.279 Collecting pydantic-core==2.50.4 (from pydantic>=2.9.0->fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 6.316   Downloading pydantic_core-2.50.4-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.6 kB)
+#11 6.356 Collecting anyio<5,>=4.0.0 (from starlette>=0.46.0->fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 6.392   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+#11 6.426 Collecting idna>=2.8 (from anyio<5,>=4.0.0->starlette>=0.46.0->fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 6.467   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#11 6.512 Downloading fastapi-0.162.0-py3-none-any.whl (148 kB)
+#11 6.565 Downloading prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+#11 6.605 Downloading psycopg-3.3.8-py3-none-any.whl (216 kB)
+#11 6.654 Downloading psycopg_binary-3.3.8-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.2 MB)
+#11 6.902    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 23.5 MB/s  0:00:00
+#11 6.942 Downloading sqlalchemy-2.1.8-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.7 MB)
+#11 7.125    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 25.7 MB/s  0:00:00
+#11 7.163 Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+#11 7.202 Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+#11 7.239 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#11 7.281 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#11 7.320 Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+#11 7.360 Downloading pydantic-2.14.3-py3-none-any.whl (494 kB)
+#11 7.425 Downloading pydantic_core-2.50.4-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+#11 7.503    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 31.6 MB/s  0:00:00
+#11 7.542 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+#11 7.578 Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+#11 7.620 Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+#11 7.662 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#11 7.705 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#11 7.746 Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+#11 7.789 Building wheels for collected packages: aws-resilient-delivery-platform
+#11 7.792   Building wheel for aws-resilient-delivery-platform (pyproject.toml): started
+#11 7.977   Building wheel for aws-resilient-delivery-platform (pyproject.toml): finished with status 'done'
+#11 7.978   Created wheel for aws-resilient-delivery-platform: filename=aws_resilient_delivery_platform-0.1.0-py3-none-any.whl size=9656 sha256=51b32154dd169f2751a35d161970bd2c49259c9918eb16c9b08f077274ca9645
+#11 7.978   Stored in directory: /tmp/pip-ephem-wheel-cache-hdgkdyvd/wheels/b0/1d/3c/709e3f75c4c9eee27afb4d1c24b3fe6475d1cbf47103308b7c
+#11 7.980 Successfully built aws-resilient-delivery-platform
+#11 8.043 Installing collected packages: typing-extensions, psycopg-binary, psycopg, prometheus-client, idna, h11, click, annotated-types, annotated-doc, uvicorn, typing-inspection, sqlalchemy, pydantic-core, opentelemetry-api, anyio, starlette, pydantic, fastapi, aws-resilient-delivery-platform
+#11 10.04 
+#11 10.04 Successfully installed annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.16.0 aws-resilient-delivery-platform-0.1.0 click-8.5.0 fastapi-0.162.0 h11-0.16.0 idna-3.20 opentelemetry-api-1.45.2 prometheus-client-0.26.0 psycopg-3.3.8 psycopg-binary-3.3.8 pydantic-2.14.3 pydantic-core-2.50.4 sqlalchemy-2.1.8 starlette-1.10.0 typing-extensions-4.16.0 typing-inspection-0.4.5 uvicorn-0.54.0
+#11 10.05 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#11 10.05 
+#11 10.05 [notice] A new release of pip is available: 26.2.2 -> 26.3
+#11 10.05 [notice] To update, run: pip install --upgrade pip
+#11 DONE 11.6s
+
+#12 [stage-1 2/4] COPY --from=builder /opt/python /opt/python
+#12 DONE 0.9s
+
+#13 [stage-1 3/4] COPY --from=builder /aliases/ /usr/local/bin/
+#13 DONE 0.1s
+
+#14 [stage-1 4/4] WORKDIR /srv
+#14 DONE 0.0s
+
+#15 exporting to image
+#15 exporting layers
+#15 exporting layers 1.9s done
+#15 exporting manifest sha256:87f9247cc3ad2500be6198b03dda773160ab097e2b6bc73b39a2797583b71b2d 0.0s done
+#15 exporting config sha256:402f513601351af94240a7b76596c6a1a20706bca25015dc366e7780f80114c3 0.0s done
+#15 exporting attestation manifest sha256:5cf1a8ad45920308a8bcdeaa61e79118c7ded6937f236d02b0cfd4db2915f4b6 0.0s done
+#15 exporting manifest list sha256:668e38dd00e0dcf5e33954690a36c354179085ab75df26a7dc5d7e4058030bf4 0.0s done
+#15 naming to docker.io/library/rdp-eval:task20-distroless done
+#15 unpacking to docker.io/library/rdp-eval:task20-distroless
+#15 unpacking to docker.io/library/rdp-eval:task20-distroless 0.7s done
+#15 DONE 2.8s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/zkr0u92p4334567gfy3tlfpf6

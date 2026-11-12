@@ -1,0 +1,177 @@
+{
+  "date": "2026-11-06",
+  "git_source_dirty": true,
+  "status": "GO for review; NO-GO for publishing until reviewed commit and release rebuild",
+  "changed_application_infrastructure_inputs": [
+    "app\\Dockerfile"
+  ],
+  "matches_task20_dockerfile": true,
+  "package_inventory_matches_task20": true,
+  "results": {
+    "production": {
+      "image": "rdp-review:task21-alpine",
+      "build_exit": 0,
+      "runtime": {
+        "database_disabled": {
+          "/health": 200,
+          "/ready": 200,
+          "/version": 200,
+          "/metrics": 200
+        },
+        "database_disabled_shutdown": {
+          "exit_code": 0,
+          "oom": false,
+          "graceful_log": true
+        },
+        "database_unreachable": {
+          "/health": 200,
+          "/ready": 503,
+          "/version": 200,
+          "/metrics": 200
+        },
+        "database_unreachable_shutdown": {
+          "exit_code": 0,
+          "oom": false,
+          "graceful_log": true
+        }
+      },
+      "environment": {
+        "python": "3.12.16 (main, Nov  5 2026, 19:26:55) [GCC 15.2.0]",
+        "soabi": "cpython-312-x86_64-linux-musl",
+        "uid": 10001,
+        "packages": {
+          "click": "8.5.0",
+          "h11": "0.16.0",
+          "prometheus_client": "0.26.0",
+          "typing-inspection": "0.4.5",
+          "annotated-doc": "0.0.5",
+          "aws-resilient-delivery-platform": "0.1.0",
+          "psycopg": "3.3.8",
+          "idna": "3.20",
+          "typing_extensions": "4.16.0",
+          "fastapi": "0.162.0",
+          "annotated-types": "0.8.0",
+          "pydantic_core": "2.50.4",
+          "opentelemetry-api": "1.45.2",
+          "psycopg-binary": "3.3.8",
+          "starlette": "1.10.0",
+          "anyio": "4.16.0",
+          "pydantic": "2.14.3",
+          "SQLAlchemy": "2.1.8",
+          "uvicorn": "0.54.0"
+        }
+      },
+      "integration_exit": 0,
+      "database_recovery": {
+        "ready_sequence": [
+          200,
+          503,
+          200
+        ],
+        "health_during_outage": 200,
+        "app_not_restarted": true
+      }
+    }
+  },
+  "image": {
+    "Id": "sha256:978db5dde97e810d736347d406298c920d8020d23e001a729c943015710b7631",
+    "Size": 166187894,
+    "Architecture": "amd64",
+    "Os": "linux"
+  },
+  "platform_digests": [
+    "sha256:b6321bf889d7598f9077eea4b300202d95dadd7713f5d20395ff5b781bf04ffa"
+  ],
+  "scan": {
+    "production": {
+      "scan_exit": 0,
+      "counts": {},
+      "fixable_entries": 0,
+      "packages": {
+        "os-pkgs": 38,
+        "lang-pkgs": 19
+      }
+    }
+  },
+  "unit": "16 passed inside production image",
+  "ruff": "passed",
+  "tls_and_wheels": {
+    "https_status": 200,
+    "hostname_verification": true,
+    "certificate_verification": "CERT_REQUIRED",
+    "ca_count": 118,
+    "pip_absent": true,
+    "wheel_tags": {
+      "click": [
+        "Tag: py3-none-any"
+      ],
+      "h11": [
+        "Tag: py3-none-any"
+      ],
+      "prometheus_client": [
+        "Tag: py3-none-any"
+      ],
+      "typing-inspection": [
+        "Tag: py3-none-any"
+      ],
+      "annotated-doc": [
+        "Tag: py3-none-any"
+      ],
+      "aws-resilient-delivery-platform": [
+        "Tag: py3-none-any"
+      ],
+      "psycopg": [
+        "Tag: py3-none-any"
+      ],
+      "idna": [
+        "Tag: py3-none-any"
+      ],
+      "typing_extensions": [
+        "Tag: py3-none-any"
+      ],
+      "fastapi": [
+        "Tag: py3-none-any"
+      ],
+      "annotated-types": [
+        "Tag: py3-none-any"
+      ],
+      "pydantic_core": [
+        "Tag: cp312-cp312-musllinux_1_1_x86_64"
+      ],
+      "opentelemetry-api": [
+        "Tag: py3-none-any"
+      ],
+      "psycopg-binary": [
+        "Tag: cp312-cp312-musllinux_1_2_x86_64"
+      ],
+      "starlette": [
+        "Tag: py3-none-any"
+      ],
+      "anyio": [
+        "Tag: py3-none-any"
+      ],
+      "pydantic": [
+        "Tag: py3-none-any"
+      ],
+      "SQLAlchemy": [
+        "Tag: cp312-cp312-musllinux_1_2_x86_64"
+      ],
+      "uvicorn": [
+        "Tag: py3-none-any"
+      ]
+    }
+  },
+  "secrets": {
+    "scanner": "Trivy fs --scanners secret",
+    "files": 147,
+    "findings": [],
+    "final_scan_exit": 0
+  },
+  "source_hashes": {
+    "app/Dockerfile": "d0cb49b9e6a097f249b54f531ec9828ce22b9c8ea4be31594b658cfb6d6e99fc",
+    "app/main.py": "fed62dcc797901402248da5b656bf70baff6ef1564331093a1d19e0883384618",
+    "pyproject.toml": "be0ce7810ab574007b6d33293ed6b3f2341b57a8e8890300c561e7eeab7d0450",
+    "compose.yaml": "4ac92bd63a2bbabb8a15fa43ec4c74a740184a0219dd5f092f85c8699266d304",
+    ".dockerignore": "14c71f28cec62a4a281cd8a782043a5f60334c2f71913a6922a302a761cfbd54"
+  }
+}

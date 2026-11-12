@@ -1,0 +1,161 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from alpine.Dockerfile
+#1 transferring dockerfile: 697B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python@sha256:e064671ca452259bab50e8e2c7bd896e39e9a343bb06ca25234adf6fe18d0fc7
+#2 ...
+
+#3 [auth] library/python:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python@sha256:e064671ca452259bab50e8e2c7bd896e39e9a343bb06ca25234adf6fe18d0fc7
+#2 DONE 1.8s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 183B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 367B done
+#5 DONE 0.0s
+
+#6 [builder 1/5] FROM docker.io/library/python@sha256:e064671ca452259bab50e8e2c7bd896e39e9a343bb06ca25234adf6fe18d0fc7
+#6 resolve docker.io/library/python@sha256:e064671ca452259bab50e8e2c7bd896e39e9a343bb06ca25234adf6fe18d0fc7 0.0s done
+#6 DONE 0.1s
+
+#6 [builder 1/5] FROM docker.io/library/python@sha256:e064671ca452259bab50e8e2c7bd896e39e9a343bb06ca25234adf6fe18d0fc7
+#6 extracting sha256:881fc932939efef04ca120ad44bbd2c0917851eb247aa4995428afb1e80ede17 0.1s done
+#6 DONE 0.3s
+
+#6 [builder 1/5] FROM docker.io/library/python@sha256:e064671ca452259bab50e8e2c7bd896e39e9a343bb06ca25234adf6fe18d0fc7
+#6 extracting sha256:aa121b1b1cdb977b7ae6ba67331cfbf474c3d8060e5d90c833a9abdf86370a60
+#6 extracting sha256:aa121b1b1cdb977b7ae6ba67331cfbf474c3d8060e5d90c833a9abdf86370a60 0.2s done
+#6 extracting sha256:113b91713f05dfc8999a7dd895088c7afb068e656eb1c802fab15c92d3e5c4e1
+#6 extracting sha256:113b91713f05dfc8999a7dd895088c7afb068e656eb1c802fab15c92d3e5c4e1 0.6s done
+#6 extracting sha256:cc36311dc778ba4d60f5286dc5de96f657c8f9ac4a0bd62ce0f9606aae0d4418
+#6 extracting sha256:cc36311dc778ba4d60f5286dc5de96f657c8f9ac4a0bd62ce0f9606aae0d4418 0.0s done
+#6 DONE 1.0s
+
+#7 [builder 2/5] WORKDIR /build
+#7 DONE 0.1s
+
+#8 [stage-1 2/4] RUN apk upgrade --no-cache && python -m pip uninstall -y pip
+#8 ...
+
+#9 [builder 3/5] COPY pyproject.toml README.md ./
+#9 DONE 0.1s
+
+#10 [builder 4/5] COPY app/ ./app/
+#10 DONE 0.0s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python .
+#11 2.199 Processing /build
+#11 2.204   Installing build dependencies: started
+#11 ...
+
+#8 [stage-1 2/4] RUN apk upgrade --no-cache && python -m pip uninstall -y pip
+#8 0.877 OK: 13.5 MiB in 38 packages
+#8 2.655 Found existing installation: pip 25.0.1
+#8 2.703 Uninstalling pip-25.0.1:
+#8 2.937   Successfully uninstalled pip-25.0.1
+#8 2.961 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#8 DONE 3.1s
+
+#11 [builder 5/5] RUN python -m pip install --no-cache-dir --target=/opt/python .
+#11 3.917   Installing build dependencies: finished with status 'done'
+#11 3.919   Getting requirements to build wheel: started
+#11 4.173   Getting requirements to build wheel: finished with status 'done'
+#11 4.176   Preparing metadata (pyproject.toml): started
+#11 4.396   Preparing metadata (pyproject.toml): finished with status 'done'
+#11 4.652 Collecting fastapi<1,>=0.115 (from aws-resilient-delivery-platform==0.1.0)
+#11 4.794   Downloading fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+#11 4.878 Collecting uvicorn<1,>=0.30 (from aws-resilient-delivery-platform==0.1.0)
+#11 4.920   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+#11 4.978 Collecting prometheus-client<1,>=0.21 (from aws-resilient-delivery-platform==0.1.0)
+#11 5.019   Downloading prometheus_client-0.26.0-py3-none-any.whl.metadata (2.1 kB)
+#11 5.076 Collecting psycopg<4,>=3.2 (from psycopg[binary]<4,>=3.2->aws-resilient-delivery-platform==0.1.0)
+#11 5.120   Downloading psycopg-3.3.8-py3-none-any.whl.metadata (4.4 kB)
+#11 5.509 Collecting sqlalchemy<3,>=2.0 (from aws-resilient-delivery-platform==0.1.0)
+#11 5.553   Downloading sqlalchemy-2.1.8-cp312-cp312-musllinux_1_2_x86_64.whl.metadata (9.7 kB)
+#11 5.623 Collecting starlette>=0.46.0 (from fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 5.664   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+#11 5.787 Collecting pydantic>=2.9.0 (from fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 5.827   Downloading pydantic-2.14.3-py3-none-any.whl.metadata (141 kB)
+#11 5.980 Collecting typing-extensions>=4.8.0 (from fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 6.020   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#11 6.068 Collecting typing-inspection>=0.4.2 (from fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 6.108   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+#11 6.155 Collecting annotated-doc>=0.0.2 (from fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 6.196   Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+#11 6.255 Collecting opentelemetry-api>=1.44.0 (from fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 6.296   Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+#11 6.456 Collecting psycopg-binary==3.3.8 (from psycopg[binary]<4,>=3.2->aws-resilient-delivery-platform==0.1.0)
+#11 6.501   Downloading psycopg_binary-3.3.8-cp312-cp312-musllinux_1_2_x86_64.whl.metadata (2.7 kB)
+#11 6.556 Collecting click>=7.0 (from uvicorn<1,>=0.30->aws-resilient-delivery-platform==0.1.0)
+#11 6.598   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+#11 6.645 Collecting h11>=0.8 (from uvicorn<1,>=0.30->aws-resilient-delivery-platform==0.1.0)
+#11 6.685   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#11 6.737 Collecting annotated-types>=0.6.0 (from pydantic>=2.9.0->fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 6.779   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+#11 7.417 Collecting pydantic-core==2.50.4 (from pydantic>=2.9.0->fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 7.459   Downloading pydantic_core-2.50.4-cp312-cp312-musllinux_1_1_x86_64.whl.metadata (6.6 kB)
+#11 7.520 Collecting anyio<5,>=4.0.0 (from starlette>=0.46.0->fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 7.561   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+#11 7.625 Collecting idna>=2.8 (from anyio<5,>=4.0.0->starlette>=0.46.0->fastapi<1,>=0.115->aws-resilient-delivery-platform==0.1.0)
+#11 7.666   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#11 7.714 Downloading fastapi-0.162.0-py3-none-any.whl (148 kB)
+#11 7.803 Downloading prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+#11 7.848 Downloading psycopg-3.3.8-py3-none-any.whl (216 kB)
+#11 7.903 Downloading psycopg_binary-3.3.8-cp312-cp312-musllinux_1_2_x86_64.whl (4.3 MB)
+#11 8.135    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/4.3 MB 19.2 MB/s eta 0:00:00
+#11 8.177 Downloading sqlalchemy-2.1.8-cp312-cp312-musllinux_1_2_x86_64.whl (4.7 MB)
+#11 8.422    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 19.3 MB/s eta 0:00:00
+#11 8.461 Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+#11 8.505 Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+#11 8.546 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#11 8.590 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#11 8.633 Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+#11 8.678 Downloading pydantic-2.14.3-py3-none-any.whl (494 kB)
+#11 8.754 Downloading pydantic_core-2.50.4-cp312-cp312-musllinux_1_1_x86_64.whl (2.5 MB)
+#11 8.859    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.5/2.5 MB 27.1 MB/s eta 0:00:00
+#11 8.898 Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+#11 8.942 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#11 8.986 Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+#11 9.027 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+#11 9.066 Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+#11 9.116 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#11 9.155 Building wheels for collected packages: aws-resilient-delivery-platform
+#11 9.159   Building wheel for aws-resilient-delivery-platform (pyproject.toml): started
+#11 9.385   Building wheel for aws-resilient-delivery-platform (pyproject.toml): finished with status 'done'
+#11 9.385   Created wheel for aws-resilient-delivery-platform: filename=aws_resilient_delivery_platform-0.1.0-py3-none-any.whl size=9656 sha256=78797be315744b8afd2bfae07ae98b47a099dfa28c2c8db2526bdec2e14bd41c
+#11 9.386   Stored in directory: /tmp/pip-ephem-wheel-cache-uafkoksq/wheels/7f/5c/67/61a4ca28ccbc7df61f55a044560f100aa81c66ef20585de495
+#11 9.388 Successfully built aws-resilient-delivery-platform
+#11 9.428 Installing collected packages: typing-extensions, psycopg-binary, prometheus-client, idna, h11, click, annotated-types, annotated-doc, uvicorn, typing-inspection, sqlalchemy, pydantic-core, psycopg, opentelemetry-api, anyio, starlette, pydantic, fastapi, aws-resilient-delivery-platform
+#11 12.49 Successfully installed annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.16.0 aws-resilient-delivery-platform-0.1.0 click-8.5.0 fastapi-0.162.0 h11-0.16.0 idna-3.20 opentelemetry-api-1.45.2 prometheus-client-0.26.0 psycopg-3.3.8 psycopg-binary-3.3.8 pydantic-2.14.3 pydantic-core-2.50.4 sqlalchemy-2.1.8 starlette-1.10.0 typing-extensions-4.16.0 typing-inspection-0.4.5 uvicorn-0.54.0
+#11 12.49 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#11 12.62 
+#11 12.62 [notice] A new release of pip is available: 25.0.1 -> 26.3
+#11 12.62 [notice] To update, run: pip install --upgrade pip
+#11 DONE 12.9s
+
+#12 [stage-1 3/4] COPY --from=builder /opt/python /opt/python
+#12 DONE 0.4s
+
+#13 [stage-1 4/4] WORKDIR /srv
+#13 DONE 0.0s
+
+#14 exporting to image
+#14 exporting layers
+#14 exporting layers 2.1s done
+#14 exporting manifest sha256:9581e784e87f97116432981e0ee08ecb295602f140d0fd066b59abcf2abda8ed 0.0s done
+#14 exporting config sha256:e208f9489dc10ee10a2e8a02e117b682d55a02146b46e12362e020f6758d0446 0.0s done
+#14 exporting attestation manifest sha256:7122d757dd55df49232fdaf373f0c4dd3a9c7afbb07e9ecd6fafd21ea59d4874 0.0s done
+#14 exporting manifest list sha256:bdaa2a18046aeb821d8b6aba592ad180d64df51a7519876fdf6ab9c3e8e722a3 0.0s done
+#14 naming to docker.io/library/rdp-eval:task20-alpine done
+#14 unpacking to docker.io/library/rdp-eval:task20-alpine
+#14 unpacking to docker.io/library/rdp-eval:task20-alpine 0.8s done
+#14 DONE 2.9s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/xs6znbdcs35853k3xy7v8go17
