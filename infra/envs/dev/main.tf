@@ -81,12 +81,12 @@ module "ecs_service" {
   task_role_arn      = module.iam.task_role_arn
   log_group_name     = module.observability.log_group_name
   repository_url     = data.aws_ecr_repository.app.repository_url
-  container_image    = var.container_image
+  container_image    = var.image_digest != null ? "${data.aws_ecr_repository.app.repository_url}@${var.image_digest}" : var.container_image
   desired_count      = var.desired_count
   app_version        = var.app_version
   git_sha            = var.git_sha
   ssm_parameters     = var.ssm_parameters
   tags               = local.tags
-  # Wait for routes/NAT as well as subnet creation before starting any tasks.
-  depends_on = [module.network]
+  # The listener must associate the target group with the ALB before service creation.
+  depends_on = [module.network, module.alb]
 }

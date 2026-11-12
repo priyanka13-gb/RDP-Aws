@@ -11,6 +11,8 @@ build/
 dist/
 
 # Local configuration and secrets
+.aws/
+credentials.csv
 .secrets/
 .env
 .env.*

@@ -53,6 +53,17 @@ variable "environment" {
 variable "container_image" {
   description = "Required existing ECR image URI with immutable release tag or digest; never latest."
   type        = string
+  default     = null
+}
+
+variable "image_digest" {
+  description = "Optional immutable child-image digest; resolves against the separately managed ECR repository and takes precedence over container_image."
+  type        = string
+  default     = null
+  validation {
+    condition     = var.image_digest == null || can(regex("^sha256:[a-f0-9]{64}$", var.image_digest))
+    error_message = "Use a full sha256 image digest."
+  }
 }
 
 variable "desired_count" {

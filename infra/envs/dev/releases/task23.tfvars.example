@@ -1,0 +1,12 @@
+# Reviewed demonstration release. Contains no account identifier or credentials.
+aws_region       = "ap-southeast-2"
+environment      = "dev"
+network_mode     = "cost_saver"
+nat_gateway_mode = "none"
+desired_count    = 1
+enable_rds       = false
+image_digest     = "sha256:e86be3d8597649995145a5e1633bfc4ccf19b8ca1185127ea6720d72d2bf0be1"
+app_version      = "git-9b18a3109aa2"
+git_sha          = "9b18a3109aa2fd1d3bc6a2dc0ffb0fc17ec27823"
+# Public HTTP demo only. Narrow to a trusted /32 before deployment if possible.
+alb_ingress_cidrs = ["0.0.0.0/0"]
