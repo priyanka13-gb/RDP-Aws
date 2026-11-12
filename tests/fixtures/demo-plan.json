@@ -1,0 +1,590 @@
+{
+  "resource_changes": [
+    {
+      "address": "module.alb.aws_lb.this",
+      "mode": "managed",
+      "type": "aws_lb",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.alb.aws_lb_listener.http",
+      "mode": "managed",
+      "type": "aws_lb_listener",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.alb.aws_lb_target_group.app",
+      "mode": "managed",
+      "type": "aws_lb_target_group",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "deregistration_delay": "30",
+          "health_check": [
+            {
+              "enabled": true,
+              "healthy_threshold": 2,
+              "interval": 30,
+              "matcher": "200",
+              "path": "/ready",
+              "port": "traffic-port",
+              "protocol": "HTTP",
+              "timeout": 5,
+              "unhealthy_threshold": 3
+            }
+          ],
+          "lambda_multi_value_headers_enabled": false,
+          "name": "aws-resilient-delive-tg-e7f26cb8",
+          "port": 8000,
+          "protocol": "HTTP",
+          "proxy_protocol_v2": false,
+          "region": "ap-southeast-2",
+          "slow_start": 0,
+          "tags": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "tags_all": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "target_control_port": null,
+          "target_type": "ip"
+        }
+      }
+    },
+    {
+      "address": "module.ecs_service.aws_ecs_cluster.this",
+      "mode": "managed",
+      "type": "aws_ecs_cluster",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.ecs_service.aws_ecs_service.app",
+      "mode": "managed",
+      "type": "aws_ecs_service",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "alarms": [],
+          "capacity_provider_strategy": [],
+          "deployment_circuit_breaker": [
+            {
+              "enable": true,
+              "rollback": true
+            }
+          ],
+          "deployment_controller": [],
+          "deployment_maximum_percent": 200,
+          "deployment_minimum_healthy_percent": 100,
+          "desired_count": 1,
+          "enable_ecs_managed_tags": true,
+          "enable_execute_command": false,
+          "force_delete": null,
+          "force_new_deployment": null,
+          "health_check_grace_period_seconds": 60,
+          "launch_type": "FARGATE",
+          "load_balancer": [
+            {
+              "advanced_configuration": [],
+              "container_name": "app",
+              "container_port": 8000,
+              "elb_name": ""
+            }
+          ],
+          "name": "aws-resilient-delivery-platform-dev",
+          "network_configuration": [
+            {
+              "assign_public_ip": true
+            }
+          ],
+          "ordered_placement_strategy": [],
+          "placement_constraints": [],
+          "platform_version": "1.4.0",
+          "propagate_tags": "SERVICE",
+          "region": "ap-southeast-2",
+          "scheduling_strategy": "REPLICA",
+          "service_connect_configuration": [],
+          "service_registries": [],
+          "sigint_rollback": null,
+          "tags": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "tags_all": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "timeouts": null,
+          "volume_configuration": [],
+          "vpc_lattice_configurations": [],
+          "wait_for_steady_state": true
+        }
+      }
+    },
+    {
+      "address": "module.ecs_service.aws_ecs_task_definition.app",
+      "mode": "managed",
+      "type": "aws_ecs_task_definition",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "container_definitions": "[{\"environment\":[{\"name\":\"APP_ENV\",\"value\":\"dev\"},{\"name\":\"APP_VERSION\",\"value\":\"git-9b18a3109aa2\"},{\"name\":\"DATABASE_PASSWORD_FILE\",\"value\":\"\"},{\"name\":\"DATABASE_URL\",\"value\":\"\"},{\"name\":\"GIT_SHA\",\"value\":\"9b18a3109aa2fd1d3bc6a2dc0ffb0fc17ec27823\"},{\"name\":\"LOG_LEVEL\",\"value\":\"INFO\"}],\"essential\":true,\"healthCheck\":{\"command\":[\"CMD\",\"python\",\"-c\",\"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).close()\"],\"interval\":30,\"retries\":3,\"startPeriod\":30,\"timeout\":5},\"image\":\"123456789012.dkr.ecr.ap-southeast-2.amazonaws.com/aws-resilient-delivery-platform-dev@sha256:e86be3d8597649995145a5e1633bfc4ccf19b8ca1185127ea6720d72d2bf0be1\",\"logConfiguration\":{\"logDriver\":\"awslogs\",\"options\":{\"awslogs-group\":\"/ecs/aws-resilient-delivery-platform-dev\",\"awslogs-region\":\"ap-southeast-2\",\"awslogs-stream-prefix\":\"app\"}},\"name\":\"app\",\"portMappings\":[{\"containerPort\":8000,\"hostPort\":8000,\"protocol\":\"tcp\"}],\"secrets\":[],\"user\":\"10001:10001\"}]",
+          "cpu": "256",
+          "ephemeral_storage": [],
+          "family": "aws-resilient-delivery-platform-dev",
+          "ipc_mode": null,
+          "memory": "512",
+          "network_mode": "awsvpc",
+          "pid_mode": null,
+          "placement_constraints": [],
+          "proxy_configuration": [],
+          "region": "ap-southeast-2",
+          "requires_compatibilities": [
+            "FARGATE"
+          ],
+          "runtime_platform": [
+            {
+              "cpu_architecture": "X86_64",
+              "operating_system_family": "LINUX"
+            }
+          ],
+          "skip_destroy": false,
+          "tags": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "tags_all": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "track_latest": false,
+          "volume": []
+        }
+      }
+    },
+    {
+      "address": "module.iam.aws_iam_role.execution",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.iam.aws_iam_role.task",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.iam.aws_iam_role_policy.execution",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_default_security_group.this",
+      "mode": "managed",
+      "type": "aws_default_security_group",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_internet_gateway.this",
+      "mode": "managed",
+      "type": "aws_internet_gateway",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_route.public_internet",
+      "mode": "managed",
+      "type": "aws_route",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_route_table.private[\"ap-southeast-2a\"]",
+      "mode": "managed",
+      "type": "aws_route_table",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_route_table.private[\"ap-southeast-2b\"]",
+      "mode": "managed",
+      "type": "aws_route_table",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_route_table.public",
+      "mode": "managed",
+      "type": "aws_route_table",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_route_table_association.private[\"ap-southeast-2a\"]",
+      "mode": "managed",
+      "type": "aws_route_table_association",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_route_table_association.private[\"ap-southeast-2b\"]",
+      "mode": "managed",
+      "type": "aws_route_table_association",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_route_table_association.public[\"ap-southeast-2a\"]",
+      "mode": "managed",
+      "type": "aws_route_table_association",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_route_table_association.public[\"ap-southeast-2b\"]",
+      "mode": "managed",
+      "type": "aws_route_table_association",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_security_group.alb",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_security_group.ecs",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_security_group.postgresql",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_subnet.private[\"ap-southeast-2a\"]",
+      "mode": "managed",
+      "type": "aws_subnet",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_subnet.private[\"ap-southeast-2b\"]",
+      "mode": "managed",
+      "type": "aws_subnet",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_subnet.public[\"ap-southeast-2a\"]",
+      "mode": "managed",
+      "type": "aws_subnet",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_subnet.public[\"ap-southeast-2b\"]",
+      "mode": "managed",
+      "type": "aws_subnet",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_vpc.this",
+      "mode": "managed",
+      "type": "aws_vpc",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_vpc_security_group_egress_rule.alb_to_ecs",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_egress_rule",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_vpc_security_group_egress_rule.ecs_https",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_egress_rule",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_vpc_security_group_egress_rule.ecs_to_postgresql",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_egress_rule",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {}
+      }
+    },
+    {
+      "address": "module.network.aws_vpc_security_group_ingress_rule.alb_https[\"0.0.0.0/0\"]",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "cidr_ipv4": "0.0.0.0/0",
+          "cidr_ipv6": null,
+          "description": "ALB clients on port 80",
+          "from_port": 80,
+          "ip_protocol": "tcp",
+          "prefix_list_id": null,
+          "referenced_security_group_id": null,
+          "region": "ap-southeast-2",
+          "tags": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "tags_all": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "to_port": 80
+        }
+      }
+    },
+    {
+      "address": "module.network.aws_vpc_security_group_ingress_rule.ecs_from_alb",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "cidr_ipv4": null,
+          "cidr_ipv6": null,
+          "description": "FastAPI only from the ALB",
+          "from_port": 8000,
+          "ip_protocol": "tcp",
+          "prefix_list_id": null,
+          "region": "ap-southeast-2",
+          "tags": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "tags_all": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "to_port": 8000
+        }
+      }
+    },
+    {
+      "address": "module.network.aws_vpc_security_group_ingress_rule.postgresql_from_ecs",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "cidr_ipv4": null,
+          "cidr_ipv6": null,
+          "description": "PostgreSQL only from ECS",
+          "from_port": 5432,
+          "ip_protocol": "tcp",
+          "prefix_list_id": null,
+          "region": "ap-southeast-2",
+          "tags": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "tags_all": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "to_port": 5432
+        }
+      }
+    },
+    {
+      "address": "module.observability.aws_cloudwatch_log_group.app",
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "kms_key_id": null,
+          "name": "/ecs/aws-resilient-delivery-platform-dev",
+          "region": "ap-southeast-2",
+          "retention_in_days": 7,
+          "skip_destroy": false,
+          "tags": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          },
+          "tags_all": {
+            "Environment": "dev",
+            "ManagedBy": "Terraform",
+            "NetworkMode": "cost_saver",
+            "Project": "aws-resilient-delivery-platform"
+          }
+        }
+      }
+    }
+  ]
+}

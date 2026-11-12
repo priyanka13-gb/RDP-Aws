@@ -1,0 +1,14 @@
+{
+  "running_or_pending_tasks": 0,
+  "load_balancers": 0,
+  "ecs_clusters": 0,
+  "ecs_services": 0,
+  "vpcs": 0,
+  "enis": 0,
+  "state_resources": 0,
+  "tagged_elastic_ips": 0,
+  "log_groups": 0,
+  "log_stored_bytes": 0,
+  "remote_state_object_exists": false,
+  "possible_recurring_charges": false
+}
