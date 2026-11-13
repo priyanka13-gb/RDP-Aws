@@ -1,0 +1,30 @@
+{
+  "actions/checkout": {
+    "version": "v7.0.1",
+    "sha": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+    "release_url": "https://github.com/actions/checkout/releases/tag/v7.0.1",
+    "release_published": "2026-07-20T15:10:05Z",
+    "action_source": "https://github.com/actions/checkout/blob/3d3c42e5aac5ba805825da76410c181273ba90b1/action.yml"
+  },
+  "actions/setup-python": {
+    "version": "v7.1.0",
+    "sha": "6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+    "release_url": "https://github.com/actions/setup-python/releases/tag/v7.1.0",
+    "release_published": "2026-10-22T02:56:04Z",
+    "action_source": "https://github.com/actions/setup-python/blob/6d4fd22b20465ccc0f7354476588e8df7c9ca0e0/action.yml"
+  },
+  "actions/upload-artifact": {
+    "version": "v7.0.2",
+    "sha": "cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+    "release_url": "https://github.com/actions/upload-artifact/releases/tag/v7.0.2",
+    "release_published": "2026-10-07T10:08:14Z",
+    "action_source": "https://github.com/actions/upload-artifact/blob/cf430e030ddbb5b0abf93d22962f4752f3646cd9/action.yml"
+  },
+  "hashicorp/setup-terraform": {
+    "version": "v4.0.1",
+    "sha": "dfe3c3f87815947d99a8997f908cb6525fc44e9e",
+    "release_url": "https://github.com/hashicorp/setup-terraform/releases/tag/v4.0.1",
+    "release_published": "2026-05-12T12:23:15Z",
+    "action_source": "https://github.com/hashicorp/setup-terraform/blob/dfe3c3f87815947d99a8997f908cb6525fc44e9e/action.yml"
+  }
+}

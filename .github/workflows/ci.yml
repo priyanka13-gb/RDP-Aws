@@ -1,0 +1,159 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: '1'
+  PYTHONDONTWRITEBYTECODE: '1'
+  AWS_EC2_METADATA_DISABLED: 'true'
+
+jobs:
+  python:
+    name: Ruff and Python 3.12 unit tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - run: python -m pip install '.[dev]'
+      - run: python -m ruff check .
+      - name: Unit tests (no AWS or database)
+        run: python -m pytest -m 'not integration' --junitxml=.tools/ci/raw/unit.xml
+      - name: Sanitize test report
+        if: always()
+        run: python scripts/ci_reports.py tests .tools/ci/raw/unit.xml .tools/ci/reports/unit.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: unit-summary
+          path: .tools/ci/reports/unit.json
+          retention-days: 7
+          include-hidden-files: true
+          if-no-files-found: error
+
+  postgres:
+    name: PostgreSQL 16 integration
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16@sha256:63e83b5a3dc36a917dccb76fe1bd2ac51f1ec9c1deb47ff20d4f04233bf6eae9
+        env:
+          POSTGRES_DB: resilient_db
+          POSTGRES_USER: resilient_user
+          # Disposable CI-only credential; never used by local/AWS environments.
+          POSTGRES_PASSWORD: ci-${{ github.run_id }}-${{ github.run_attempt }}
+        ports:
+          - 127.0.0.1:5432:5432
+        options: >-
+          --health-cmd "pg_isready -U resilient_user -d resilient_db"
+          --health-interval 5s --health-timeout 3s --health-retries 15
+    env:
+      RUN_POSTGRES_INTEGRATION: '1'
+      DATABASE_URL: postgresql://resilient_user:ci-${{ github.run_id }}-${{ github.run_attempt }}@127.0.0.1:5432/resilient_db
+      DATABASE_PASSWORD_FILE: ''
+      DATABASE_TIMEOUT_SECONDS: '3'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - run: python -m pip install '.[dev]'
+      - name: Test actual service connectivity and app readiness
+        run: python -m pytest tests/test_postgres_integration.py --junitxml=.tools/ci/raw/postgres.xml
+      - name: Sanitize test report
+        if: always()
+        run: python scripts/ci_reports.py tests .tools/ci/raw/postgres.xml .tools/ci/reports/postgres.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: postgres-summary
+          path: .tools/ci/reports/postgres.json
+          retention-days: 7
+          include-hidden-files: true
+          if-no-files-found: error
+
+  terraform:
+    name: Terraform validate and mock plans (no AWS)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
+        with:
+          terraform_version: '1.17.1'
+          terraform_wrapper: false
+      - run: terraform fmt -check -recursive
+      - name: Isolated backend-disabled init, validate and mock tests
+        run: python scripts/ci_terraform.py
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: terraform-summary
+          path: .tools/ci/reports/terraform.json
+          retention-days: 7
+          include-hidden-files: true
+          if-no-files-found: error
+
+  image:
+    name: AMD64 Docker build and vulnerability gate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Build locally; never push
+        run: |
+          mkdir -p .tools/ci/raw
+          docker build --platform linux/amd64 -f app/Dockerfile -t "rdp-ci:$GITHUB_SHA" .
+          test "$(docker image inspect "rdp-ci:$GITHUB_SHA" --format '{{.Os}}/{{.Architecture}} {{.Config.User}}')" = 'linux/amd64 10001:10001'
+          docker save -o .tools/ci/raw/image.tar "rdp-ci:$GITHUB_SHA"
+      - name: Collect all Trivy findings (including unfixed)
+        run: |
+          docker run --rm -v "$PWD/.tools/ci:/work" \
+            aquasec/trivy@sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb \
+            image --input /work/raw/image.tar --scanners vuln --list-all-pkgs \
+            --format json --output /work/raw/trivy.json --exit-code 0
+      - name: Sanitize full findings and fail on any HIGH or CRITICAL
+        run: python scripts/ci_reports.py scan .tools/ci/raw/trivy.json .tools/ci/reports/trivy.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: vulnerability-summary
+          path: .tools/ci/reports/trivy.json
+          retention-days: 7
+          include-hidden-files: true
+          if-no-files-found: error

@@ -298,3 +298,11 @@ Review and commit source before preparation/deployment. No deployment is authori
 by installing these scripts. See [the interview demo guide](docs/interview-demo-guide.md)
 for costs, execution-policy alternatives, safety checks, budget guidance, failure
 recovery, and five/fifteen-minute interview sequences.
+
+
+## Continuous integration
+
+Pull requests and main pushes run credential-free Python/Ruff tests, PostgreSQL16
+service integration tests, isolated Terraform validation/mock tests, and an AMD64
+Docker build with a HIGH/CRITICAL vulnerability gate. No AWS deployment occurs.
+See [CI design, security policy and publishing commands](docs/github-actions-ci.md).
