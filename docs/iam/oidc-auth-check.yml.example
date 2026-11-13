@@ -1,0 +1,52 @@
+# Review-only template. NOT an active workflow; copy/publish only after approval.
+# Intended destination: .github/workflows/oidc-auth-check.yml
+name: Manual OIDC authentication check
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  authenticate:
+    if: github.repository == 'priyanka13-gb/RDP-Aws' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    environment: ecr-release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: ${{ secrets.ECR_RELEASE_ROLE_ARN }}
+          allowed-account-ids: ${{ secrets.ECR_RELEASE_ACCOUNT_ID }}
+          aws-region: ap-southeast-2
+          audience: sts.amazonaws.com
+          role-duration-seconds: 900
+          unset-current-credentials: true
+          use-existing-credentials: false
+          mask-aws-account-id: true
+          retry-max-attempts: 3
+          # Session intersection permits only a repository read, never image writes.
+          inline-session-policy: >-
+            {"Version":"2012-10-17","Statement":[{"Effect":"Allow","Action":"ecr:DescribeRepositories","Resource":"arn:aws:ecr:ap-southeast-2:${{ secrets.ECR_RELEASE_ACCOUNT_ID }}:repository/aws-resilient-delivery-platform-dev"}]}
+      - name: Validate identity privately and read existing ECR metadata
+        env:
+          EXPECTED_ACCOUNT: ${{ secrets.ECR_RELEASE_ACCOUNT_ID }}
+          AWS_REGION: ap-southeast-2
+          AWS_PAGER: ''
+        run: |
+          python - <<'PY'
+          import json, os, subprocess
+          def read(*args):
+              p = subprocess.run(['aws', *args, '--output', 'json'], capture_output=True, text=True)
+              if p.returncode:
+                  raise SystemExit('Read-only OIDC check failed; raw details withheld')
+              return json.loads(p.stdout)
+          identity = read('sts', 'get-caller-identity')
+          assert identity['Account'] == os.environ['EXPECTED_ACCOUNT']
+          assert ':assumed-role/rdp-github-ecr-release/' in identity['Arn']
+          repo = read('ecr', 'describe-repositories', '--region', 'ap-southeast-2',
+                      '--repository-names', 'aws-resilient-delivery-platform-dev')['repositories'][0]
+          assert repo['imageTagMutability'] == 'IMMUTABLE'
+          print('OIDC identity and read-only ECR check passed; no image published')
+          PY

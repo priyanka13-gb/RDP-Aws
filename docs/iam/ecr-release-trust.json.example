@@ -10,7 +10,7 @@
       "Condition": {
         "StringEquals": {
           "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-          "token.actions.githubusercontent.com:sub": "<CONFIRMED_EXACT_GITHUB_ENVIRONMENT_SUBJECT>"
+          "token.actions.githubusercontent.com:sub": "repo:priyanka13-gb@98728444/RDP-Aws@1444281868:environment:ecr-release"
         }
       }
     }

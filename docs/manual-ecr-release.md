@@ -1,5 +1,9 @@
 # Manual ECR release - review only, publishing disabled by default
 
+> Task34: this is the deferred GitHub OIDC design, not the active publishing path.
+> Keep publishing disabled. The supported fallback is a separately approved
+> [manual release using temporary CLI credentials](manual-ecr-temporary-credentials.md).
+
 Task29 prepares `.github/workflows/release.yml`; it has **only workflow_dispatch**.
 Task 31 reviewed this implementation for a local commit. Nothing was pushed,
 provisioned or enabled by this review. No AWS role assumption, Docker login to
