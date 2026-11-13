@@ -1,7 +1,6 @@
-# Interview demo: deploy briefly, verify, remove
+# On-demand deployment lifecycle
 
-Task34 default: present the [portfolio brief](portfolio-interview.md), local app
-and retained AWS/CI evidence without redeploying. OIDC release automation is
+Task34 default: use the local app and retained AWS/CI evidence without redeploying. OIDC release automation is
 deferred. **Live ECS rollback is unverified.** Commands below require a separately
 approved deployment and teardown window; they are not part of portfolio finalization.
 
@@ -166,7 +165,7 @@ and tasks are implicit resources even though not aws_eip plan entries.
 3. Run status; any existing billable dev infrastructure gets priority cleanup.
 4. Prepare and inspect actions/hash/cost, then explicitly deploy. Record endpoint
    and start time. Infrastructure creation itself consumes part of the demo window.
-5. Verify; present interview walkthrough. Watch CPU/memory, target health and logs.
+5. Verify; inspect application behavior. Watch CPU/memory, target health and logs.
 6. At 60-90 minutes run cleanup; export required sanitized screenshots first because
    teardown deletes the dev log group. Do not close the terminal before verification.
 7. Run status again. If cleanup fails, prioritize a new inspected cleanup plan;
@@ -195,30 +194,6 @@ allowlist/checksum guards, after explicit authorization and sandbox testing.
 Do not schedule untested Terraform destruction or store long-lived AWS keys.
 Scheduling only desired_count=0 is insufficient because ALB/IP charges continue.
 No scheduled destructive mechanism has been installed, enabled or tested here.
-
-## Interview sequences
-
-Deploy and verify before the interview timer; creation time is variable. Have
-sanitized screenshots, this repository and local Compose ready if AWS is unavailable.
-
-### Five-minute demonstration
-
-- 0:00-0:45: explain ALB -> ECS task, SG trust and cost_saver outbound connectivity.
-- 0:45-1:30: show immutable commit/tag/platform digest and zero-finding scan evidence.
-- 1:30-2:30: call health/ready/version/metrics and show one healthy ALB target.
-- 2:30-3:30: show structured CloudWatch logs and deployment circuit breaker settings.
-- 3:30-4:15: explain Terraform review/hash/typed confirmation and separate S3/ECR state.
-- 4:15-5:00: start approved cleanup or show its reviewed plan and prior cleanup
-  evidence. Finish teardown after the interview; never claim it finished until status passes.
-
-### Fifteen-minute technical walkthrough
-
-- 0-3: architecture, subnets/routes/SGs, public task IP versus public ingress, no NAT/RDS.
-- 3-5: secure multistage build, non-root, musllinux ABI, CA trust and ECR child scan.
-- 5-8: Git review, backend ownership/native locking, plan JSON/allowlist/hash and stale-plan guards.
-- 8-10: liveness/readiness, PostgreSQL local tests, image/version identity and target health.
-- 10-12: logs, metrics, rollout health/circuit breaker and first-deployment rollback limits.
-- 12-15: 1-2 hour cost arithmetic, credits/budget limitations, cleanup proof and recovery.
 
 ## Monitoring and troubleshooting
 

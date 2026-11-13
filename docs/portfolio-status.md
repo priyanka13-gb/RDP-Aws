@@ -1,7 +1,7 @@
 # Portfolio completion and account boundary
 
 Verified 14 November 2026 IST. The portfolio is complete for an evidence-based
-interview presentation. GitHub CI is operational; cloud publishing and deployment
+technical presentation. GitHub CI is operational; cloud publishing and deployment
 remain explicit human operations, not an enabled continuous-delivery pipeline.
 
 ## Verified achievements and limits
@@ -22,8 +22,7 @@ Source: [historical live audit](first-deployment-teardown-audit.md),
 [recovery record](incidents/local-failure-drill.md),
 [Task34 results](../evidence/task34/verification.json).
 Zero findings is a dated scan result, not permanent assurance. Hosted CI belongs
-to the identified commit; this local documentation commit has not been pushed or
-executed on GitHub. Application, Docker, Terraform and active workflows are unchanged.
+to the identified commit; subsequent changes require their own hosted CI run. Application, Docker, Terraform and active workflows are unchanged.
 
 ## Free-plan limitation and OIDC decision
 

@@ -85,30 +85,23 @@ It may contact only public provider/distribution registries during installation;
 mock tests do not require or use live AWS authentication. Terraform fmt is read-only.
 Raw private logs are retained locally under .tools/ci/raw when debugging.
 
-## Publish and observe - commands only
+## Review and observe CI
 
-No Git push or hosted CI run was performed during implementation. From the verified
-CI commit, publish a branch and open a pull request:
+Pull requests and pushes to main trigger CI. The four jobs are required checks on
+the protected default branch. Review the [historical successful run](https://github.com/priyanka13-gb/RDP-Aws/actions/runs/43487727943)
+and verify the run for the exact commit being reviewed. CI does not deploy AWS or
+push container images. Merge only after the repository's rules and required checks
+are satisfied. Fork PRs may require GitHub approval under repository policy.
 
 ```powershell
-git push origin HEAD:ci/github-actions
-gh pr create --base main --head ci/github-actions --title "Add credential-free CI" --body "Run Python, PostgreSQL, Terraform mock checks and an AMD64 image vulnerability gate without AWS access."
-gh run list --workflow ci.yml --branch ci/github-actions --event pull_request
-gh run watch <RUN_ID> --exit-status
-gh run view <RUN_ID> --log-failed
-gh run download <RUN_ID> --dir .tools/hosted-ci-reports
+gh run list --workflow ci.yml
+gh run watch RUN_ID --exit-status
+gh run view RUN_ID --log-failed
+gh run download RUN_ID --dir .tools/hosted-ci-reports
 ```
 
-Replace RUN_ID with the numeric run ID, without angle brackets in the shell.
-The workflow triggers from opening/updating a PR, not pushing an arbitrary branch
-alone. Merge only after all four jobs pass; main pushes run it again. Consider branch
-protection requiring these checks after the first hosted run. No repository settings
-were changed automatically. Fork PRs may require GitHub approval under repository
-policy. There is no workflow_dispatch trigger in this implementation.
+Replace `RUN_ID` with the numeric run identifier. CI runs for pull requests and
+main pushes; pushing an unrelated branch alone does not trigger this workflow.
 
-GitHub-hosted runner minutes and artifact storage can consume GitHub plan allowances
-for private repositories. Seven-day summary-only retention and timeouts limit usage,
-but they are not a billing cap. No additional AWS infrastructure or paid AWS monitoring
-was introduced. Public-repository runner terms and current account limits should be
-checked before sustained use. Local validation cannot prove GitHub orchestration,
-runner image compatibility or permissions until the first authorized hosted run.
+Sanitized artifacts are retained for seven days. Runner minutes and artifact
+storage can consume plan allowances; timeouts are not a billing cap.

@@ -1,10 +1,67 @@
 # AWS Resilient Delivery Platform
 
+[![CI](https://github.com/priyanka13-gb/RDP-Aws/actions/workflows/ci.yml/badge.svg)](https://github.com/priyanka13-gb/RDP-Aws/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/downloads/)
+[![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC)](https://developer.hashicorp.com/terraform)
+[![Docker](https://img.shields.io/badge/Docker-containers-2496ED)](https://www.docker.com/)
+[![AWS](https://img.shields.io/badge/AWS-ap--southeast--2-FF9900)](https://aws.amazon.com/)
+
 FastAPI service with health and dependency readiness probes, JSON application logs,
 and Prometheus request metrics. Docker/PostgreSQL16 support local development;
 Terraform defines an on-demand ALB/ECS Fargate demo, with separate S3 bootstrap,
 ECR and dev state ownership. A first AWS demo and teardown were audited; the dev
 stack is kept absent between separately approved demonstrations.
+
+## Engineering objectives
+
+- Make application health, dependency readiness and request metrics observable.
+- Build and scan an immutable non-root container for the target CPU architecture.
+- Keep infrastructure changes reviewable and state ownership isolated.
+- Exercise deployment and teardown with explicit confirmation and cost visibility.
+- Distinguish verified behavior from planned or untested recovery capabilities.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    Client --> ALB --> ECS["ECS Fargate · FastAPI"]
+    ECS --> Logs[CloudWatch Logs]
+    Terraform --> VPC["VPC / ALB / ECS"]
+    Terraform --> State["S3 remote state"]
+    ECR --> ECS
+```
+
+The application environment is deployed on demand and normally removed. ECR and
+versioned state are retained. PostgreSQL16 runs locally; the initial AWS demo
+does not deploy RDS. The public ALB uses HTTP and is for non-sensitive demo data.
+
+```mermaid
+flowchart LR
+    Push["Push / pull request"] --> CI["GitHub Actions CI"]
+    CI --> Tests["Ruff / Python / PostgreSQL"]
+    CI --> TF["Terraform validation / mock plans"]
+    CI --> Scan["AMD64 build / Trivy"]
+    Approved["Approved manual release"] --> ECR["Amazon ECR"]
+```
+
+CI does not deploy infrastructure or publish images. OIDC-based publishing is
+deferred. Explore the [static project showcase source](showcase/index.html);
+the built site has not yet been published.
+
+## Repository structure
+
+```text
+app/                 FastAPI service and production Dockerfile
+tests/               Application, PostgreSQL and workflow tests
+infra/bootstrap/     S3 state bootstrap
+infra/envs/          Separately managed ECR and development roots
+infra/modules/       Network, IAM, ALB, ECS and observability modules
+scripts/             CI, deployment, monitoring and cleanup utilities
+docs/                Technical architecture and operational procedures
+evidence/            Sanitized historical verification records
+showcase/            Independent static project case study
+.github/workflows/   Automated CI and disabled-by-default release workflow
+```
 
 ## Verified portfolio status — 14 November 2026
 
@@ -25,12 +82,10 @@ stack is kept absent between separately approved demonstrations.
   upgrade are needed to present this portfolio. Releases remain an explicitly
   approved manual operation using temporary AWS CLI credentials.
 
-Start with the [interview brief and resume bullets](docs/portfolio-interview.md),
-[temporary-credential ECR procedure](docs/manual-ecr-temporary-credentials.md),
+Start with the [temporary-credential ECR procedure](docs/manual-ecr-temporary-credentials.md),
 and [account limitations/remaining work](docs/portfolio-status.md).
-Task34 is a local documentation commit only; the hosted run above does not
-represent a hosted run of that later documentation commit. No new image or
-deployment is produced by finalizing the portfolio.
+The hosted run above applies to the identified commit. The documentation change
+was subsequently merged; no new image or deployment was produced by that merge.
 
 ## Local setup
 
@@ -304,9 +359,9 @@ older targeted-dev ECR bootstrap instructions; no state migration is required fo
 the currently empty dev state.
 
 
-## On-demand interview demo
+## On-demand deployment lifecycle
 
-Keep the dev AWS stack absent between interviews. The reviewed PowerShell workflow
+Keep the dev AWS stack absent between approved deployments. The reviewed PowerShell workflow
 prepares a plan, requires typed confirmation to deploy or clean up, and verifies AWS
 resources after teardown. Bootstrap S3 state and the existing ECR image are retained.
 
@@ -320,9 +375,9 @@ resources after teardown. Bootstrap S3 state and the existing ECR image are reta
 ```
 
 Review and commit source before preparation/deployment. No deployment is authorized
-by installing these scripts. See [the interview demo guide](docs/interview-demo-guide.md)
+by installing these scripts. See [the deployment lifecycle guide](docs/deployment-lifecycle.md)
 for costs, execution-policy alternatives, safety checks, budget guidance, failure
-recovery, and five/fifteen-minute interview sequences.
+recovery, and operational recovery procedures.
 
 
 ## Continuous integration

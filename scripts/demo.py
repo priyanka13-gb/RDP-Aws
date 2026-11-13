@@ -320,7 +320,7 @@ def apply_approved(kind):
     record["result"] = "apply completed"
     save(kind + ".json", record)
     if kind == "deploy":
-        print("Deployment complete; run verify-demo now, then cleanup-demo after the interview.")
+        print("Deployment complete; run verify-demo now, then cleanup-demo after the demo.")
         outputs = json.loads(tf("output", "-json"))
         print("HTTP endpoint:", outputs["application_url"]["value"])
     else:
@@ -477,7 +477,7 @@ def main():
                    else "Missing/invalid local data or interrupted.")
         print("STOP:", message, file=sys.stderr)
         print("Troubleshoot: status-demo, ECS events/stopped tasks, ALB target health, "
-              "CloudWatch logs. Preserve partial state; see docs/interview-demo-guide.md.",
+              "CloudWatch logs. Preserve partial state; see docs/deployment-lifecycle.md.",
               file=sys.stderr)
         return 1
     return 0
