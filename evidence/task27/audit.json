@@ -1,0 +1,23 @@
+{
+  "audited_at": "2026-11-13T10:27:32.930182+00:00",
+  "deployment": "VERIFIED",
+  "teardown": "VERIFIED",
+  "verification_scope": "Historical deployment verified using local verifier record and committed verifier checks, corroborated by AWS state-version and CloudTrail history; teardown independently verified against live inventory and empty remote dev state",
+  "verified_application_at": "2026-11-13T10:01:59.628002+00:00",
+  "approved_image_digest": "sha256:e86be3d8597649995145a5e1633bfc4ccf19b8ca1185127ea6720d72d2bf0be1",
+  "cloudwatch_events_sampled": 86,
+  "terraform_resources_deployed": 34,
+  "terraform_delete_actions_recorded": 34,
+  "current_remote_state_serial": 5,
+  "current_remote_managed_instances": 0,
+  "missing_evidence": [
+    "No retained raw HTTP status/body transcript or endpoint-by-endpoint timestamp",
+    "No retained ECS task/ALB target response snapshot beyond verifier success summary",
+    "No retained CloudWatch application log bodies; log group removed by teardown",
+    "No retained raw Terraform apply/destroy terminal transcript; successful command markers, CloudTrail and state history corroborate completion",
+    "Local verifier summary is unsigned; CloudTrail create/delete events do not independently prove HTTP endpoint health"
+  ],
+  "recommended_next_action": "Preserve this sanitized audit. Keep dev stack absent; do not redeploy solely for proof. On the next authorized demo, retain sanitized per-endpoint/task/target/log evidence and Terraform completion output before cleanup. Review billing after usage settles.",
+  "aws_mutations_performed": false,
+  "git_commit_or_push_performed": false
+}

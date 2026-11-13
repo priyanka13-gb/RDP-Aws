@@ -1,0 +1,9 @@
+{
+  "demo_target_groups": 0,
+  "Subnets": 0,
+  "RouteTables": 0,
+  "SecurityGroups": 0,
+  "InternetGateways": 0,
+  "execution_role": "absent",
+  "task_role": "absent"
+}

@@ -1,0 +1,9 @@
+{
+  "verifier_waits_for_ecs_stability": true,
+  "verifier_requires_one_running_task": true,
+  "verifier_requires_approved_running_digest": true,
+  "verifier_requires_healthy_alb_targets": true,
+  "verifier_checks_health_and_readiness": true,
+  "verifier_records_only_after_logs_checked": true,
+  "apply_completed_marker_after_command_success": true
+}

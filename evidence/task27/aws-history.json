@@ -1,0 +1,84 @@
+{
+  "current_remote_state": {
+    "managed_instances": 0,
+    "resources_total": 0,
+    "serial": 5,
+    "sha256": "234ddb5c981ce0a00ba561fb3dbabd61d8ad8d3832e57870353345577512819a"
+  },
+  "s3_state_versions": {
+    "count": 5,
+    "samples": [
+      {
+        "modified": "2026-11-13T10:09:11+00:00",
+        "serial": 5,
+        "managed_instances": 0,
+        "ecs_service_recorded": false,
+        "alb_recorded": false,
+        "cloudwatch_group_recorded": false
+      },
+      {
+        "modified": "2026-11-13T08:54:04+00:00",
+        "serial": 3,
+        "managed_instances": 34,
+        "ecs_service_recorded": true,
+        "alb_recorded": true,
+        "cloudwatch_group_recorded": true,
+        "ecs_desired_count": 1
+      },
+      {
+        "modified": "2026-11-13T08:51:53+00:00",
+        "serial": 1,
+        "managed_instances": 30,
+        "ecs_service_recorded": false,
+        "alb_recorded": true,
+        "cloudwatch_group_recorded": true
+      }
+    ]
+  },
+  "cloudtrail": {
+    "CreateService": [
+      {
+        "time": "2026-11-13T14:22:08+05:30",
+        "error_code": null,
+        "event_source": "ecs.amazonaws.com"
+      }
+    ],
+    "DeleteService": [
+      {
+        "time": "2026-11-13T15:36:10+05:30",
+        "error_code": null,
+        "event_source": "ecs.amazonaws.com"
+      }
+    ],
+    "CreateLoadBalancer": [
+      {
+        "time": "2026-11-13T14:19:25+05:30",
+        "error_code": null,
+        "event_source": "elasticloadbalancing.amazonaws.com"
+      }
+    ],
+    "DeleteLoadBalancer": [
+      {
+        "time": "2026-11-13T15:38:48+05:30",
+        "error_code": null,
+        "event_source": "elasticloadbalancing.amazonaws.com"
+      }
+    ],
+    "CreateVpc": [
+      {
+        "time": "2026-11-13T14:19:15+05:30",
+        "error_code": null,
+        "event_source": "ec2.amazonaws.com",
+        "matched_remembered_demo_vpc": true
+      }
+    ],
+    "DeleteVpc": [
+      {
+        "time": "2026-11-13T15:39:10+05:30",
+        "error_code": null,
+        "event_source": "ec2.amazonaws.com",
+        "matched_remembered_demo_vpc": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "deploy": {
+    "file": ".tools\\demo\\deploy.json",
+    "sha256": "b1680712c27246a86753d7adc1760ee547ddeae76993148a0dcee7d83976bfdb",
+    "kind": "deploy",
+    "commit": "14c4d49b84aaa7b21187bc6c3cae28c659f6dbaf",
+    "created": "2026-11-13T08:36:28.001409+00:00",
+    "consumed": true,
+    "result": "apply completed",
+    "checksum": "b0e7948f5e1ee46628e872e5cea147c9ab43c874bbabeb5cc4409daa6e111386",
+    "actions": 34
+  },
+  "cleanup": {
+    "file": ".tools\\demo\\cleanup.json",
+    "sha256": "acedf01c358dc59f5f95719ba304574879f6226e467d1c6df94efc6c3a9b3211",
+    "kind": "cleanup",
+    "commit": "14c4d49b84aaa7b21187bc6c3cae28c659f6dbaf",
+    "created": "2026-11-13T10:05:01.702704+00:00",
+    "consumed": true,
+    "result": "apply completed",
+    "checksum": "5e3a8453f11a19f03c238a2ac5b2f69505efa7adebb50fcf5adce9a56ae1fab5",
+    "actions": 34
+  },
+  "verification": {
+    "file": ".tools\\demo\\verification.json",
+    "sha256": "53b659efc40a54a0cff3baa1bd0fa6fc7713244d02620f0e3ff65efc9ff04e54",
+    "record": {
+      "verified_at": "2026-11-13T10:01:59.628002+00:00",
+      "image_digest": "sha256:e86be3d8597649995145a5e1633bfc4ccf19b8ca1185127ea6720d72d2bf0be1",
+      "target_health": "healthy",
+      "http_endpoints": "passed",
+      "log_events_sampled": 86
+    }
+  },
+  "status": {
+    "file": ".tools\\demo\\status.json",
+    "sha256": "f60b95869ac79e6b9f441a1fc6174a174eeeb15b3d0a48b70b3ecbce00af3101",
+    "record": {
+      "running_or_pending_tasks": 0,
+      "load_balancers": 0,
+      "ecs_clusters": 0,
+      "ecs_services": 0,
+      "vpcs": 0,
+      "enis": 0,
+      "state_resources": 0,
+      "tagged_elastic_ips": 0,
+      "log_groups": 0,
+      "log_stored_bytes": 0,
+      "remote_state_object_exists": true,
+      "possible_recurring_charges": false
+    }
+  }
+}
