@@ -9,6 +9,11 @@ htmlcov/
 *.egg-info/
 build/
 dist/
+node_modules/
+
+# Keep local preparation out of the public repository
+/private-preparation/
+PRIVATE-INTERVIEW-PLAYBOOK.md
 
 # Local configuration and secrets
 .aws/
