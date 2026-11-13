@@ -206,3 +206,52 @@ def test_repeated_deploy_noop_does_not_apply(plan, approval, monkeypatch):
     monkeypatch.setattr(demo, "confirm", Mock(side_effect=AssertionError("Must not prompt/apply")))
     demo.apply_approved("deploy")
     assert all(c.args[0] != "apply" for c in tf.call_args_list)
+
+
+@pytest.mark.parametrize("stderr,category,code", [
+    ("aws: [ERROR]: Your session has expired. Please reauthenticate using 'aws login'.",
+     "authentication/session-expired", "CLI_SESSION_EXPIRED"),
+    ("An error occurred (ExpiredToken) when calling the GetCallerIdentity operation: secret",
+     "authentication/session-expired", "ExpiredToken"),
+    ("An error occurred (AccessDeniedException) when calling operation: secret",
+     "authorization", "AccessDeniedException"),
+    ('Could not connect to the endpoint URL: private-url', "network/TLS", "CLI_NETWORK_ERROR"),
+    ("An error occurred (ThrottlingException) when calling operation: secret",
+     "service/throttling", "ThrottlingException"),
+    ("The config profile (private-profile) could not be found",
+     "configuration/profile", "CLI_PROFILE_NOT_FOUND"),
+])
+def test_sanitized_aws_categories(stderr, category, code):
+    assert demo.aws_failure(stderr) == (category, code)
+
+
+def test_aws_error_reports_operation_without_arguments_or_raw_message(monkeypatch):
+    error = ("An error occurred (AccessDenied) when calling operation: "
+             "private-account/token/password")
+    result = demo.subprocess.CompletedProcess([], 254, "", error)
+    monkeypatch.setattr(demo.subprocess, "run", lambda *a, **kw: result)
+    with pytest.raises(demo.Refusal) as info:
+        demo.aws("s3api", "get-bucket-location", "--expected-bucket-owner", "private-id")
+    message = str(info.value)
+    assert "aws s3api get-bucket-location" in message
+    assert "category=authorization" in message and "code=AccessDenied" in message
+    assert "private" not in message and "password" not in message
+
+
+def test_expected_404_does_not_hide_permission_error(monkeypatch):
+    result = demo.subprocess.CompletedProcess(
+        [], 254, "", "An error occurred (AccessDenied) when calling operation: 404 Not Found")
+    monkeypatch.setattr(demo.subprocess, "run", lambda *a, **kw: result)
+    with pytest.raises(demo.Refusal, match="authorization"):
+        demo.aws("s3api", "head-object", missing=("404", "Not Found"))
+    result.stderr = "An error occurred (404) when calling the HeadObject operation: Not Found"
+    assert demo.aws("s3api", "head-object", missing=("404", "Not Found")) is None
+
+
+def test_expired_login_has_exact_fix_and_no_token(monkeypatch):
+    result = demo.subprocess.CompletedProcess([], 255, "", "Your session has expired. secret-token")
+    monkeypatch.setattr(demo.subprocess, "run", lambda *a, **kw: result)
+    with pytest.raises(demo.Refusal) as info:
+        demo.aws("sts", "get-caller-identity")
+    assert "aws login --profile rdp-dev --region ap-southeast-2" in str(info.value)
+    assert "secret-token" not in str(info.value)

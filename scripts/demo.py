@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import UTC, datetime, timedelta
@@ -46,15 +47,68 @@ def environment():
     return env
 
 
+def aws_failure(stderr):
+    """Extract only an operation-independent category/code, never service message text."""
+    match = re.search(r"An error occurred \(([A-Za-z0-9_.-]{1,64})\)", stderr, re.I)
+    code = match.group(1) if match else "CLI_ERROR"
+    if re.search(r"[0-9]{12}|AKIA|ASIA", code):
+        code = "AWS_SERVICE_ERROR"
+    text = stderr.lower()
+    if (code in {"ExpiredToken", "ExpiredTokenException", "RequestExpired"}
+            or re.search(r"(?:session|credentials|token).{0,40}expired", text)
+            or "unauthorizedssotoken" in text or "refresh token" in text):
+        return "authentication/session-expired", code if match else "CLI_SESSION_EXPIRED"
+    if any(word in text for word in ("accessdenied", "unauthorizedoperation", "not authorized",
+                                    "forbidden")):
+        return "authorization", code if match else "CLI_ACCESS_DENIED"
+    if any(word in text for word in ("could not connect", "endpointconnection", "connect timeout",
+                                    "read timeout", "proxyconnection", "name resolution",
+                                    "ssl validation", "certificate verify")):
+        return "network/TLS", code if match else "CLI_NETWORK_ERROR"
+    if any(word in text for word in ("unable to locate credentials", "invalidclienttokenid",
+                                    "unrecognizedclient", "invalidgrant", "signaturedoesnotmatch")):
+        return "authentication", code if match else "CLI_NO_CREDENTIALS"
+    if "profile" in text and any(word in text for word in ("not found", "could not be found")):
+        return "configuration/profile", "CLI_PROFILE_NOT_FOUND"
+    if any(word in text for word in ("throttl", "serviceunavailable", "internalerror",
+                                    "requestlimitexceeded")):
+        return "service/throttling", code
+    if code in {"404", "NoSuchKey", "NoSuchBucket", "ResourceNotFoundException",
+                "RepositoryNotFoundException", "ImageNotFoundException"}:
+        return "resource/not-found", code
+    return "service/CLI", code
+
+
+def aws_operation(args):
+    # Log the service/operation only, not arguments (which can contain secrets/IDs).
+    words = args[1:3]
+    if len(words) == 2 and all(re.fullmatch(r"[a-z][a-z0-9-]{0,63}", w) for w in words):
+        return "aws " + " ".join(words)
+    return "aws"
+
+
 def run(args, *, missing=(), timeout=180):
     try:
         result = subprocess.run(args, cwd=ROOT, env=environment(), capture_output=True,
                                 text=True, encoding="utf-8", errors="replace", timeout=timeout)
     except (OSError, subprocess.TimeoutExpired) as exc:
-        raise Refusal(
-            f"{args[0]} unavailable/timed out; inspect AWS status before retrying."
-        ) from exc
+        operation = aws_operation(args) if args[0] == "aws" else args[0]
+        category = "network/timeout" if isinstance(exc, subprocess.TimeoutExpired) else "local/tool"
+        raise Refusal(f"{operation} failed: category={category}; "
+                      "inspect tool availability/connectivity before retrying.") from exc
     if result.returncode:
+        if args[0] == "aws":
+            category, code = aws_failure(result.stderr)
+            # Only a structured not-found code may satisfy an expected missing object.
+            # Never swallow AccessDenied just because message text happens to contain 404.
+            if missing and code in {"404", "NoSuchKey"} and (
+                    "404" in missing or "Not Found" in missing):
+                return None
+            hint = (f" Run aws login --profile {PROFILE} --region {REGION}."
+                    if category == "authentication/session-expired" else "")
+            raise Refusal(f"{aws_operation(args)} failed: category={category}, "
+                          f"code={code}, exit={result.returncode}.{hint} "
+                          "Raw output withheld to protect identifiers/secrets.")
         if any(code in result.stderr for code in missing):
             return None
         raise Refusal(f"{args[0]} command failed. Check session, permissions and service events. "
