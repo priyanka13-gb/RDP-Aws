@@ -1,0 +1,5 @@
+{
+  "aws_authentication": "passed",
+  "actual_account_id_found_in_review_files": false,
+  "gitignore_cases_passed": 10
+}

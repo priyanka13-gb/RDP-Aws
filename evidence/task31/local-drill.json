@@ -1,0 +1,59 @@
+{
+  "started_at": "2026-11-13T18:31:44.098052+00:00",
+  "scope": "local Docker only",
+  "image_id": "sha256:7c776aa38d2289c3956c2d934a5c7dfc16bab2bfdbe51f1528cabdeebf6075c8",
+  "aws_failures_injected": false,
+  "ecs_rollback_verified": false,
+  "passed": true,
+  "scenarios": [
+    {
+      "scenario": "healthy_baseline",
+      "started_at": "2026-11-13T18:31:44.098087+00:00",
+      "http": {
+        "/health": 200,
+        "/ready": 200
+      },
+      "container_health": "healthy",
+      "observed_at": "2026-11-13T18:31:57.386062+00:00"
+    },
+    {
+      "scenario": "unhealthy_application",
+      "started_at": "2026-11-13T18:31:57.386113+00:00",
+      "http": {
+        "/health": 503,
+        "/ready": 200
+      },
+      "container_health": "unhealthy",
+      "observed_at": "2026-11-13T18:32:06.094817+00:00"
+    },
+    {
+      "scenario": "failed_readiness",
+      "started_at": "2026-11-13T18:32:06.094859+00:00",
+      "http": {
+        "/health": 200,
+        "/ready": 503
+      },
+      "container_health": "healthy",
+      "observed_at": "2026-11-13T18:32:15.527167+00:00"
+    },
+    {
+      "scenario": "startup_failure",
+      "started_at": "2026-11-13T18:32:15.527213+00:00",
+      "exit_code": 1,
+      "http_server_started": false,
+      "observed_at": "2026-11-13T18:32:17.008947+00:00"
+    },
+    {
+      "scenario": "healthy_recovery",
+      "started_at": "2026-11-13T18:32:17.009015+00:00",
+      "http": {
+        "/health": 200,
+        "/ready": 200
+      },
+      "container_health": "healthy",
+      "observed_at": "2026-11-13T18:32:26.999406+00:00"
+    }
+  ],
+  "own_containers_removed": true,
+  "finished_at": "2026-11-13T18:32:28.195512+00:00"
+}

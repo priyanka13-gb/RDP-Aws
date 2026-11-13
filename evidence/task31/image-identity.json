@@ -1,0 +1,10 @@
+{
+  "revision": "d25a95c6062696f1011e49ce15680bcc841a5820",
+  "tag": "git-d25a95c60626",
+  "config_digest": "sha256:619b38b0ad2d5e00cc53e63424032e64f4df254fadadfd9690127171286da4f7",
+  "archive_sha256": "20558d0b8c6f8150cb0f5e8844be59d799415e14988006831556459c7260ef25",
+  "local_validation_only": true,
+  "recipe_sha256": "d36a843ff3521dcc38ea0cadcb4e25370fadb81322e53dcb1f8acbd07ce3cb0a",
+  "platform": "linux/amd64",
+  "uid": 10001
+}

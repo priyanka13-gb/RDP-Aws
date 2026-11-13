@@ -1,0 +1,17 @@
+{
+  "ci_runs": {
+    "available": false,
+    "http_code": 404,
+    "note": "No authenticated GitHub CLI available; absence/private access cannot be distinguished."
+  },
+  "environment": {
+    "available": false,
+    "http_code": 404,
+    "note": "No authenticated GitHub CLI available; absence/private access cannot be distinguished."
+  },
+  "release_enabled": {
+    "available": false,
+    "http_code": 401,
+    "note": "No authenticated GitHub CLI available; absence/private access cannot be distinguished."
+  }
+}

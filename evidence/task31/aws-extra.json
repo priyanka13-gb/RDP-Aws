@@ -1,0 +1,7 @@
+{
+  "approved_image": "exists; ECR scan COMPLETE with zero findings",
+  "release_iam_role": {
+    "verified": false,
+    "reason": "aws iam get-role failed: category=service/CLI, code=NoSuchEntity, exit=254. Raw output withheld to protect identifiers/secrets."
+  }
+}
