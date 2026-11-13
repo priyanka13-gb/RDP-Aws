@@ -1,0 +1,20 @@
+{
+  "aws_calls": "read-only",
+  "region": "ap-southeast-2",
+  "authentication": "passed",
+  "failure": "aws iam list-open-id-connect-providers failed: category=authorization, code=AccessDenied, exit=254. Raw output withheld to protect identifiers/secrets.",
+  "github_provider": {
+    "verified": false,
+    "diagnostic": "aws iam get-open-id-connect-provider failed: category=authorization, code=AccessDenied, exit=254. Raw output withheld to protect identifiers/secrets."
+  },
+  "release_role": {
+    "verified": false,
+    "diagnostic": "aws iam get-role failed: category=service/CLI, code=NoSuchEntity, exit=254. Raw output withheld to protect identifiers/secrets."
+  },
+  "repository": {
+    "name": "aws-resilient-delivery-platform-dev",
+    "immutable": true,
+    "scan_on_push": true,
+    "encryption": "AES256"
+  }
+}

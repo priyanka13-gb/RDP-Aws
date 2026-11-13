@@ -1,13 +1,40 @@
 # AWS Resilient Delivery Platform
 
 FastAPI service with health and dependency readiness probes, JSON application logs,
-and Prometheus request metrics. Terraform now defines the network, ECR, IAM,
-ALB, logging and ECS Fargate demo under `infra/envs/dev`, with an independent
-state bootstrap in `infra/bootstrap`. This infrastructure has not been deployed.
+and Prometheus request metrics. Docker/PostgreSQL16 support local development;
+Terraform defines an on-demand ALB/ECS Fargate demo, with separate S3 bootstrap,
+ECR and dev state ownership. A first AWS demo and teardown were audited; the dev
+stack is kept absent between separately approved demonstrations.
+
+## Verified portfolio status — 14 November 2026
+
+- GitHub-hosted [CI run 43487727943](https://github.com/priyanka13-gb/RDP-Aws/actions/runs/43487727943)
+  passed for commit `693efb2fd5f83c1ce60a6a029bd6f65223765d70`: 93 unit tests,
+  two PostgreSQL16 integration tests, 23 Terraform mock tests, Ruff, an AMD64
+  Docker build and a Trivy scan with zero findings at scan time.
+- Production Dockerfile uses digest-pinned Python3.12/Alpine, Linux AMD64,
+  UID/GID10001 and a runtime without pip. Scans are dated evidence, not a
+  guarantee that future vulnerability databases will remain clean.
+- ECR release `git-9b18a3109aa2` was published and verified previously.
+  [The first live deployment/teardown audit](docs/first-deployment-teardown-audit.md)
+  records a 34-resource ECS/ALB demonstration and its evidence limitations.
+- Five local Docker failure/recovery scenarios passed. ECS circuit-breaker
+  rollback is configured; **live AWS rollback is NOT VERIFIED**.
+- GitHub OIDC publishing is **disabled and deferred**. The account remains on
+  the Free plan; IAM provider reads are denied. No advanced features or plan
+  upgrade are needed to present this portfolio. Releases remain an explicitly
+  approved manual operation using temporary AWS CLI credentials.
+
+Start with the [interview brief and resume bullets](docs/portfolio-interview.md),
+[temporary-credential ECR procedure](docs/manual-ecr-temporary-credentials.md),
+and [account limitations/remaining work](docs/portfolio-status.md).
+Task34 is a local documentation commit only; the hosted run above does not
+represent a hosted run of that later documentation commit. No new image or
+deployment is produced by finalizing the portfolio.
 
 ## Local setup
 
-Use Python 3.12 or newer. From this repository directory in PowerShell:
+Use Python 3.12, the tested runtime. From this repository directory in PowerShell:
 
 ```powershell
 python -m venv .venv
@@ -88,8 +115,9 @@ python -m ruff check .
 
 Tests cover every endpoint, environment configuration, successful and failed database
 probes, connection cleanup, metrics values, bounded route labels, and JSON formatting.
-Database tests use mocks and require no running PostgreSQL server or AWS account.
-Docker integration tests are opt-in as described below.
+Unit database tests use mocks and require no running PostgreSQL server or AWS
+account. Real PostgreSQL service/Compose integration tests are opt-in; CI runs
+the PostgreSQL16 service tests separately.
 
 ## Docker architecture and requirements
 
@@ -97,8 +125,9 @@ Install Docker Engine with Compose v2 or newer, or Docker Desktop with its Linux
 engine running. Windows Docker Desktop requires its supported WSL2/virtualization
 setup. Python 3.12+ is needed locally only for the setup script and host-side tests.
 
-The multi-stage `app/Dockerfile` builds wheels on `python:3.12-slim` and installs
-only runtime dependencies into a fresh image. Uvicorn runs as UID/GID 10001 on
+The multi-stage `app/Dockerfile` installs compatible Python dependencies on a
+digest-pinned Python3.12 Alpine builder and copies them to the matching runtime.
+The final runtime removes pip. Uvicorn runs as UID/GID 10001 on
 `0.0.0.0:8000`. The build context is this repository root; `.dockerignore` allows
 only application source and packaging inputs, excluding secrets, caches, and Git.
 
@@ -214,14 +243,13 @@ and PostgreSQL. Default `cost_saver` mode creates no NAT gateways or Elastic IPs
 
 ```powershell
 terraform fmt -recursive -check
-terraform -chdir=infra/envs/dev init -backend=false
-terraform -chdir=infra/envs/dev validate
+python scripts/ci_terraform.py
 ```
 
 These are local validation commands, not a deployment. No apply/destroy is part of
 this milestone. The existing Docker/PostgreSQL workflow is independent of Terraform.
 
-## ECS Fargate infrastructure (not deployed)
+## ECS Fargate infrastructure (normally stopped and removed)
 
 See the [ECS architecture, file guide, security and deployment prerequisites](docs/ecs-infrastructure.md)
 and [state bootstrap procedure](infra/bootstrap/README.md).
@@ -233,16 +261,12 @@ Database settings are empty in ECS; local Docker/PostgreSQL behavior is unchange
 HTTP must carry only non-sensitive demo traffic. RDS is deferred.
 
 Dev requires an actual release image URI in its ECR repository before deployment.
-The S3 backend is prepared with native locking but must not be initialized remotely
-until an approved bootstrap deployment creates the bucket. For local checks use:
+The S3 backend has been initialized with native locking. Bootstrap and ECR are
+retained; the dev application stack has been removed. Do not reinitialize,
+reconfigure or migrate state for portfolio verification. For isolated local checks:
 
 ```powershell
-terraform -chdir=infra/bootstrap init -backend=false
-terraform -chdir=infra/bootstrap validate
-terraform -chdir=infra/bootstrap test
-terraform -chdir=infra/envs/dev init -backend=false
-terraform -chdir=infra/envs/dev validate
-terraform -chdir=infra/envs/dev test
+python scripts/ci_terraform.py
 ```
 
 These tests use mocked plans and do not deploy resources. No image push, credential
@@ -258,17 +282,18 @@ Deployment and image upload still require authorization; these checks deploy not
 The [S3 bootstrap deployment review](docs/bootstrap-deployment-review.md) records the
 proposed bucket, exact dev state key, read-only existence checks, and commands for a
 future approved first apply; it is the historical pre-creation review.
-The bucket now exists. See the [Task 11 dev backend review](docs/dev-backend-initialization-review.md)
-for verified bucket protections and the prepared initialization procedure. Dev backend
-initialization has not been performed.
+The bucket and initialized backend now exist. The
+[Task 11 dev backend review](docs/dev-backend-initialization-review.md) is historical
+preparation evidence, not an instruction to repeat initialization.
 
 The subsequent [Task 12 ECR deployment plan](docs/ecr-deployment-plan.md) records the
 now-initialized backend metadata, proposed ECR-only bootstrap, image commands and
 remaining verification blockers. No ECR repository or image was created by that review.
 
-See [Task 13 actual deployment verification](docs/task13-deployment-status.md) for the
-latest observed state: bootstrap S3 resources exist; dev state is empty and the
-expected ECR repository is absent. Deployment/image commands remain unexecuted.
+The [Task 13 deployment verification](docs/task13-deployment-status.md) describes
+an earlier point in time. It is superseded by the existing ECR release and
+[first deployment/teardown audit](docs/first-deployment-teardown-audit.md).
+Use [portfolio status](docs/portfolio-status.md) for current limitations and evidence.
 
 ## Isolated ECR deployment root
 
@@ -306,3 +331,8 @@ Pull requests and main pushes run credential-free Python/Ruff tests, PostgreSQL1
 service integration tests, isolated Terraform validation/mock tests, and an AMD64
 Docker build with a HIGH/CRITICAL vulnerability gate. No AWS deployment occurs.
 See [CI design, security policy and publishing commands](docs/github-actions-ci.md).
+The four CI jobs are configured as required GitHub Actions checks on main.
+PR approval count remains zero; environment reviewer protection is incomplete.
+The dormant OIDC workflow is not a completed CD implementation. Keep its
+publishing enablement variable absent/false; do not install the authentication
+template or provision IAM merely to complete the portfolio.

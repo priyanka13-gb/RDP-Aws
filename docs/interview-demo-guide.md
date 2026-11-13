@@ -1,5 +1,10 @@
 # Interview demo: deploy briefly, verify, remove
 
+Task34 default: present the [portfolio brief](portfolio-interview.md), local app
+and retained AWS/CI evidence without redeploying. OIDC release automation is
+deferred. **Live ECS rollback is unverified.** Commands below require a separately
+approved deployment and teardown window; they are not part of portfolio finalization.
+
 This portfolio retains FastAPI, Docker, PostgreSQL locally and VPC/ALB/ECS/IAM/
 CloudWatch on AWS. AWS demos run without PostgreSQL/RDS, NAT gateways or extra
 paid monitoring. Bootstrap S3 state and the existing immutable ECR image remain

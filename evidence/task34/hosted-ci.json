@@ -1,0 +1,170 @@
+{
+  "repository": "priyanka13-gb/RDP-Aws",
+  "branch": "main",
+  "commit": "693efb2fd5f83c1ce60a6a029bd6f65223765d70",
+  "run_id": 43487727943,
+  "run_url": "https://github.com/priyanka13-gb/RDP-Aws/actions/runs/43487727943",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "Ruff and Python 3.12 unit tests",
+      "conclusion": "success"
+    },
+    {
+      "name": "PostgreSQL 16 integration",
+      "conclusion": "success"
+    },
+    {
+      "name": "Terraform validate and mock plans (no AWS)",
+      "conclusion": "success"
+    },
+    {
+      "name": "AMD64 Docker build and vulnerability gate",
+      "conclusion": "success"
+    }
+  ],
+  "hosted_reports": {
+    "unit-summary": {
+      "tests": 93,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "terraform-summary": [
+      {
+        "root": "bootstrap",
+        "stage": "init",
+        "passed": true
+      },
+      {
+        "root": "bootstrap",
+        "stage": "validate",
+        "passed": true
+      },
+      {
+        "root": "bootstrap",
+        "stage": "mock-test",
+        "passed": true,
+        "tests_passed": 1,
+        "tests_failed": 0
+      },
+      {
+        "root": "envs/dev",
+        "stage": "init",
+        "passed": true
+      },
+      {
+        "root": "envs/dev",
+        "stage": "validate",
+        "passed": true
+      },
+      {
+        "root": "envs/dev",
+        "stage": "mock-test",
+        "passed": true,
+        "tests_passed": 16,
+        "tests_failed": 0
+      },
+      {
+        "root": "envs/ecr",
+        "stage": "init",
+        "passed": true
+      },
+      {
+        "root": "envs/ecr",
+        "stage": "validate",
+        "passed": true
+      },
+      {
+        "root": "envs/ecr",
+        "stage": "mock-test",
+        "passed": true,
+        "tests_passed": 1,
+        "tests_failed": 0
+      },
+      {
+        "root": "modules/network",
+        "stage": "init",
+        "passed": true
+      },
+      {
+        "root": "modules/network",
+        "stage": "validate",
+        "passed": true
+      },
+      {
+        "root": "modules/network",
+        "stage": "mock-test",
+        "passed": true,
+        "tests_passed": 5,
+        "tests_failed": 0
+      },
+      {
+        "root": "modules/alb",
+        "stage": "init",
+        "passed": true
+      },
+      {
+        "root": "modules/alb",
+        "stage": "validate",
+        "passed": true
+      },
+      {
+        "root": "modules/ecr",
+        "stage": "init",
+        "passed": true
+      },
+      {
+        "root": "modules/ecr",
+        "stage": "validate",
+        "passed": true
+      },
+      {
+        "root": "modules/ecs_service",
+        "stage": "init",
+        "passed": true
+      },
+      {
+        "root": "modules/ecs_service",
+        "stage": "validate",
+        "passed": true
+      },
+      {
+        "root": "modules/iam",
+        "stage": "init",
+        "passed": true
+      },
+      {
+        "root": "modules/iam",
+        "stage": "validate",
+        "passed": true
+      },
+      {
+        "root": "modules/observability",
+        "stage": "init",
+        "passed": true
+      },
+      {
+        "root": "modules/observability",
+        "stage": "validate",
+        "passed": true
+      }
+    ],
+    "postgres-summary": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "vulnerability-summary": {
+      "counts": {},
+      "findings": [],
+      "packages": {
+        "os-pkgs": 38,
+        "lang-pkgs": 19
+      },
+      "high_critical_gate_passed": true
+    }
+  },
+  "scope": "Previously verified hosted run for 693efb2; not Task34 local documentation commit"
+}

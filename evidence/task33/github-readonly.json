@@ -1,0 +1,51 @@
+{
+  "repo": {
+    "full_name": "priyanka13-gb/RDP-Aws",
+    "private": false,
+    "visibility": "public",
+    "created_at": "2026-11-03T12:47:44Z",
+    "id": 1444281868,
+    "owner_id": 98728444,
+    "owner_type": "User"
+  },
+  "user": {
+    "owner_matches": true,
+    "plan": null,
+    "plan_information_returned": false
+  },
+  "environment": {
+    "unavailable": true,
+    "reason": "GitHub API HTTP 404; authentication/permission review required"
+  },
+  "environments": {
+    "names": []
+  },
+  "subject_template": {
+    "use_default": true,
+    "use_immutable_subject": true,
+    "sub_claim_prefix": "repo:priyanka13-gb@98728444/RDP-Aws@1444281868"
+  },
+  "immutable_subject": {
+    "unavailable": true,
+    "reason": "GitHub API HTTP 404; authentication/permission review required"
+  },
+  "variable": {
+    "unavailable": true,
+    "reason": "GitHub API HTTP 404; authentication/permission review required"
+  },
+  "main_protection": {
+    "unavailable": true,
+    "reason": "GitHub API HTTP 404; authentication/permission review required"
+  },
+  "main_branch": {
+    "protected": false
+  },
+  "variables": {
+    "publish_flag_present": false,
+    "publish_flag_enabled": false
+  },
+  "secret_names": {
+    "identifier_secrets_present": [],
+    "permanent_aws_key_names_present": []
+  }
+}

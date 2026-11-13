@@ -1,0 +1,10 @@
+{
+  "oidc_publishing_enabled": false,
+  "enablement_variable_present": false,
+  "release_workflow_matches_reviewed_local": true,
+  "current_main_commit": "693efb2fd5f83c1ce60a6a029bd6f65223765d70",
+  "main_pr_approvals_required": 0,
+  "environment_admin_bypass": false,
+  "environment_required_reviewers": false,
+  "settings_changed": false
+}
