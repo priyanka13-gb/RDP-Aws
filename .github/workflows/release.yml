@@ -1,0 +1,109 @@
+name: Manual ECR release
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish only after explicit approval and OIDC/environment provisioning'
+        type: boolean
+        default: false
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: manual-ecr-release
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  AWS_REGION: ap-southeast-2
+  AWS_DEFAULT_REGION: ap-southeast-2
+  AWS_PAGER: ''
+
+jobs:
+  request:
+    name: Validate manual request (publishing disabled by default)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Enforce repository, main branch and explicit enablement
+        env:
+          PUBLISH_REQUESTED: ${{ inputs.publish }}
+          RELEASE_ENABLED: ${{ vars.ECR_RELEASE_PUBLISH_APPROVED }}
+        run: |
+          test "$GITHUB_EVENT_NAME" = workflow_dispatch
+          test "$GITHUB_REPOSITORY" = priyanka13-gb/RDP-Aws
+          test "$GITHUB_REF" = refs/heads/main
+          if [[ "$PUBLISH_REQUESTED" == true && "$RELEASE_ENABLED" != true ]]; then
+            echo 'Publishing disabled. Explicit approval and protected OIDC setup are required.'
+            exit 1
+          fi
+
+  checks:
+    name: Required test and security gate
+    needs: request
+    permissions:
+      contents: read
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    name: Approved ECR publishing only
+    needs: [request, checks]
+    if: inputs.publish && vars.ECR_RELEASE_PUBLISH_APPROVED == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment:
+      name: ecr-release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Build, scan and smoke-test exact publishing image before AWS credentials
+        run: python scripts/release_image.py build
+      - name: Require approved account and role configuration
+        env:
+          EXPECTED_AWS_ACCOUNT_ID: ${{ secrets.ECR_RELEASE_ACCOUNT_ID }}
+          RELEASE_ROLE_ARN: ${{ secrets.ECR_RELEASE_ROLE_ARN }}
+        run: |
+          python -c "import os,re; a=os.environ['EXPECTED_AWS_ACCOUNT_ID']; r=os.environ['RELEASE_ROLE_ARN']; assert re.fullmatch(r'[0-9]{12}',a); assert r == 'arn:aws:iam::'+a+':role/rdp-github-ecr-release', 'Missing/wrong release role'"
+      - name: Assume short-lived OIDC role (no permanent AWS keys)
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: ${{ secrets.ECR_RELEASE_ROLE_ARN }}
+          allowed-account-ids: ${{ secrets.ECR_RELEASE_ACCOUNT_ID }}
+          aws-region: ap-southeast-2
+          role-session-name: rdp-ecr-${{ github.run_id }}-${{ github.run_attempt }}
+          role-duration-seconds: 900
+          unset-current-credentials: true
+          use-existing-credentials: false
+          mask-aws-account-id: true
+          retry-max-attempts: 3
+      - name: Push only new immutable tag and verify ECR digests/scan
+        env:
+          EXPECTED_AWS_ACCOUNT_ID: ${{ secrets.ECR_RELEASE_ACCOUNT_ID }}
+          RELEASE_PUBLISH_APPROVED: ${{ vars.ECR_RELEASE_PUBLISH_APPROVED }}
+          RELEASE_GATE_SUCCESS: ${{ needs.checks.result == 'success' }}
+        run: python scripts/release_image.py publish
+      - name: Upload sanitized release evidence only
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: manual-release-evidence
+          path: |
+            .tools/release/scan.json
+            .tools/release/release.json
+          include-hidden-files: true
+          retention-days: 7
+          if-no-files-found: error

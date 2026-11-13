@@ -1,0 +1,9 @@
+{
+  "counts": {},
+  "findings": [],
+  "packages": {
+    "os-pkgs": 38,
+    "lang-pkgs": 19
+  },
+  "high_critical_gate_passed": true
+}

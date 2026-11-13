@@ -1,0 +1,7 @@
+{
+  "repository": "aws-actions/configure-aws-credentials",
+  "version": "v6.3.0",
+  "sha": "e1253824e5c10ff9df46874f81ed3ec929e19cfd",
+  "release_url": "https://github.com/aws-actions/configure-aws-credentials/releases/tag/v6.3.0",
+  "metadata_source": "https://github.com/aws-actions/configure-aws-credentials/blob/e1253824e5c10ff9df46874f81ed3ec929e19cfd/action.yml"
+}
