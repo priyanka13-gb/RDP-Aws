@@ -1,0 +1,8 @@
+{
+  "observed_at": "2026-11-13T17:00:07.245790+00:00",
+  "region": "ap-southeast-2",
+  "service": "aws-resilient-delivery-platform-dev",
+  "rollback_baseline_eligible": false,
+  "read_only": true,
+  "state": "not deployed"
+}

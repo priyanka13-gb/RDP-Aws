@@ -267,3 +267,12 @@ unit tests provide Python3.12/Linux coverage without disabling OS security polic
 
 Normal days: run status-demo and keep dev infrastructure absent. No scheduled
 cloud shutdown, AWS Budget, credential, resource or backend change was made by Task25.
+
+## Monitoring and recovery
+
+Run `scripts/monitor-demo.ps1` or `.venv/Scripts/python.exe scripts/demo.py monitor`
+for a read-only ECS/ALB/CloudWatch snapshot. Keep the existing cleanup deadline;
+monitoring does not stop billing. See [monitoring and failure recovery](monitoring-failure-recovery.md)
+for local Docker scenarios, the incident template and the separately approved
+AWS rollback drill. A current completed healthy deployment is required before
+considering that drill. Local recovery does not prove ECS rollback.

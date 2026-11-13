@@ -452,7 +452,8 @@ def verify():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["prepare", "deploy", "verify", "cleanup", "status"])
+    parser.add_argument("command",
+                        choices=["prepare", "deploy", "verify", "cleanup", "status", "monitor"])
     command = parser.parse_args().command
     try:
         if command == "prepare":
@@ -461,6 +462,10 @@ def main():
             apply_approved("deploy")
         elif command == "verify":
             verify()
+        elif command == "monitor":
+            from monitor_demo import snapshot
+
+            snapshot()
         elif command == "cleanup":
             make_plan("cleanup")
             apply_approved("cleanup")

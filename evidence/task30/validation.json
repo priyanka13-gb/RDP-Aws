@@ -1,0 +1,25 @@
+{
+  "task": 30,
+  "unit_tests": {
+    "environment": "Python 3.12 Linux container",
+    "passed": 93,
+    "deselected_integration": 4,
+    "warnings": 1,
+    "new_monitoring_tests_passed": 18,
+    "note": "Working-tree suite includes preserved uncommitted Task 29 regression tests."
+  },
+  "ruff": "passed",
+  "powershell_syntax": "passed",
+  "git_diff_check": "passed",
+  "local_docker_scenarios_passed": 5,
+  "local_containers_removed": true,
+  "aws_monitor": "read-only; not deployed",
+  "live_failure_injection": "not executed",
+  "ecs_rollback": "NOT VERIFIED; no current healthy completed baseline",
+  "terraform_changes": false,
+  "secret_scan": "Trivy intended-file snapshot; see secret-scan-summary.json",
+  "limitations": [
+    "No PostgreSQL integration rerun; application and database code unchanged.",
+    "Bounded log and metrics sample is not continuous alerting."
+  ]
+}
