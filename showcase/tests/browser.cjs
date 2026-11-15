@@ -44,6 +44,12 @@ async function main(){
       await page.locator('body').click({position:{x:2,y:2}});await page.keyboard.press('Tab');const first=await page.evaluate(()=>document.activeElement.tagName);assert.equal(first,'A');
       const focus=await page.evaluate(()=>{const s=getComputedStyle(document.activeElement);return {style:s.outlineStyle,width:parseFloat(s.outlineWidth)}});assert.ok(focus.style!=='none'&&focus.width>=2,'focus indicator missing');
       await page.keyboard.press('Tab');const second=await page.evaluate(()=>document.activeElement.textContent.trim());await page.keyboard.press('Shift+Tab');assert.notEqual((await page.evaluate(()=>document.activeElement.textContent.trim())),second);
+      const focusables=page.locator('a[href],button:not([disabled])');assert.ok(await focusables.first().evaluate(e=>e===document.activeElement),'unexpected first tab stop');
+      for(let i=1;i<await focusables.count();i++){
+        await page.keyboard.press('Tab');const current=focusables.nth(i);assert.ok(await current.evaluate(e=>e===document.activeElement),`unexpected tab order ${i}`);
+        const indicator=await current.evaluate(e=>{const style=getComputedStyle(e);return {style:style.outlineStyle,width:parseFloat(style.outlineWidth)}});assert.ok(indicator.style!=='none'&&indicator.width>=2,`focus indicator missing at tab ${i}`);
+      }
+      await page.keyboard.press('Shift+Tab');assert.ok(await focusables.nth((await focusables.count())-2).evaluate(e=>e===document.activeElement),'reverse tab order incorrect');
       for(const button of await buttons.all()){
         await button.focus();const indicator=await button.evaluate(e=>{const s=getComputedStyle(e);return {style:s.outlineStyle,width:parseFloat(s.outlineWidth)}});assert.ok(indicator.style!=='none'&&indicator.width>=2,'button focus indicator missing');
         for(const key of ['Enter','Space']){await page.locator('#architecture-detail').evaluate(e=>e.textContent='reset');await page.keyboard.press(key);assert.equal(await page.locator('#architecture-detail').textContent(),await button.getAttribute('data-detail'));}
