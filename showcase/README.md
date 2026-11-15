@@ -11,7 +11,15 @@ With a supported Node installation:
 npm install
 npm run lint
 npm run build
+npm run test:browser
 ```
+
+Browser tests use the installed Google Chrome by default; set `SHOWCASE_BROWSER`
+to another local Chromium-based executable when needed. Playwright and axe-core
+are development dependencies; no browser download is required. Screenshots and
+the sanitized test summary are written under ignored `.tools/task36e/`, never to
+the static site output. Automated accessibility checks do not prove complete
+WCAG compliance.
 
 The build copies only `index.html`, `style.css` and `app.js` into `dist/`.
 Paths are relative and work under a GitHub Pages project subpath. `dist/` and
