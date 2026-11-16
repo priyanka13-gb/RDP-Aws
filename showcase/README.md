@@ -23,7 +23,13 @@ WCAG compliance.
 
 The build copies only `index.html`, `style.css` and `app.js` into `dist/`.
 Paths are relative and work under a GitHub Pages project subpath. `dist/` and
-`node_modules/` are ignored. No Pages deployment workflow, repository setting,
-or hosting service is enabled by this directory. Publish only after privacy,
-accessibility, visual and branch-protection review. The build output contains no
-private preparation documents.
+`node_modules/` are ignored. The Pages workflow builds and uploads only those
+three files. It runs only when manually dispatched for `main`; merging the
+workflow does not activate Pages or publish the site.
+
+After the workflow is merged and publication is approved, configure the
+repository's Pages source as GitHub Actions, then run **Publish showcase to
+GitHub Pages** from `main`. The expected project URL is
+`https://priyanka13-gb.github.io/RDP-Aws/`; confirm the deployment URL in the
+workflow and verify the published site. Repository Pages availability and
+environment protection settings may require administrator action.
