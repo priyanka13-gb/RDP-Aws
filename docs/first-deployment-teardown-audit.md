@@ -64,7 +64,7 @@ the application names. CloudTrail confirms management operations, not HTTP healt
   Retained ECR images, S3 versions and account-wide service-linked roles can remain.
 
 No missing item requires another deployment solely to establish that the first
-one occurred. For stronger interview evidence, capture sanitized per-endpoint
+one occurred. For stronger operational evidence, capture sanitized per-endpoint
 responses, task/target state and a small log sample, plus Terraform completion
 output during the next separately approved demo, before cleaning up. Keep raw
 state/ARN/account data private; never publish credentials or user data.
@@ -73,7 +73,7 @@ state/ARN/account data private; never publish credentials or user data.
 
 Keep the dev stack absent. Preserve this report and sanitized evidence, then
 check AWS Billing/credit usage once delayed charges settle. Reuse the normal
-prepare/deploy/verify/cleanup workflow only when another interview needs a live
+prepare/deploy/verify/cleanup workflow only when an approved demonstration needs a live
 endpoint. No redeployment, cleanup or paid audit infrastructure is required now.
 
 Evidence: [sanitized audit](../evidence/task27/audit.json),

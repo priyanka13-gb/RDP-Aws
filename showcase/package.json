@@ -1,0 +1,14 @@
+{
+  "name": "rdp-showcase",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build.cjs",
+    "lint": "node --check app.js && node --check build.cjs && node --check tests/browser.cjs",
+    "test:browser": "node tests/browser.cjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "playwright": "1.65.1"
+  }
+}
