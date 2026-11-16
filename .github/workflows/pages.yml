@@ -25,8 +25,8 @@ jobs:
         run: |
           npm run lint
           npm run build
-          test "$(find dist -type f | wc -l)" -eq 3
-          test -f dist/index.html && test -f dist/style.css && test -f dist/app.js
+          test "$(find dist -type f | wc -l)" -eq 4
+          test -f dist/index.html && test -f dist/style.css && test -f dist/app.js && test -f dist/ci-evidence.png
       - name: Upload only the built showcase
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:

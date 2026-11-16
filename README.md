@@ -1,5 +1,7 @@
 # AWS Resilient Delivery Platform
 
+**[Explore the live project showcase](https://priyanka13-gb.github.io/RDP-Aws/)**
+
 [![CI](https://github.com/priyanka13-gb/RDP-Aws/actions/workflows/ci.yml/badge.svg)](https://github.com/priyanka13-gb/RDP-Aws/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/downloads/)
 [![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC)](https://developer.hashicorp.com/terraform)
@@ -45,8 +47,8 @@ flowchart LR
 ```
 
 CI does not deploy infrastructure or publish images. OIDC-based publishing is
-deferred. Explore the [static project showcase source](showcase/index.html);
-the built site has not yet been published.
+deferred. Explore the [live showcase](https://priyanka13-gb.github.io/RDP-Aws/) or its
+[static source](showcase/index.html).
 
 ## Repository structure
 
