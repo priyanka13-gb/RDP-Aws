@@ -15,6 +15,7 @@ services:
       DATABASE_URL: postgresql://resilient_user@db:5432/resilient_db
       DATABASE_PASSWORD_FILE: /run/secrets/db_password
       DATABASE_TIMEOUT_SECONDS: "3"
+      TASK_API_ENABLED: ${TASK_API_ENABLED:-true}
     secrets:
       - db_password
     depends_on:

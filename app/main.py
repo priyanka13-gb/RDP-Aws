@@ -23,6 +23,8 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine, make_url
 from sqlalchemy.exc import SQLAlchemyError
 
+from app.tasks import router as tasks_router
+
 
 @dataclass(frozen=True)
 class Settings:
@@ -33,6 +35,7 @@ class Settings:
     database_url: str | None = field(default=None, repr=False)
     database_password_file: str | None = field(default=None, repr=False)
     database_timeout_seconds: int = 3
+    task_api_enabled: bool = False
 
     @classmethod
     def from_environment(cls) -> "Settings":
@@ -42,6 +45,9 @@ class Settings:
         level = os.getenv("LOG_LEVEL", "INFO").upper()
         if level not in {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}:
             raise ValueError("LOG_LEVEL must be a standard logging level")
+        task_api = os.getenv("TASK_API_ENABLED", "false").lower()
+        if task_api not in {"true", "false"}:
+            raise ValueError("TASK_API_ENABLED must be true or false")
         return cls(
             app_version=os.getenv("APP_VERSION", "0.1.0"),
             git_sha=os.getenv("GIT_SHA", "unknown"),
@@ -50,6 +56,7 @@ class Settings:
             database_url=os.getenv("DATABASE_URL") or None,
             database_password_file=os.getenv("DATABASE_PASSWORD_FILE") or None,
             database_timeout_seconds=timeout,
+            task_api_enabled=task_api == "true",
         )
 
 
@@ -133,6 +140,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         title="Resilient Delivery Platform on AWS", version=settings.app_version, lifespan=lifespan
     )
     application.state.settings = settings
+    application.include_router(tasks_router)
     registry = CollectorRegistry()
     requests = Counter(
         "http_requests_total",
