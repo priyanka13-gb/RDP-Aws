@@ -63,7 +63,7 @@ showcase/            Independent static project case study
 .github/workflows/   Automated CI and disabled-by-default release workflow
 ```
 
-## Verified portfolio status — 14 November 2026
+## Verified portfolio
 
 - GitHub-hosted [CI run 43487727943](https://github.com/priyanka13-gb/RDP-Aws/actions/runs/43487727943)
   passed for commit `693efb2fd5f83c1ce60a6a029bd6f65223765d70`: 93 unit tests,
