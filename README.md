@@ -91,6 +91,60 @@ was subsequently merged; no new image or deployment was produced by that merge.
 
 ## Local setup
 
+### Local PostgreSQL task API
+
+The local Compose stack offers an optional task API at `/api/v1/tasks`. It is
+**disabled by default** in the application; Compose explicitly enables it on
+the localhost-only listener. The AWS demo has no database and leaves the API
+disabled. The API has no authentication: do not expose it to untrusted networks
+or enable it behind the existing public HTTP ALB.
+
+The `tasks` table stores a UUID, title (1–200 non-whitespace characters),
+optional description, status (`pending`, `in_progress`, or `completed`) and
+UTC creation/update timestamps. Operations use the existing SQLAlchemy pool.
+Schema initialization is explicit and non-destructive: `create_all` creates a
+missing table; it does not migrate an existing schema. Future schema changes
+need a reviewed migration before deployment.
+
+From PowerShell at the repository root, start Docker Desktop, then prepare the
+ignored secret file only if it does not exist. Choose a new random local value;
+do not commit or print it. Existing database volumes retain their original
+password and data.
+
+```powershell
+New-Item -ItemType Directory -Force .secrets | Out-Null
+if (-not (Test-Path .secrets/db_password.txt)) {
+  $bytes = New-Object byte[] 32
+  $rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
+  try { $rng.GetBytes($bytes) } finally { $rng.Dispose() }
+  [System.IO.File]::WriteAllText((Join-Path (Resolve-Path .secrets) 'db_password.txt'), ([BitConverter]::ToString($bytes) -replace '-', ''))
+}
+docker compose up -d --build
+docker compose exec app python -m app.init_db
+```
+
+Open <http://127.0.0.1:8000/docs>. Create and query tasks with:
+
+```powershell
+$base = 'http://127.0.0.1:8000/api/v1/tasks'
+$task = Invoke-RestMethod -Method Post -Uri $base -ContentType 'application/json' -Body '{"title":"First task","description":"Local demonstration"}'
+Invoke-RestMethod "$base/$($task.id)"
+Invoke-RestMethod -Method Patch -Uri "$base/$($task.id)" -ContentType 'application/json' -Body '{"status":"in_progress"}'
+docker compose restart app
+Invoke-RestMethod "$base/$($task.id)"  # persisted before deletion
+Invoke-RestMethod -Method Delete -Uri "$base/$($task.id)"
+docker compose logs --tail=50 app
+docker compose down  # retains the named PostgreSQL volume
+```
+
+`POST /api/v1/tasks` returns 201; `GET /api/v1/tasks` accepts `limit` (1–100),
+`offset`, and optional `status`. `GET` and `PATCH /api/v1/tasks/{id}` return a
+task; `DELETE` returns 204. Missing IDs return 404; invalid inputs return 422.
+If disabled, unconfigured, or unavailable, task routes return 503 without
+exposing connection details. `/health` remains independent of PostgreSQL.
+Run the opt-in PostgreSQL tests with `RUN_POSTGRES_INTEGRATION=1` and an isolated
+`DATABASE_URL`; the CI PostgreSQL service uses the existing test configuration.
+
 Use Python 3.12, the tested runtime. From this repository directory in PowerShell:
 
 ```powershell
