@@ -11,10 +11,10 @@ const output = path.resolve(__dirname, '..', '..', '.tools', 'task36e');
 const sizes = [[1920,1080],[1440,900],[1366,768],[390,844],[375,667],[320,568]];
 const browserPath = process.env.SHOWCASE_BROWSER || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 fs.mkdirSync(path.join(output, 'screenshots'), {recursive:true});
-const mime = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8'};
+const mime = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png'};
 const server = http.createServer((req,res)=>{
   const name = req.url === '/' ? 'index.html' : req.url.split('?')[0].replace(/^\//,'');
-  if (!['index.html','app.js','style.css'].includes(name)) {res.writeHead(404).end();return;}
+  if (!['index.html','app.js','style.css','ci-evidence.png'].includes(name)) {res.writeHead(404).end();return;}
   fs.readFile(path.join(root,name),(err,data)=>{if(err){res.writeHead(404).end();return;} res.writeHead(200,{'Content-Type':mime[path.extname(name)]}).end(data);});
 });
 async function main(){
